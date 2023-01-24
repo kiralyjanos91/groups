@@ -1,0 +1,12 @@
+#registration-row {
+    display: flex;
+    justify-content: center;
+}
+
+#regform {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    max-width: 500px;
+    margin-top: 50px;
+}

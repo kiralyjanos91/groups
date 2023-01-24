@@ -1,0 +1,21 @@
+#logoutcol {
+    max-width: fit-content;
+}
+
+.group-listing-row {
+}
+
+.group-listing-col {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid grey;
+    min-height: 200px;
+}
+
+.spinner-row {
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
