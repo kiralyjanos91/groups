@@ -12,7 +12,7 @@ const registrationRouter = ({
         password
     })
     try {
-        const usernameTaken = await MemberModel.findOne({username})
+        const usernameTaken = await MemberModel.findOne({ username })
         if ( usernameTaken ) {
             return res.status(409).json("Username is taken")
         }
@@ -42,7 +42,7 @@ const registrationRouter = ({
     catch(e) {
         return res.status(403).json(`Error: ${e}`)
     } 
-})
-return router
+    })
+    return router
 }
 module.exports = registrationRouter

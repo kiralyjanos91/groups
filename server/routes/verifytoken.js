@@ -1,7 +1,8 @@
 const verifyTokenRoute = ({
     express,
     jwt,
-    RefreshTokenModel
+    RefreshTokenModel,
+    MemberModel
 }) => {
     const router = express.Router()
     router.use("/" , async (req , res , next) => {
@@ -10,9 +11,13 @@ const verifyTokenRoute = ({
         const username = req.cookies["localhost300user"]
         const newToken = jwt.sign({ username } , process.env.ACCESS_TOKEN_SECRET , { expiresIn: "10s" })
         const refreshTokenInMongo = await RefreshTokenModel.findOne({token: refreshToken})
-        
+        const userData = await MemberModel.findOne({ username })
+        const { own_groups , groups } = userData
+
         const user = {
-            username
+            username,
+            own_groups,
+            groups
         }
 
         jwt.verify(accessToken , process.env.ACCESS_TOKEN_SECRET, (err , decoded) => {

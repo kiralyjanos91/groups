@@ -1,19 +1,28 @@
 const addGroupsRoute = ({
     express,
-    GroupModel
+    GroupModel,
+    MemberModel
 }) => {
     const router = express.Router()
     router.post("/" , async (req , res) => {
-        const { name } = req.body
+        const { name , username } = req.body
         const newGroup = new GroupModel({
-            name
+            name,
+            admin: username
         })
         try {
-            response = await newGroup.save()
-            res.status(200).json(`group added successfully. ${response}`)
+            await newGroup.save()
+            const memberUpdateResponse = await MemberModel.updateOne({
+                username
+            } , {
+                $push: {
+                    own_groups: name
+                }
+            })
+            res.status(200).json(`group added successfully.`)
         }
-        catch(e) {
-            res.status(400).json("Failed to add new group")
+        catch(err) {
+            res.status(400).json(`Failed to add new group. ${err}`)
         }
     })
     return router

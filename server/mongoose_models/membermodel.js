@@ -10,11 +10,29 @@ const memberSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    own_groups: {
+        type: Array
+    },
     groups: {
         type: Array
     },
     private_messages: {
         type: Array
+    },
+    gender: {
+        type: Array
+    },
+    birth: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    hobby: {
+        type: String
+    },
+    about: {
+        type: String
     }
 })
 

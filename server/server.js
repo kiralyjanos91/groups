@@ -15,6 +15,7 @@ const getGroupsRoute = require("./routes/getgroups")
 const profileDataRoute = require("./routes/profiledata")
 const groupDataRoute = require("./routes/groupdata")
 const joinGroupRoute = require("./routes/joingroup")
+const memberDataRoute = require("./routes/memberdata")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -39,7 +40,8 @@ const GroupModel = require("./mongoose_models/groupmodel")
 app.post("/auth" , verifyRoute({
     express,
     jwt,
-    RefreshTokenModel
+    RefreshTokenModel,
+    MemberModel
 })) 
 
 app.use("/sendregistration" , registrationRoute({
@@ -68,7 +70,8 @@ app.use("/getgroups" , getGroupsRoute({
 
 app.use("/addgroup" , addGroupRoute({
     express,
-    GroupModel
+    GroupModel,
+    MemberModel
 }))
 
 app.use("/groupdata" , groupDataRoute({
@@ -84,6 +87,11 @@ app.use("/profiledata" , profileDataRoute({
 app.use("/joingroup" , joinGroupRoute({
     express,
     GroupModel,
+    MemberModel
+}))
+
+app.use("/memberdata" , memberDataRoute({
+    express,
     MemberModel
 }))
 

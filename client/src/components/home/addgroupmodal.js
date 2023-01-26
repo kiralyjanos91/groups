@@ -2,14 +2,18 @@ import React, { useRef } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import axios from "axios"
+import { useSelector } from "react-redux"
 
 export default function AddGroupModal({ show , handleClose , needRefresh }){
+    
+    const username = useSelector((state) => state.userData.data.username)
     const groupNameRef = useRef()
 
     const sendNewGroup = (e) => {
         e.preventDefault()
         axios.post("/addgroup" , {
-            name: groupNameRef.current.value
+            name: groupNameRef.current.value,
+            username
         })
         .then(
             needRefresh(),

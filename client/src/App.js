@@ -1,4 +1,4 @@
-import React , { useEffect , useLayoutEffect } from "react";
+import React , { useEffect } from "react";
 import { Route , Routes , useLocation, useNavigate } from "react-router";
 import Menu from "./components/navigation/navigation";
 import HomePage from "./components/home/homepage";
@@ -8,6 +8,7 @@ import Events from "./components/events/events";
 import Messages from "./components/messages/messages";
 import Login from "./components/login/login";
 import Register from "./components/registration/registration";
+import Member from "./components/member/member";
 import Footer from "./components/footer/footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
@@ -42,10 +43,11 @@ export default function App(){
     }
   }, [location])
 
+  console.log(userData)
+
   return(
     <>
       <Menu />
-      <h1>{`hi ${userData?.username}`}</h1>
       <Routes>
         { accessToken && 
           <>
@@ -54,6 +56,7 @@ export default function App(){
             <Route path="/groups/:id" element = { <Group /> } />
             <Route path="/events" element = { <Events /> } />
             <Route path="/messages" element = { <Messages /> } />
+            <Route path="/member/:membername" element = { <Member /> } />
           </>
         }
         <Route path="/login" element = { <Login /> } />
