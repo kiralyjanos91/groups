@@ -1,8 +1,11 @@
-#logoutcol {
-    max-width: fit-content;
+.groups-and-newgroup-row {
+    margin-top: 40px !important;
+    margin-bottom: 40px;
+    align-items: center;
 }
 
-.group-listing-row {
+.create-new-group-col {
+    max-width: fit-content !important;
 }
 
 .group-listing-col {
@@ -18,4 +21,9 @@
     justify-content: center;
     align-items: center;
     min-height: 90vh;
+}
+
+.create-group {
+    color: #FF493A;
+    cursor: pointer;
 }

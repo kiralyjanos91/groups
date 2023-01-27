@@ -8,6 +8,7 @@ const profileDataRoute = ({
         const member = await MemberModel.findOne({ username })
         res.status(200).json(member)
     })
+    
     return router
 }
 

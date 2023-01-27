@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import AccessUpdateHook from "./custom_hooks/accessupdate";
+import "./App.css"
 
 export default function App(){
 
@@ -22,6 +23,10 @@ export default function App(){
   const navigate = useNavigate()
   const accessToken = useSelector((state) => state.accessupdate.token)
   const userData = useSelector((state) => state.userData.data)
+
+  useEffect(() => {
+    window.scrollTo( 0 , 0 )
+  } , [ location ])
 
   useEffect(() => {
     if (location.pathname !== "/login" && location.pathname !== "/registration"){
@@ -48,20 +53,22 @@ export default function App(){
   return(
     <>
       <Menu />
-      <Routes>
-        { accessToken && 
-          <>
-            <Route path="/" element = { <HomePage /> } />
-            <Route path="/profile" element = { <Profile /> } />
-            <Route path="/groups/:id" element = { <Group /> } />
-            <Route path="/events" element = { <Events /> } />
-            <Route path="/messages" element = { <Messages /> } />
-            <Route path="/member/:membername" element = { <Member /> } />
-          </>
-        }
-        <Route path="/login" element = { <Login /> } />
-        <Route path="/registration" element = { <Register /> } />
-      </Routes>
+        <div className="app-body">
+          <Routes>
+            { accessToken && 
+              <>
+                <Route path="/" element = { <HomePage /> } />
+                <Route path="/profile" element = { <Profile /> } />
+                <Route path="/groups/:id" element = { <Group /> } />
+                <Route path="/events" element = { <Events /> } />
+                <Route path="/messages" element = { <Messages /> } />
+                <Route path="/member/:membername" element = { <Member /> } />
+              </>
+            }
+            <Route path="/login" element = { <Login /> } />
+            <Route path="/registration" element = { <Register /> } />
+          </Routes>
+        </div>
       <Footer />
     </>
   )

@@ -9,7 +9,7 @@ const joinGroupRoute = ({
 
     router.post("/" , async (req , res , next) => {
 
-        const { groupName , user } = req.body
+        const { groupName , id , user } = req.body
 
         try {
             const saveToGroupReponse = await GroupModel.updateOne({
@@ -24,7 +24,10 @@ const joinGroupRoute = ({
                 username: user.username
             } , {
                 $push: {
-                    groups: groupName
+                    groups: {
+                        name: groupName,
+                        group_Id: id
+                    }
                 }
             })
             return res.status(200).json("Joined")

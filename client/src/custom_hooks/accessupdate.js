@@ -10,6 +10,7 @@ export default function AccessUpdateHook(){
 
     const accessUpdate = (token) => {
         dispatch(setToken(token?.data?.newToken))
+        
         if (!token) {
            return dispatch( updateUserData({}) )
         }

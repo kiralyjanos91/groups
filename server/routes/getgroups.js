@@ -5,7 +5,7 @@ const getGroupsRoute = ({
     const router = express.Router()
     router.get("/" , async (req , res) => {
         try{
-            const groups = await GroupModel.find()
+            const groups = await GroupModel.find().sort({ _id: -1 })
             res.status(200).json(groups)
         }
         catch(e){

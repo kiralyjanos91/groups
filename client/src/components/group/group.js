@@ -14,7 +14,7 @@ export default function Group(){
 
     const { id } = useParams()
     const user = useSelector((state) => state.userData.data)
-    const notOwnGroup = user.own_groups?.includes(groupName) ? false : true
+    const notOwnGroup = user.own_groups?.find( ( group ) => group.name === groupName ) ? false : true
 
     console.log(user)
 
@@ -24,7 +24,7 @@ export default function Group(){
     }, [])
 
     const joinToGroup = () => {
-        axios.post("/joingroup" , { groupName , user })
+        axios.post("/joingroup" , { groupName , user , id })
             .then((response) => {
                 console.log(response)
             })
@@ -33,7 +33,10 @@ export default function Group(){
     const membersList = groupInfo?.members?.map((member) => {
         return (
             <li>
-                <Link to={`/member/${member.username}`}>
+                <Link 
+                    to={`/member/${member.username}`}
+                    className="primary-link"
+                >
                     { member.username }
                 </Link>
             </li>
@@ -63,7 +66,10 @@ export default function Group(){
                         <Col>
                             <p>Admin:</p>
                             <p>
-                                <Link to = {`/member/${admin}`}>
+                                <Link 
+                                    to = {`/member/${admin}`}
+                                    className="primary-link"
+                                >
                                     {admin}
                                 </Link>
                             </p>

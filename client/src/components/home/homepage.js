@@ -46,12 +46,17 @@ export default function HomePage(){
 
     return (
         <Container>
-            <Row>
+            <Row className="groups-and-newgroup-row">
                 <Col>
                     <h1>Groups</h1>
                 </Col>
-                <Col>
-                    <h3 onClick = {handleShow}>Create New Group +</h3>
+                <Col className="create-new-group-col">
+                    <h3 
+                        onClick = {handleShow}
+                        className = "create-group"
+                    >
+                        Create New Group +
+                    </h3>
                 </Col>
             </Row>
             { groups.length < 1 ? 

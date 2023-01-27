@@ -1,5 +1,6 @@
 import React , { useState , useEffect } from "react"
 import { Container , Col , Row } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import axios from "axios"
 
 export default function Profile(){
@@ -11,8 +12,34 @@ export default function Profile(){
             .then( memberdata => { setProfileData ( prevState => memberdata.data ) } )
     }, [])
 
-    const groupsList = profileData?.groups.map((group , index) => {
-        return <li key = { index }>{ group }</li> 
+    const ownGroupsList = profileData?.own_groups?.map(( group , index ) => {
+        return (
+            <li 
+                key = { index }
+            > 
+                <Link 
+                    to = {`/groups/${group.group_Id}`}
+                    className = "primary-link"    
+                >
+                    { group.name } 
+                </Link> 
+            </li>
+        ) 
+    })
+
+    const groupsList = profileData?.groups?.map(( group , index ) => {
+        return (
+            <li 
+                key = { index }
+            >
+                <Link 
+                    to = {`/groups/${group.group_Id}`}
+                    className = "primary-link"
+                >
+                    { group.name } 
+                </Link>
+            </li> 
+        )
     })
 
     return (
@@ -31,9 +58,17 @@ export default function Profile(){
             </Row>
             <Row>
                 <Col>
+                    Own Groups:
+                    <ul>
+                        { ownGroupsList }
+                    </ul>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
                     Groups:
                     <ul>
-                        {groupsList}
+                        { groupsList }
                     </ul>
                 </Col>
             </Row>

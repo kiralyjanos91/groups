@@ -11,12 +11,15 @@ const addGroupsRoute = ({
             admin: username
         })
         try {
-            await newGroup.save()
+            const groupSaveResponse = await newGroup.save()
             const memberUpdateResponse = await MemberModel.updateOne({
                 username
             } , {
                 $push: {
-                    own_groups: name
+                    own_groups: {
+                        name,
+                        group_Id: groupSaveResponse._id.toHexString()
+                    }
                 }
             })
             res.status(200).json(`group added successfully.`)

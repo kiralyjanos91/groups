@@ -10,6 +10,9 @@ const memberSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    picture: {
+        type: String
+    },
     own_groups: {
         type: Array
     },

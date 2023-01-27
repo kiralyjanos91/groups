@@ -3,6 +3,7 @@ import { Container , Nav , Navbar , NavDropdown } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import LogoutModal from "./logoutmodal"
 import { useSelector } from "react-redux"
+import "./navigation.css"
 
 export default function Menu(){
 

@@ -9,6 +9,9 @@ const groupSchema = new mongoose.Schema({
     location: {
         type: String
     },
+    category: {
+        type: String
+    },
     members: {
         type: Array
     },
@@ -20,6 +23,9 @@ const groupSchema = new mongoose.Schema({
     },
     messages: {
         type: Array
+    },
+    photo: {
+        type: String
     }
 })
 

@@ -1,6 +1,7 @@
 import React , { useState , useEffect } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import { useParams } from "react-router"
+import { Link } from "react-router-dom"
 import axios from "axios"
 
 export default function Member(){
@@ -26,6 +27,38 @@ export default function Member(){
         about
     } = memberData
 
+    const groupsList = groups?.map(( group , index ) => {
+        
+        return (
+            <li 
+                key = { index }
+            >  
+                <Link 
+                    to = {`/groups/${group.group_Id}`}
+                    className = "primary-link"    
+                >
+                    { group.name } 
+                </Link>
+            </li>
+        ) 
+    })
+
+    const ownGroupsList = own_groups?.map(( group , index ) => {
+        
+        return (
+            <li 
+                key = { index }
+            >  
+                <Link 
+                    to = {`/groups/${group.group_Id}`}
+                    className = "primary-link"
+                >
+                    { group.name } 
+                </Link>
+            </li>
+        ) 
+    })
+
     return (
         <Container>
             <Row>
@@ -50,20 +83,13 @@ export default function Member(){
                     Hobby: {hobby}
                 </p>
                 <p>
-                    Own groups: {own_groups}
+                    Own groups: { ownGroupsList }
                 </p>
                 <p>
-                    Groups: {groups}
+                    Groups: { groupsList }
                 </p>
             </Row>
         </Container>
     )
 }
 
-// own_groups:
-// groups:
-// gender:
-// birth:
-// city:
-// hobby:
-// about:
