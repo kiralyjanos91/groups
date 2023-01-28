@@ -31,16 +31,18 @@ export default function Group(){
     }
 
     const membersList = groupInfo?.members?.map((member) => {
-        return (
-            <li>
+        if (member.username !== admin) {
+            return (
+                <li>
                 <Link 
                     to={`/member/${member.username}`}
                     className="primary-link"
-                >
+                    >
                     { member.username }
                 </Link>
             </li>
-        )
+            )
+        }   
     })
     return (
         <Container>
@@ -71,6 +73,19 @@ export default function Group(){
                                     className="primary-link"
                                 >
                                     {admin}
+                                </Link>
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>Category:</p>
+                            <p>
+                                <Link 
+                                    to = {`/member/${admin}`}
+                                    className="primary-link"
+                                >
+                                    {groupInfo?.category}
                                 </Link>
                             </p>
                         </Col>

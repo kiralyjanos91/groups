@@ -5,9 +5,11 @@ import Spinner from "react-bootstrap/Spinner"
 import { useNavigate } from "react-router"
 import "./homepage.css"
 import AddGroupModal from "./addgroupmodal"
+import { groupCategoryOptions } from "./groupcategories"
 
 export default function HomePage(){
     const navigate = useNavigate()
+    const [groupsCategory , setGroupsCategory] = useState("all")
     const [refreshGroups , setRefreshGroups] = useState(1)
     const [groups , setGroups] = useState([])
     const [show , setShow] = useState(false)
@@ -29,20 +31,28 @@ export default function HomePage(){
             })
     }, [refreshGroups])
 
-    console.log(groups)
+    const groupsListing = groups.filter((group)=>{
+        if (groupsCategory === "all") {
+            return group
+        } else {
+            return group.category === groupsCategory
+        }
+        }).slice(
+            0,15
+        ).map((group , index) => {
+            return (
+                <Col 
+                    onClick = { () => navigate(`/groups/${group._id}`) } 
+                    md="4" 
+                    key = { index } 
+                    className="group-listing-col"
+                >
+                    <p>{group.name}</p>
+                </Col>
+            )
+        })
 
-    const groupsListing = groups.map((group , index) => {
-        return (
-            <Col 
-                onClick = { () => navigate(`/groups/${group._id}`) } 
-                md="4" 
-                key = { index } 
-                className="group-listing-col"
-            >
-                <p>{group.name}</p>
-            </Col>
-        )
-    })
+    console.log(`Selected Group Category is: ${groupsCategory}`)
 
     return (
         <Container>
@@ -57,6 +67,22 @@ export default function HomePage(){
                     >
                         Create New Group +
                     </h3>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <label htmlFor="filter-by-category">
+                        Category:
+                    </label>
+                    <select
+                        id = "filter-by-category"
+                        name = "filter-by-category"
+                        onChange = {(e) => setGroupsCategory(e.target.value)}
+                    >
+                            <option value = "all">All</option>
+                            { groupCategoryOptions }
+                        
+                    </select>
                 </Col>
             </Row>
             { groups.length < 1 ? 
@@ -74,6 +100,7 @@ export default function HomePage(){
                 show = { show }
                 handleClose = { handleClose }
                 needRefresh = { groupRefresher }
+                groupCategoryOptions = { groupCategoryOptions }
             />
         </Container>
     )

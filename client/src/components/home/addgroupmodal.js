@@ -4,16 +4,20 @@ import Button from "react-bootstrap/Button"
 import axios from "axios"
 import { useSelector } from "react-redux"
 
-export default function AddGroupModal({ show , handleClose , needRefresh }){
+export default function AddGroupModal({ show , handleClose , needRefresh , groupCategoryOptions }){
     
     const username = useSelector((state) => state.userData.data.username)
     const groupNameRef = useRef()
+    const categoryRef = useRef()
+    // const locationRef = useRef()
 
     const sendNewGroup = (e) => {
         e.preventDefault()
         axios.post("/addgroup" , {
             name: groupNameRef.current.value,
-            username
+            username,
+            category: categoryRef.current.value
+            // location: locationRef.current.value
         })
         .then(
             needRefresh(),
@@ -32,7 +36,21 @@ export default function AddGroupModal({ show , handleClose , needRefresh }){
                         <label htmlFor="groupname">
                             Name of you group:
                         </label>
-                        <input name="groupname" ref={ groupNameRef } />
+                        <input 
+                            name="groupname" 
+                            ref={ groupNameRef } 
+                        />
+                        <label htmlFor="category">
+                            Category:
+                        </label>
+                        <select 
+                            id = "category"
+                            name = "category" 
+                            ref = { categoryRef }
+                        > 
+                            { groupCategoryOptions }
+                        </select>
+                        
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

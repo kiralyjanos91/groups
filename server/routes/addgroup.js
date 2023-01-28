@@ -5,9 +5,10 @@ const addGroupsRoute = ({
 }) => {
     const router = express.Router()
     router.post("/" , async (req , res) => {
-        const { name , username } = req.body
+        const { name , username , category } = req.body
         const newGroup = new GroupModel({
             name,
+            category,
             admin: username
         })
         try {
