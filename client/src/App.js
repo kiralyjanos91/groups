@@ -1,7 +1,8 @@
-import React , { useEffect } from "react";
+import React , { useEffect, useState } from "react";
 import { Route , Routes , useLocation, useNavigate } from "react-router";
 import Menu from "./components/navigation/navigation";
-import HomePage from "./components/home/homepage";
+import Home from "./components/home/home";
+import Groups from "./components/groups/groups";
 import Group from "./components/group/group";
 import Profile from "./components/profile/profile";
 import Events from "./components/events/events";
@@ -24,12 +25,17 @@ export default function App(){
   const accessToken = useSelector((state) => state.accessupdate.token)
   const userData = useSelector((state) => state.userData.data)
 
+  const [accessChecked , setAccessChecked] = useState(false)
+
   useEffect(() => {
     window.scrollTo( 0 , 0 )
   } , [ location ])
 
   useEffect(() => {
-    if (location.pathname !== "/login" && location.pathname !== "/registration"){
+    if (
+        location.pathname !== "/login" 
+        && location.pathname !== "/registration"
+      ) {
       axios.post("/auth" , {accessToken} , {withCredentials: true})
       .then(response => {
         if (response.status === 200) {
@@ -42,8 +48,11 @@ export default function App(){
       })
       .catch((e) => {
         console.log(`Invalid authorization key`)
+        setAccessChecked((prev) => true)
         accessUpdate(undefined)
-        navigate("/login")
+        if (location.pathname !== "/") {
+          navigate("/login")
+        }
       })
     }
   }, [location])
@@ -57,14 +66,23 @@ export default function App(){
           <Routes>
             { accessToken && 
               <>
-                <Route path="/" element = { <HomePage /> } />
                 <Route path="/profile" element = { <Profile /> } />
-                <Route path="/groups/:id" element = { <Group /> } />
+                <Route path="/groups"> 
+                  <Route index element={<Groups />} />
+                  <Route path=":page" element={<Groups />} />
+                </Route>
+                <Route path="/group/:id" element = { <Group /> } />
                 <Route path="/events" element = { <Events /> } />
                 <Route path="/messages" element = { <Messages /> } />
                 <Route path="/member/:membername" element = { <Member /> } />
               </>
             }
+            <Route path="/" element = { 
+              <Home 
+                accessChecked = { accessChecked } 
+              /> 
+            } 
+            />
             <Route path="/login" element = { <Login /> } />
             <Route path="/registration" element = { <Register /> } />
           </Routes>

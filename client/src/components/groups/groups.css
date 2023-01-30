@@ -17,12 +17,6 @@
     min-height: 200px;
 }
 
-.spinner-row {
-    justify-content: center;
-    align-items: center;
-    min-height: 90vh;
-}
-
 .create-group {
     color: #FF493A;
     cursor: pointer;

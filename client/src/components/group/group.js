@@ -21,7 +21,7 @@ export default function Group(){
     useEffect(() => {
         axios.post("/groupdata" , { id })
             .then((groupdata) =>setGroupInfo((prevstate) => groupdata.data))
-    }, [])
+    })
 
     const joinToGroup = () => {
         axios.post("/joingroup" , { groupName , user , id })

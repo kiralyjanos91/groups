@@ -21,7 +21,7 @@ export default function Login(){
         })
             .then( data => {
                 accessUpdate(data)
-                navigate("/")
+                navigate("/groups/1")
             })
             .catch((e) => {
                 setLoginError(e.response.data)

@@ -1,3 +1,9 @@
 .app-body {
     min-height: calc(100vh - 55px);
 }
+
+.spinner-row {
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}

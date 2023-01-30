@@ -22,7 +22,7 @@ export default function Menu(){
                     <Nav className="me-auto container-fluid">
                         { accessToken ? 
                             <>
-                                <Nav.Link as={ Link } to="/">Groups</Nav.Link>
+                                <Nav.Link as={ Link } to="/groups/1">Groups</Nav.Link>
                                 <Nav.Link as={ Link } to="/events">Events</Nav.Link>
                                 <Nav.Link as={ Link } to="/messages">Messages</Nav.Link>
                                 <Nav.Link as={ Link } to="/profile">Profile</Nav.Link>

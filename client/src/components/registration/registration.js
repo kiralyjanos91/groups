@@ -20,7 +20,7 @@ export default function Register(){
         })
             .then(data => { 
                 accessUpdate(data)
-                navigate("/")
+                navigate("/groups/1")
             })
             .catch((e) => 
                 setErrorMessage(prev => e.response.data)
