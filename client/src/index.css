@@ -38,3 +38,8 @@ code {
 .modal-content {
   background-color: #1b1b1c !important;
 }
+
+label {
+  display: block !important;
+  margin-bottom: 5px;
+}

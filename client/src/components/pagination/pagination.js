@@ -1,31 +1,49 @@
 import Pagination from 'react-bootstrap/Pagination';
 import { useNavigate , useParams } from 'react-router-dom';
+import "./pagination.css"
 
 export default function PagePagination ( { root , pageCount } ) {
 
     const navigate = useNavigate()
     const { page } = useParams()
 
-    const pagesArray = new Array(pageCount).fill(".")
+    const paginationButtons = []
+
+    let loopFrom = 0
+    let loopCount = 5
+
+    if ( pageCount < 6 ) {
+      loopFrom = 1
+      loopCount = pageCount
+    }
+    else if ( page < 4 ) {
+      loopFrom = 1
+    }
+    else if ( page < pageCount - 2) {
+      loopFrom = page - 2
+    }
+    else {
+      loopFrom = pageCount - 4
+    }
+
+    for ( let i = loopFrom ; i < loopFrom + loopCount ; i++ ) {
+      paginationButtons.push(
+        <Pagination.Item
+            key = { i }
+            onClick={ () => pageSelector(i) }
+            active={i === page}
+        >
+            {i}
+        </Pagination.Item>
+      )
+    }
 
     const pageSelector = (pageNumber) => {
         navigate(`${root}/${pageNumber}`)
     }
 
-    const paginationButtons = pagesArray.map((page , index) => {
-        return (
-            <Pagination.Item
-                onClick={ () => pageSelector(index + 1) }
-            >
-                {index + 1}
-            </Pagination.Item>
-        )
-    })
-
-    console.log(paginationButtons)
-
   return (
-    <Pagination>
+    <Pagination className="groups-pagination">
       <Pagination.First 
         onClick = { () => {
             if ( page > 1) {

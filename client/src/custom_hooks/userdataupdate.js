@@ -1,16 +1,14 @@
-import { useDispatch , useSelector } from "react-redux"
+import axios from "axios"
+import { useDispatch } from "react-redux"
 import { updateUserData } from "../redux_slices/userdataslice"
 
 export default function UserDataUpdateHook(){
-
-    // const { userData } = useSelector(( state ) => state.userData.data )
-
+    
     const dispatch = useDispatch()
-
-    const userDataUpdate = ( userData ) => {
-
-            dispatch( updateUserData( userData ) )
-
+    
+    const userDataUpdate = () => {
+        axios.get("/userdataupdate")
+            .then( response => dispatch ( updateUserData ( response.data.userData ) ) )
     }
 
     return { userDataUpdate }

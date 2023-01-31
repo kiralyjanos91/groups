@@ -3,13 +3,14 @@ import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import axios from "axios"
 import { useSelector } from "react-redux"
+import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 
 export default function AddGroupModal({ show , handleClose , needRefresh , groupCategoryOptions }){
     
     const username = useSelector((state) => state.userData.data.username)
     const groupNameRef = useRef()
     const categoryRef = useRef()
-    // const locationRef = useRef()
+    const { userDataUpdate } = UserDataUpdateHook()
 
     const sendNewGroup = (e) => {
         e.preventDefault()
@@ -20,7 +21,7 @@ export default function AddGroupModal({ show , handleClose , needRefresh , group
             // location: locationRef.current.value
         })
         .then(
-            needRefresh(),
+            userDataUpdate(),
             handleClose()
         )
     }

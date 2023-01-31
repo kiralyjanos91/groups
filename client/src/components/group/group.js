@@ -6,41 +6,44 @@ import { useParams } from "react-router"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { useSelector } from "react-redux"
+import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 
 export default function Group(){
     const [groupInfo , setGroupInfo] = useState()
     const groupName = groupInfo?.name
     const admin = groupInfo?.admin
 
+    const { userDataUpdate } = UserDataUpdateHook()
+
     const { id } = useParams()
     const user = useSelector((state) => state.userData.data)
     const notOwnGroup = user.own_groups?.find( ( group ) => group.name === groupName ) ? false : true
-
-    console.log(user)
+    const joined = user.groups?.find( ( group ) => group.name === groupName ) ? true : false
 
     useEffect(() => {
         axios.post("/groupdata" , { id })
             .then((groupdata) =>setGroupInfo((prevstate) => groupdata.data))
-    })
+    }, [user])
 
     const joinToGroup = () => {
         axios.post("/joingroup" , { groupName , user , id })
             .then((response) => {
                 console.log(response)
+                userDataUpdate()
             })
     }
 
-    const membersList = groupInfo?.members?.map((member) => {
+    const membersList = groupInfo?.members?.map((member , index) => {
         if (member.username !== admin) {
             return (
-                <li>
-                <Link 
-                    to={`/member/${member.username}`}
-                    className="primary-link"
-                    >
-                    { member.username }
-                </Link>
-            </li>
+                <li key = { index }>
+                    <Link 
+                        to={`/member/${member.username}`}
+                        className="primary-link"
+                        >
+                        { member.username }
+                    </Link>
+                </li>
             )
         }   
     })
@@ -58,9 +61,15 @@ export default function Group(){
                     { notOwnGroup &&
                         <Row>
                             <Col>
-                                <Button variant="primary" onClick={ joinToGroup }>
-                                    Join
-                                </Button>
+                                { joined ?
+                                    <Button variant="secondary">
+                                        Leave
+                                    </Button>
+                                :
+                                    <Button variant="primary" onClick={ joinToGroup }>
+                                        Join
+                                    </Button>
+                                }
                             </Col>
                         </Row>
                     }

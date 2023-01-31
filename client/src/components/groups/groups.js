@@ -7,11 +7,12 @@ import { useNavigate , useLocation , useParams } from "react-router"
 import "./groups.css"
 import AddGroupModal from "./addgroupmodal"
 import { groupCategoryOptions } from "./groupcategories"
+import { useSelector } from "react-redux"
 
 export default function HomePage(){
+    const user = useSelector((state) => state.userData.data)
     const navigate = useNavigate()
     const location = useLocation()
-
     const { page } = useParams()
 
     const [groupsCategory , setGroupsCategory] = useState("all")
@@ -29,6 +30,13 @@ export default function HomePage(){
         setRefreshGroups(prevState => prevState === 1 ? 2 : 1)
     }
 
+    const categoryChange = (e) => {
+        setGroupsCategory(prev => e.target.value)
+        if ( location !== "/groups/1") {
+            navigate("/groups/1")
+        }
+    }
+
     useEffect(() => {
         if ( location.pathname === "/groups") {
             navigate("/groups/1")
@@ -40,15 +48,17 @@ export default function HomePage(){
             .then((groupsData) => {
                 setGroups(prev => groupsData.data)
             })
-    }, [refreshGroups])
+    }, [ user ])
 
-    const groupsListing = groups.filter((group)=>{
+    const groupsList = groups.filter((group)=>{
         if (groupsCategory === "all") {
             return group
         } else {
             return group.category === groupsCategory
         }
-        }).slice(
+        })
+
+    const groupsListing = groupsList.slice(
             (parseInt(page) -1) * 15 , (parseInt(page) -1) * 15 + 15
         ).map((group , index) => {
             return (
@@ -63,7 +73,27 @@ export default function HomePage(){
             )
         })
 
-    console.log(`Selected Group Category is: ${groupsCategory}`)
+        const notEmptyGroupCategories = groups.reduce((accumulator , current) => {
+            return (
+                accumulator.includes(current.category) ? 
+                    accumulator 
+                : 
+                    [...accumulator , current.category]
+            )
+        }, [])
+
+        const groupFilterOptions = notEmptyGroupCategories.map(( category , index ) => {
+            return (
+                <option 
+                    key = { index } 
+                    value = { category }
+                >
+                    { category }
+                </option>
+            )
+        })
+
+        console.log(notEmptyGroupCategories)
 
     return (
         <Container>
@@ -97,10 +127,10 @@ export default function HomePage(){
                             <select
                                 id = "filter-by-category"
                                 name = "filter-by-category"
-                                onChange = {(e) => setGroupsCategory(e.target.value)}
+                                onChange = {(e) => categoryChange(e)}
                             >
                                     <option value = "all">All</option>
-                                    { groupCategoryOptions }
+                                    { groupFilterOptions }
                                 
                             </select>
                         </Col>
@@ -108,10 +138,16 @@ export default function HomePage(){
                     <Row className="group-listing-row">
                         { groupsListing }
                     </Row>
-                    <PagePagination 
-                        root = "/groups"
-                        pageCount = { Math.ceil(groups.length / 15) }
-                    />
+                    { groupsList.length > 15 &&
+                        <Row className="groups-pagination-row">
+                            <PagePagination 
+                                root = "/groups"
+                                pageCount = { 
+                                    Math.ceil(groupsList.length / 15) 
+                                }
+                            />
+                        </Row>
+                    }
                 </>
             }
             <AddGroupModal 

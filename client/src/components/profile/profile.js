@@ -1,5 +1,6 @@
 import React , { useState , useEffect } from "react"
 import { Container , Col , Row } from "react-bootstrap"
+import Spinner from "react-bootstrap/Spinner"
 import { Link } from "react-router-dom"
 import axios from "axios"
 
@@ -18,7 +19,7 @@ export default function Profile(){
                 key = { index }
             > 
                 <Link 
-                    to = {`/groups/${group.group_Id}`}
+                    to = {`/group/${group.group_Id}`}
                     className = "primary-link"    
                 >
                     { group.name } 
@@ -33,7 +34,7 @@ export default function Profile(){
                 key = { index }
             >
                 <Link 
-                    to = {`/groups/${group.group_Id}`}
+                    to = {`/group/${group.group_Id}`}
                     className = "primary-link"
                 >
                     { group.name } 
@@ -44,60 +45,70 @@ export default function Profile(){
 
     return (
         <Container>
-            <Row>
-                <Col>
-                    <h1>
-                        Profile Page
-                    </h1>
-                </Col>
+            { profileData ?
+                <>
+                    <Row>
+                        <Col>
+                            <h1>
+                                Profile Page
+                            </h1>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            Username: {profileData?.username}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            Own Groups:
+                            <ul>
+                                { ownGroupsList }
+                            </ul>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            Groups:
+                            <ul>
+                                { groupsList }
+                            </ul>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>Date of birth:</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>
+                                City:
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>
+                                Gender:
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>
+                                Hobby:
+                            </p>
+                        </Col>
+                    </Row>
+                </>
+            :   
+            <Row className="spinner-row">
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
             </Row>
-            <Row>
-                <Col>
-                    Username: {profileData?.username}
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    Own Groups:
-                    <ul>
-                        { ownGroupsList }
-                    </ul>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    Groups:
-                    <ul>
-                        { groupsList }
-                    </ul>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <p>Date of birth:</p>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <p>
-                        City:
-                    </p>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <p>
-                        Gender:
-                    </p>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <p>
-                        Hobby:
-                    </p>
-                </Col>
-            </Row>
+            }
         </Container>
     )
 }

@@ -16,6 +16,7 @@ const profileDataRoute = require("./routes/profiledata")
 const groupDataRoute = require("./routes/groupdata")
 const joinGroupRoute = require("./routes/joingroup")
 const memberDataRoute = require("./routes/memberdata")
+const userDataUpdateRoute = require("./routes/userdataupdate")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -91,6 +92,11 @@ app.use("/joingroup" , joinGroupRoute({
 }))
 
 app.use("/memberdata" , memberDataRoute({
+    express,
+    MemberModel
+}))
+
+app.use("/userdataupdate" , userDataUpdateRoute({
     express,
     MemberModel
 }))

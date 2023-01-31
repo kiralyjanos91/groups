@@ -8,6 +8,11 @@
     max-width: fit-content !important;
 }
 
+.group-listing-row {
+    margin-top: 50px !important;
+    margin-bottom: 50px;
+}
+
 .group-listing-col {
     cursor: pointer;
     display: flex;
@@ -20,4 +25,8 @@
 .create-group {
     color: #FF493A;
     cursor: pointer;
+}
+
+.groups-pagination-row {
+    justify-content: center;
 }
