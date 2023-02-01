@@ -2,19 +2,23 @@ import React, { useState , useEffect } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
-import { useParams } from "react-router"
+import { useParams , useNavigate } from "react-router"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import { useSelector } from "react-redux"
+import { useSelector , useDispatch } from "react-redux"
+import { changeCategory } from "../../redux_slices/categoryslice"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
+import "./group.css"
 
 export default function Group(){
     const [groupInfo , setGroupInfo] = useState()
+    const [buttonLoading , setButtonLoading] = useState(false)
     const groupName = groupInfo?.name
     const admin = groupInfo?.admin
 
     const { userDataUpdate } = UserDataUpdateHook()
-
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { id } = useParams()
     const user = useSelector((state) => state.userData.data)
     const notOwnGroup = user.own_groups?.find( ( group ) => group.name === groupName ) ? false : true
@@ -23,14 +27,37 @@ export default function Group(){
     useEffect(() => {
         axios.post("/groupdata" , { id })
             .then((groupdata) =>setGroupInfo((prevstate) => groupdata.data))
+            .then(() => { 
+                if (buttonLoading === true) {
+                    setButtonLoading(false)
+                }
+            })
     }, [user])
 
+
+    console.log(buttonLoading)
+
     const joinToGroup = () => {
+        setButtonLoading(true)
         axios.post("/joingroup" , { groupName , user , id })
             .then((response) => {
                 console.log(response)
                 userDataUpdate()
             })
+    }
+
+    const leaveGroup = () => {
+        setButtonLoading(true)
+        axios.post("/leavegroup" , { groupName , user })
+            .then((response) => {
+                console.log(response)
+                userDataUpdate()
+            })
+    }
+
+    const goToCategory = () => {
+        dispatch(changeCategory(groupInfo?.category))
+        navigate("/groups/1")
     }
 
     const membersList = groupInfo?.members?.map((member , index) => {
@@ -40,7 +67,7 @@ export default function Group(){
                     <Link 
                         to={`/member/${member.username}`}
                         className="primary-link"
-                        >
+                    >
                         { member.username }
                     </Link>
                 </li>
@@ -62,12 +89,38 @@ export default function Group(){
                         <Row>
                             <Col>
                                 { joined ?
-                                    <Button variant="secondary">
-                                        Leave
+                                    <Button 
+                                        variant="secondary" 
+                                        onClick = { leaveGroup }
+                                    >
+                                        { buttonLoading ?
+                                            <Spinner 
+                                                animation="border" 
+                                                role="status" 
+                                                className="loading-button"
+                                            >
+                                                <span className="visually-hidden">Loading...</span>
+                                            </Spinner>
+                                        :
+                                            "Leave"
+                                        }
                                     </Button>
                                 :
-                                    <Button variant="primary" onClick={ joinToGroup }>
-                                        Join
+                                    <Button 
+                                        variant="primary" 
+                                        onClick = { joinToGroup }
+                                    >
+                                        { buttonLoading ?
+                                            <Spinner 
+                                                animation="border" 
+                                                role="status"
+                                                className="loading-button"
+                                            >
+                                                <span className="visually-hidden">Loading...</span>
+                                            </Spinner>
+                                        :
+                                            "Join"
+                                        }
                                     </Button>
                                 }
                             </Col>
@@ -89,13 +142,11 @@ export default function Group(){
                     <Row>
                         <Col>
                             <p>Category:</p>
-                            <p>
-                                <Link 
-                                    to = {`/member/${admin}`}
-                                    className="primary-link"
-                                >
-                                    {groupInfo?.category}
-                                </Link>
+                            <p
+                                className="primary-link"
+                                onClick = { goToCategory }
+                            >                              
+                                {groupInfo?.category}
                             </p>
                         </Col>
                     </Row>

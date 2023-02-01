@@ -12,12 +12,11 @@ const verifyTokenRoute = ({
         const newToken = jwt.sign({ username } , process.env.ACCESS_TOKEN_SECRET , { expiresIn: "10s" })
         const refreshTokenInMongo = await RefreshTokenModel.findOne({token: refreshToken})
         const userData = await MemberModel.findOne({ username })
-        const { own_groups , groups } = userData
 
         const user = {
             username,
-            own_groups,
-            groups
+            own_groups: userData?.own_groups,
+            groups: userData?.groups
         }
 
         jwt.verify(accessToken , process.env.ACCESS_TOKEN_SECRET, (err , decoded) => {

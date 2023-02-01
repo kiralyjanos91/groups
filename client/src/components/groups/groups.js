@@ -7,16 +7,16 @@ import { useNavigate , useLocation , useParams } from "react-router"
 import "./groups.css"
 import AddGroupModal from "./addgroupmodal"
 import { groupCategoryOptions } from "./groupcategories"
-import { useSelector } from "react-redux"
+import { changeCategory } from "../../redux_slices/categoryslice"
+import { useSelector , useDispatch } from "react-redux"
 
 export default function HomePage(){
     const user = useSelector((state) => state.userData.data)
+    const selectedCategory = useSelector( ( state ) => state.category.name )
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
     const { page } = useParams()
-
-    const [groupsCategory , setGroupsCategory] = useState("all")
-    const [refreshGroups , setRefreshGroups] = useState(1)
     const [groups , setGroups] = useState([])
     const [show , setShow] = useState(false)
 
@@ -26,12 +26,10 @@ export default function HomePage(){
     const handleClose = () => {
         setShow(false)
     }
-    const groupRefresher = () => {
-        setRefreshGroups(prevState => prevState === 1 ? 2 : 1)
-    }
 
     const categoryChange = (e) => {
-        setGroupsCategory(prev => e.target.value)
+        dispatch(changeCategory(e.target.value))
+        // setGroupsCategory(prev => e.target.value)
         if ( location !== "/groups/1") {
             navigate("/groups/1")
         }
@@ -51,10 +49,10 @@ export default function HomePage(){
     }, [ user ])
 
     const groupsList = groups.filter((group)=>{
-        if (groupsCategory === "all") {
+        if (selectedCategory === "all") {
             return group
         } else {
-            return group.category === groupsCategory
+            return group.category === selectedCategory
         }
         })
 
@@ -87,6 +85,7 @@ export default function HomePage(){
                 <option 
                     key = { index } 
                     value = { category }
+                    selected = { selectedCategory === category }
                 >
                     { category }
                 </option>
@@ -153,7 +152,6 @@ export default function HomePage(){
             <AddGroupModal 
                 show = { show }
                 handleClose = { handleClose }
-                needRefresh = { groupRefresher }
                 groupCategoryOptions = { groupCategoryOptions }
             />
         </Container>

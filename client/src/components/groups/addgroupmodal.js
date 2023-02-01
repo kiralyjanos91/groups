@@ -3,14 +3,16 @@ import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import axios from "axios"
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 
-export default function AddGroupModal({ show , handleClose , needRefresh , groupCategoryOptions }){
+export default function AddGroupModal({ show , handleClose , groupCategoryOptions }){
     
     const username = useSelector((state) => state.userData.data.username)
     const groupNameRef = useRef()
     const categoryRef = useRef()
     const { userDataUpdate } = UserDataUpdateHook()
+    const navigate = useNavigate()
 
     const sendNewGroup = (e) => {
         e.preventDefault()
@@ -20,9 +22,12 @@ export default function AddGroupModal({ show , handleClose , needRefresh , group
             category: categoryRef.current.value
             // location: locationRef.current.value
         })
-        .then(
-            userDataUpdate(),
+        .then( response => {
+            const groupId = response.data.group_Id
+            userDataUpdate()
+            navigate(`/group/${groupId}`)
             handleClose()
+        }
         )
     }
 

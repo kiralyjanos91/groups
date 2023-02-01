@@ -8,20 +8,20 @@ const loginRoute = ({
     router.post("/" , async (req , res) => {
     const { username , password } = req.body
     
-    const user = await MemberModel.findOne({ username }) 
-    if(!user) {
-        return res.status(401).json("Invalid username")
-    }
-    if(user.password !== password) {
-        return res.status(401).json("Wrong password")
-    }
-    
-    const newToken = jwt.sign({ username } , process.env.ACCESS_TOKEN_SECRET , { expiresIn: "10s" })
-    const refreshToken = jwt.sign({ username } , process.env.REFRESH_TOKEN_SECRET)
-    const newRefreshToMongo = new RefreshTokenModel({
-        token: refreshToken,
-        username: username
-    })
+        const userData = await MemberModel.findOne({ username }) 
+        if (!userData) {
+            return res.status(401).json("Invalid username")
+        }
+        if (userData.password !== password) {
+            return res.status(401).json("Wrong password")
+        }
+        
+        const newToken = jwt.sign({ username } , process.env.ACCESS_TOKEN_SECRET , { expiresIn: "10s" })
+        const refreshToken = jwt.sign({ username } , process.env.REFRESH_TOKEN_SECRET)
+        const newRefreshToMongo = new RefreshTokenModel({
+            token: refreshToken,
+            username: username
+        })
 
     try {
         const rftSaveResponse = await newRefreshToMongo.save()
@@ -36,6 +36,13 @@ const loginRoute = ({
     res.cookie("localhost300user" , username , {
         httpOnly:true
     })
+
+    const user = {
+        username,
+        own_groups: userData?.own_groups,
+        groups: userData?.groups
+    }
+
     res.status(200).json({ newToken , user })
 })
 

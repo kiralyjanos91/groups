@@ -1,0 +1,7 @@
+.loading-button {
+    height: 24px;
+    width: 24px;
+    margin: 0;
+    padding: 8px;
+    display: flex;
+}

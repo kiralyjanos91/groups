@@ -27,6 +27,7 @@ code {
 }
 
 .primary-link {
+  cursor: pointer;
   color: #f14636;
   text-decoration: none;
 }
