@@ -65,7 +65,12 @@ export default function Group(){
             return (
                 <li key = { index }>
                     <Link 
-                        to={`/member/${member.username}`}
+                        to = {
+                            member.username === user?.username ?
+                                `/profile`
+                            :
+                                `/member/${member.username}`
+                        }
                         className="primary-link"
                     >
                         { member.username }
@@ -81,7 +86,7 @@ export default function Group(){
                     <Row>
                         <Col>
                             <h1>
-                                {groupName}
+                                { groupName }
                             </h1>
                         </Col>
                     </Row>
@@ -130,11 +135,16 @@ export default function Group(){
                         <Col>
                             <p>Admin:</p>
                             <p>
-                                <Link 
-                                    to = {`/member/${admin}`}
+                                <Link                            
+                                    to = {
+                                        admin === user?.username ?
+                                            `/profile`
+                                        :
+                                            `/member/${admin}`
+                                    }                                 
                                     className="primary-link"
                                 >
-                                    {admin}
+                                    { admin } 
                                 </Link>
                             </p>
                         </Col>
@@ -146,7 +156,7 @@ export default function Group(){
                                 className="primary-link"
                                 onClick = { goToCategory }
                             >                              
-                                {groupInfo?.category}
+                                { groupInfo.category }
                             </p>
                         </Col>
                     </Row>

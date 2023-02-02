@@ -23,7 +23,7 @@ const memberSchema = new mongoose.Schema({
         type: Array
     },
     gender: {
-        type: Array
+        type: String
     },
     birth: {
         type: String

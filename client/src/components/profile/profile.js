@@ -3,15 +3,26 @@ import { Container , Col , Row } from "react-bootstrap"
 import Spinner from "react-bootstrap/Spinner"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import { useSelector } from "react-redux"
+import EditProfileModal from "./edit_profile_modal/edit_profile_modal"
 
 export default function Profile(){
 
     const [profileData , setProfileData] = useState()
+    const [show , setShow] = useState(false)
+    const user = useSelector((state) => state.userData.data)
+
+    const handleShow = () => {
+        setShow(true)
+    }
+    const handleClose = () => {
+        setShow(false)
+    }
 
     useEffect(() => {
         axios.get("/profiledata")
             .then( memberdata => { setProfileData ( prevState => memberdata.data ) } )
-    }, [])
+    }, [user])
 
     const ownGroupsList = profileData?.own_groups?.map(( group , index ) => {
         return (
@@ -49,16 +60,28 @@ export default function Profile(){
                 <>
                     <Row>
                         <Col>
+                            <p
+                                className="edit-button"
+                                onClick = { handleShow }
+                            >
+                                Edit Profile Data
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
                             <h1>
                                 Profile Page
                             </h1>
                         </Col>
                     </Row>
+                    <hr />
                     <Row>
                         <Col>
-                            Username: {profileData?.username}
+                            Username: {profileData.username}
                         </Col>
                     </Row>
+                    <hr />
                     <Row>
                         <Col>
                             Own Groups:
@@ -67,6 +90,7 @@ export default function Profile(){
                             </ul>
                         </Col>
                     </Row>
+                    <hr />
                     <Row>
                         <Col>
                             Groups:
@@ -75,25 +99,35 @@ export default function Profile(){
                             </ul>
                         </Col>
                     </Row>
+                    <hr />
                     <Row>
                         <Col>
                             <p>Date of birth:</p>
                         </Col>
                     </Row>
+                    <hr />
                     <Row>
                         <Col>
                             <p>
                                 City:
                             </p>
+                            <p>
+                                {profileData.city}
+                            </p>
                         </Col>
                     </Row>
+                    <hr />
                     <Row>
                         <Col>
                             <p>
                                 Gender:
                             </p>
+                            <p>
+                                {profileData.gender}
+                            </p>
                         </Col>
                     </Row>
+                    <hr />
                     <Row>
                         <Col>
                             <p>
@@ -101,6 +135,11 @@ export default function Profile(){
                             </p>
                         </Col>
                     </Row>
+                    <EditProfileModal 
+                        profileData = { profileData }
+                        show = { show }
+                        handleClose = { handleClose } 
+                        />
                 </>
             :   
             <Row className="spinner-row">

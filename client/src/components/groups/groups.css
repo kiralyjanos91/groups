@@ -11,13 +11,15 @@
 .group-listing-row {
     margin-top: 50px !important;
     margin-bottom: 50px;
+    row-gap: 20px;
 }
 
-.group-listing-col {
+.group-listing-inner-col {
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
     border: 1px solid grey;
     min-height: 200px;
 }

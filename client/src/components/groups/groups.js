@@ -61,12 +61,16 @@ export default function HomePage(){
         ).map((group , index) => {
             return (
                 <Col 
-                    onClick = { () => navigate(`/group/${group._id}`) } 
                     md="4" 
                     key = { index } 
                     className="group-listing-col"
                 >
-                    <p>{group.name}</p>
+                    <Col
+                        className="group-listing-inner-col" 
+                        onClick = { () => navigate(`/group/${group._id}`) } 
+                    >
+                        <p>{ group.name }</p>
+                    </Col>
                 </Col>
             )
         })
