@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react"
+import React, { useState , useEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
@@ -15,12 +15,15 @@ export default function Group(){
     const [buttonLoading , setButtonLoading] = useState(false)
     const groupName = groupInfo?.name
     const admin = groupInfo?.admin
-
+    const chatMessageRef = useRef()
+    const chatWindowRef = useRef()
+    
     const { userDataUpdate } = UserDataUpdateHook()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { id } = useParams()
     const user = useSelector((state) => state.userData.data)
+    const ownUsername = user?.username
     const notOwnGroup = user.own_groups?.find( ( group ) => group.name === groupName ) ? false : true
     const joined = user.groups?.find( ( group ) => group.name === groupName ) ? true : false
 
@@ -31,11 +34,12 @@ export default function Group(){
                 if (buttonLoading === true) {
                     setButtonLoading(false)
                 }
+                chatWindowRef.current.scrollTo({
+                    top: chatWindowRef.current.scrollHeight
+                })
             })
     }, [user])
 
-
-    console.log(buttonLoading)
 
     const joinToGroup = () => {
         setButtonLoading(true)
@@ -55,6 +59,24 @@ export default function Group(){
             })
     }
 
+    const sendToChat = () => {
+        if (chatMessageRef.current.value) {
+                axios.post("/sendtochat" , {
+                    username: ownUsername,
+                    message: chatMessageRef.current.value,
+                    groupName,
+                    date: new Date()
+                })
+                .then(
+                    chatMessageRef.current.value = "",
+                    chatWindowRef.current.scrollTo({
+                        top: chatWindowRef.current.scrollHeight,
+                        behavior: "smooth"
+                    })
+                    )
+        }         
+    }
+
     const goToCategory = () => {
         dispatch(changeCategory(groupInfo?.category))
         navigate("/groups/1")
@@ -66,7 +88,7 @@ export default function Group(){
                 <li key = { index }>
                     <Link 
                         to = {
-                            member.username === user?.username ?
+                            member.username === ownUsername ?
                                 `/profile`
                             :
                                 `/member/${member.username}`
@@ -78,7 +100,48 @@ export default function Group(){
                 </li>
             )
         }   
+        else {
+            return null
+        }
     })
+
+    const dateFormat = new Intl.DateTimeFormat("en-US",{
+        year: "numeric",
+        month: "short",
+        day: "2-digit"
+    })
+
+    const messages = groupInfo?.messages?.map((message , index) => {
+        const date = message.date
+        let showMessageDate = ""
+
+        if (date) {
+            const messageDate = new Date(date)
+            showMessageDate = dateFormat.format(messageDate)
+        }
+
+        const ownMessageClass = message.username === ownUsername ? "own-message" : ""
+
+        return (
+            <Row 
+                key = { index } 
+                className = {`message-row ${ ownMessageClass }`}
+            >
+                <Col className="message-col">
+                    <Row>
+                        {showMessageDate}
+                    </Row>
+                    <Row>
+                        {message.username}
+                    </Row>
+                    <Row>
+                        {message.message}
+                    </Row>
+                </Col>
+            </Row>
+        )
+    })
+
     return (
         <Container>
             { groupInfo ?
@@ -137,7 +200,7 @@ export default function Group(){
                             <p>
                                 <Link                            
                                     to = {
-                                        admin === user?.username ?
+                                        admin === ownUsername ?
                                             `/profile`
                                         :
                                             `/member/${admin}`
@@ -183,6 +246,28 @@ export default function Group(){
                             <p>Chat:</p>
                         </Col>
                     </Row>
+                    <Container className = "chat-container">
+                        <Row 
+                            className = "messages-window-row"
+                            ref = { chatWindowRef }
+                        >
+                            { messages }
+                        </Row>
+                        <Row className = "chat-input-row">
+                            <Col className = "chat-input-col">
+                                <input 
+                                    name="chat-input"
+                                    ref = { chatMessageRef }
+                                    className = "chat-input"
+                                />
+                            </Col>
+                            <Col className = "chat-send-button-col">
+                                <Button onClick = { sendToChat }>
+                                    Send
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Container>
                 </>
             :
                 <Row className="spinner-row">
