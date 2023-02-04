@@ -10,12 +10,27 @@ const profileDataChangeRoute = ({
             username,
             gender,
             birth,
-            city,
             hobby,
             about
-        } = req.body || {}
+        } = req.body.formData || {}
 
-console.log(req.body)
+        const {
+            country,
+            countryCode,
+            state,
+            stateCode,
+            city
+        } = req.body.locationSelector
+
+        const location = {
+            country,
+            state,
+            city,
+            stateCode,
+            countryCode
+        }
+
+        console.log(location)
 
         try {
             await MemberModel.updateOne({
@@ -23,7 +38,7 @@ console.log(req.body)
             }, {
                     gender,
                     birth,
-                    city,
+                    location,
                     hobby,
                     about
                 }

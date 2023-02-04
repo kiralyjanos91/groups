@@ -15,6 +15,7 @@ export default function Profile(){
     const handleShow = () => {
         setShow(true)
     }
+
     const handleClose = () => {
         setShow(false)
     }
@@ -53,6 +54,18 @@ export default function Profile(){
             </li> 
         )
     })
+
+    const locationInfoArray = []
+    if (profileData) {
+        Object.values(profileData?.location).slice(0,3).forEach((data) => {
+            if (data) {
+                locationInfoArray.push(data)
+            }
+        })
+    }
+    const locationInfoString = locationInfoArray.join(", ")
+
+
 
     return (
         <Container>
@@ -109,10 +122,10 @@ export default function Profile(){
                     <Row>
                         <Col>
                             <p>
-                                City:
+                                Location:
                             </p>
                             <p>
-                                {profileData.city}
+                                { locationInfoString }
                             </p>
                         </Col>
                     </Row>
@@ -123,7 +136,7 @@ export default function Profile(){
                                 Gender:
                             </p>
                             <p>
-                                {profileData.gender}
+                                { profileData.gender }
                             </p>
                         </Col>
                     </Row>
@@ -133,20 +146,23 @@ export default function Profile(){
                             <p>
                                 Hobby:
                             </p>
+                            <p>
+                                { profileData.hobby }
+                            </p>
                         </Col>
                     </Row>
                     <EditProfileModal 
                         profileData = { profileData }
                         show = { show }
                         handleClose = { handleClose } 
-                        />
+                    />
                 </>
             :   
-            <Row className="spinner-row">
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </Spinner>
-            </Row>
+                <Row className="spinner-row">
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </Row>
             }
         </Container>
     )

@@ -2,6 +2,7 @@ import React, { useState , useEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
+import EmojiPicker from 'emoji-picker-react';
 import { useParams , useNavigate } from "react-router"
 import { Link } from "react-router-dom"
 import axios from "axios"
@@ -13,6 +14,7 @@ import "./group.css"
 export default function Group(){
     const [groupInfo , setGroupInfo] = useState()
     const [buttonLoading , setButtonLoading] = useState(false)
+    const [emojiShow , setEmojiShow] = useState(false)
     const groupName = groupInfo?.name
     const admin = groupInfo?.admin
     const chatMessageRef = useRef()
@@ -34,9 +36,11 @@ export default function Group(){
                 if (buttonLoading === true) {
                     setButtonLoading(false)
                 }
-                chatWindowRef.current.scrollTo({
-                    top: chatWindowRef.current.scrollHeight
-                })
+                if (chatWindowRef.current) {
+                    chatWindowRef.current.scrollTo({
+                        top: chatWindowRef.current.scrollHeight
+                    })
+                }
             })
     }, [user])
 
@@ -69,6 +73,7 @@ export default function Group(){
                 })
                 .then(
                     chatMessageRef.current.value = "",
+                    setEmojiShow(false),
                     chatWindowRef.current.scrollTo({
                         top: chatWindowRef.current.scrollHeight,
                         behavior: "smooth"
@@ -80,6 +85,10 @@ export default function Group(){
     const goToCategory = () => {
         dispatch(changeCategory(groupInfo?.category))
         navigate("/groups/1")
+    }
+
+    const emojiShowChange = () => {
+        setEmojiShow(prev => !prev)
     }
 
     const membersList = groupInfo?.members?.map((member , index) => {
@@ -253,6 +262,16 @@ export default function Group(){
                         >
                             { messages }
                         </Row>
+                            <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
+                                <EmojiPicker 
+                                    onEmojiClick = {(emoji) => 
+                                        chatMessageRef.current.value += emoji.emoji 
+                                    }
+                                    theme = "dark"
+                                    emojiStyle = "facebook"
+                                    />
+                            </Row>
+                        
                         <Row className = "chat-input-row">
                             <Col className = "chat-input-col">
                                 <input 
@@ -260,6 +279,11 @@ export default function Group(){
                                     ref = { chatMessageRef }
                                     className = "chat-input"
                                 />
+                            </Col>
+                            <Col 
+                            className = "emoji-show-button"
+                            onClick = { emojiShowChange }>
+                                Emoji
                             </Col>
                             <Col className = "chat-send-button-col">
                                 <Button onClick = { sendToChat }>

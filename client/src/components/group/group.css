@@ -82,3 +82,18 @@
 .chat-send-button-col {
     max-width: fit-content !important;
 }
+
+.emoji-picker-row {
+    height: fit-content;
+    margin-top: -450px !important;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.emojihide {
+    display: none !important;
+}
+
+.emoji-show-button {
+    max-width: fit-content !important;
+}

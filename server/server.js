@@ -20,6 +20,7 @@ const userDataUpdateRoute = require("./routes/userdataupdate")
 const leaveGroupRoute = require("./routes/leavegroup")
 const profileDataChangeRoute = require("./routes/profiledatachange")
 const sendToChatRoute = require("./routes/sendtochat")
+const privateMessageRoute = require("./routes/privatemessage")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -118,6 +119,11 @@ app.use("/userdataupdate" , userDataUpdateRoute({
 app.use("/sendtochat" , sendToChatRoute({
     express,
     GroupModel
+}))
+
+app.use("/sendpm" , privateMessageRoute({
+    express,
+    MemberModel
 }))
 
 app.listen(PORT , serverCallback) 

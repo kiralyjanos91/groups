@@ -28,8 +28,8 @@ const memberSchema = new mongoose.Schema({
     birth: {
         type: String
     },
-    city: {
-        type: String
+    location: {
+        type: Object
     },
     hobby: {
         type: String
