@@ -22,6 +22,9 @@ const memberSchema = new mongoose.Schema({
     private_messages: {
         type: Array
     },
+    invitations: {
+        type: Array
+    },
     gender: {
         type: String
     },

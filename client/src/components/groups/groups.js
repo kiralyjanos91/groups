@@ -19,13 +19,30 @@ export default function HomePage(){
     const { page } = useParams()
     const [groups , setGroups] = useState([])
     const [show , setShow] = useState(false)
-
+    const [groupStatus , setGroupStatus] = useState("All")
+    
     const handleShow = () => {
         setShow(true)
     }
+
     const handleClose = () => {
         setShow(false)
     }
+
+    const groupStatusSelectors = ["All" , "Joined" , "Own"].map((status , index) => {
+        return (
+            <Col
+                onClick={() => {
+                    setGroupStatus(status)
+                    navigate("/groups/1")
+                    dispatch(changeCategory("all"))
+                }
+                }
+            >
+                <p>{status}</p>
+            </Col>
+        )
+    })
 
     const categoryChange = (e) => {
         dispatch(changeCategory(e.target.value))
@@ -56,7 +73,21 @@ export default function HomePage(){
         }
         })
 
-    const groupsListing = groupsList.slice(
+        console.log(user)
+
+    const statusFilteredList = groupsList.filter((group) => {
+        if (groupStatus === "All") {
+            return group
+        }
+        else if (groupStatus === "Joined")
+            return user.groups.find((usersGroup) => usersGroup.name === group.name)
+        else {
+            return user.own_groups.find((usersOwnGroup) => usersOwnGroup.name === group.name)
+        }
+
+    })
+
+    const groupsListing = statusFilteredList.slice(
             (parseInt(page) -1) * 15 , (parseInt(page) -1) * 15 + 15
         ).map((group , index) => {
             return (
@@ -70,12 +101,31 @@ export default function HomePage(){
                         onClick = { () => navigate(`/group/${group._id}`) } 
                     >
                         <p>{ group.name }</p>
+                        { user.groups.some(oneGroup => oneGroup.name === group.name) ? 
+                            <p> - Joined</p> 
+                        : 
+                            null
+                        }
+                        { user.own_groups.some(oneGroup => oneGroup.name === group.name) ?
+                            <p> - OwnGroup</p> 
+                        : 
+                            null
+                        }
                     </Col>
                 </Col>
             )
         })
 
-        const notEmptyGroupCategories = groups.reduce((accumulator , current) => {
+        const notEmptyGroupCategories = groups.filter((group,index) => {
+            if (groupStatus === "All") {
+                return group
+            }
+            else if (groupStatus === "Joined")
+                return user.groups.find((usersGroup) => usersGroup.name === group.name)
+            else {
+                return user.own_groups.find((usersOwnGroup) => usersOwnGroup.name === group.name)
+            }
+        }).reduce((accumulator , current) => {
             return (
                 accumulator.includes(current.category) ? 
                     accumulator 
@@ -123,6 +173,9 @@ export default function HomePage(){
                         </Col>
                     </Row>
                     <Row>
+                        { groupStatusSelectors }
+                    </Row>
+                    <Row>
                         <Col>
                             <label htmlFor="filter-by-category">
                                 Category:
@@ -141,12 +194,12 @@ export default function HomePage(){
                     <Row className="group-listing-row">
                         { groupsListing }
                     </Row>
-                    { groupsList.length > 15 &&
+                    { statusFilteredList.length > 15 &&
                         <Row className="groups-pagination-row">
                             <PagePagination 
                                 root = "/groups"
                                 pageCount = { 
-                                    Math.ceil(groupsList.length / 15) 
+                                    Math.ceil(statusFilteredList.length / 15) 
                                 }
                             />
                         </Row>

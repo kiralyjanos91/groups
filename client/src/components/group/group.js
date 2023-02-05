@@ -256,41 +256,48 @@ export default function Group(){
                         </Col>
                     </Row>
                     <Container className = "chat-container">
-                        <Row 
-                            className = "messages-window-row"
-                            ref = { chatWindowRef }
-                        >
-                            { messages }
-                        </Row>
-                            <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
-                                <EmojiPicker 
-                                    onEmojiClick = {(emoji) => 
-                                        chatMessageRef.current.value += emoji.emoji 
-                                    }
-                                    theme = "dark"
-                                    emojiStyle = "facebook"
-                                    />
-                            </Row>
-                        
-                        <Row className = "chat-input-row">
-                            <Col className = "chat-input-col">
-                                <input 
-                                    name="chat-input"
-                                    ref = { chatMessageRef }
-                                    className = "chat-input"
-                                />
-                            </Col>
-                            <Col 
-                            className = "emoji-show-button"
-                            onClick = { emojiShowChange }>
-                                Emoji
-                            </Col>
-                            <Col className = "chat-send-button-col">
-                                <Button onClick = { sendToChat }>
-                                    Send
-                                </Button>
-                            </Col>
-                        </Row>
+                        { !joined && notOwnGroup ?
+                            <>
+                                You have to be a member to see the messages
+                            </>
+                        :
+                            <>
+                                <Row 
+                                    className = "messages-window-row"
+                                    ref = { chatWindowRef }
+                                >
+                                    { messages }
+                                </Row>
+                                <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
+                                    <EmojiPicker 
+                                        onEmojiClick = {(emoji) => 
+                                            chatMessageRef.current.value += emoji.emoji 
+                                        }
+                                        theme = "dark"
+                                        emojiStyle = "facebook"
+                                        />
+                                </Row>
+                                <Row className = "chat-input-row">
+                                    <Col className = "chat-input-col">
+                                        <input 
+                                            name="chat-input"
+                                            ref = { chatMessageRef }
+                                            className = "chat-input"
+                                        />
+                                    </Col>
+                                    <Col 
+                                    className = "emoji-show-button"
+                                    onClick = { emojiShowChange }>
+                                        Emoji
+                                    </Col>
+                                    <Col className = "chat-send-button-col">
+                                        <Button onClick = { sendToChat }>
+                                            Send
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </>
+                        }   
                     </Container>
                 </>
             :
