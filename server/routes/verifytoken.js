@@ -16,7 +16,8 @@ const verifyTokenRoute = ({
         const user = {
             username,
             own_groups: userData?.own_groups,
-            groups: userData?.groups
+            groups: userData?.groups,
+            small_photo: userData?.photos?.small_photo || ""
         }
 
         jwt.verify(accessToken , process.env.ACCESS_TOKEN_SECRET, (err , decoded) => {

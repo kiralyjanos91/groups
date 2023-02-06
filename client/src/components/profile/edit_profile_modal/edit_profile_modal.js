@@ -21,11 +21,11 @@ export default function EditProfileModal ({
     const { userDataUpdate } = UserDataUpdateHook()
 
     const [locationSelector , setLocationSelector] = useState({
-        country:profileData?.location.country,
-        countryCode:profileData?.location.countryCode,
-        state:profileData?.location.state,
-        stateCode:profileData?.location.stateCode,
-        city:profileData?.location.city
+        country: profileData?.location.country,
+        countryCode: profileData?.location.countryCode,
+        state: profileData?.location.state,
+        stateCode: profileData?.location.stateCode,
+        city: profileData?.location.city
     })
 
     const locationChange = (e) => {
@@ -96,14 +96,13 @@ export default function EditProfileModal ({
                 </label>
                 <input 
                     name = { field[0] } 
-                    value = { field[1] } 
+                    value = { field[1] || ""} 
                     onChange={(e) => formChange(e)}
+                    type = { field[0] === "birth" ? "date" : "text"}
                 />
             </div>
         )
     })
-
-    console.log(locationSelector)
 
     const countries = Country?.getAllCountries().map((country , index) => {
         return (
@@ -142,13 +141,12 @@ export default function EditProfileModal ({
         )
     })
 
-    console.log(`["${locationSelector.country}","${locationSelector.countryCode}"]`)
-    console.log()
+    console.log(profileData)
 
     return (    
-        <Modal show={ show } onHide={ handleClose }>
+        <Modal show={ show } onHide={ handleClose } centered>
             <Modal.Header closeButton>
-                <Modal.Title>Log Out Box</Modal.Title>
+                <Modal.Title>Edit profile data</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>

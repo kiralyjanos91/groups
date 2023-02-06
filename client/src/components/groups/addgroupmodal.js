@@ -9,6 +9,7 @@ import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 export default function AddGroupModal({ show , handleClose , groupCategoryOptions }){
     
     const username = useSelector((state) => state.userData.data.username)
+    const small_photo = useSelector((state) => state.userData.data.small_photo)
     const groupNameRef = useRef()
     const categoryRef = useRef()
     const { userDataUpdate } = UserDataUpdateHook()
@@ -18,7 +19,10 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
         e.preventDefault()
         axios.post("/addgroup" , {
             name: groupNameRef.current.value,
-            username,
+            user: {
+                username,
+                small_photo
+            },
             category: categoryRef.current.value
             // location: locationRef.current.value
         })
@@ -33,7 +37,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
 
     return (
         <>
-            <Modal show={ show } onHide={ handleClose }>
+            <Modal show={ show } onHide={ handleClose } centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Log Out Box</Modal.Title>
                 </Modal.Header>

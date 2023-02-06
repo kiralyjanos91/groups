@@ -29,6 +29,22 @@
     cursor: pointer;
 }
 
+.group-status-selector-col {
+    max-width: fit-content !important;
+}
+
+.group-status-selector-col > p {
+    cursor: pointer;
+}
+
+.selected-selector {
+    color: #FF493A;
+}
+
 .groups-pagination-row {
     justify-content: center;
+}
+
+.filter-by-category {
+    width: auto !important;
 }

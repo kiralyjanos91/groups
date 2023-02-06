@@ -30,14 +30,15 @@ export default function HomePage(){
     }
 
     const groupStatusSelectors = ["All" , "Joined" , "Own"].map((status , index) => {
+        const selected = status === groupStatus ? "selected-selector" : ""
         return (
             <Col
                 onClick={() => {
                     setGroupStatus(status)
                     navigate("/groups/1")
                     dispatch(changeCategory("all"))
-                }
-                }
+                }}
+                className = {`group-status-selector-col ${ selected }`}
             >
                 <p>{status}</p>
             </Col>
@@ -146,8 +147,6 @@ export default function HomePage(){
             )
         })
 
-        console.log(notEmptyGroupCategories)
-
     return (
         <Container>
            
@@ -183,6 +182,7 @@ export default function HomePage(){
                             <select
                                 id = "filter-by-category"
                                 name = "filter-by-category"
+                                className = "filter-by-category"
                                 onChange = {(e) => categoryChange(e)}
                             >
                                     <option value = "all">All</option>

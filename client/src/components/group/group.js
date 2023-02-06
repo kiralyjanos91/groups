@@ -92,21 +92,31 @@ export default function Group(){
     }
 
     const membersList = groupInfo?.members?.map((member , index) => {
-        if (member.username !== admin) {
+        if (member.username !== admin.username) {
             return (
-                <li key = { index }>
-                    <Link 
-                        to = {
-                            member.username === ownUsername ?
-                                `/profile`
-                            :
-                                `/member/${member.username}`
+                <Col 
+                    as = { Link }
+                    key = { index }
+                    className = "primary-link member-photo-col" 
+                    to = {
+                        member.username === ownUsername ?
+                            `/profile`
+                        :
+                            `/member/${member.username}`
+                    }
+                >
+                    <img 
+                        src = { 
+                            member.small_photo || 
+                            "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
                         }
-                        className="primary-link"
-                    >
+                        alt = "small-profile"
+                        className="small-photo-round" 
+                    />
+                    <p className="members-list-username">
                         { member.username }
-                    </Link>
-                </li>
+                    </p>
+                </Col>
             )
         }   
         else {
@@ -157,14 +167,14 @@ export default function Group(){
                 <>
                     <Row>
                         <Col>
-                            <h1>
+                            <h1 className="group-name">
                                 { groupName }
                             </h1>
                         </Col>
                     </Row>
                     { notOwnGroup &&
                         <Row>
-                            <Col>
+                            <Col className = "join-button-col">
                                 { joined ?
                                     <Button 
                                         variant="secondary" 
@@ -204,20 +214,27 @@ export default function Group(){
                         </Row>
                     }
                     <Row>
-                        <Col>
-                            <p>Admin:</p>
-                            <p>
-                                <Link                            
-                                    to = {
-                                        admin === ownUsername ?
-                                            `/profile`
-                                        :
-                                            `/member/${admin}`
-                                    }                                 
-                                    className="primary-link"
-                                >
-                                    { admin } 
-                                </Link>
+                        <p>Admin:</p>
+                        <Col 
+                            as = { Link } 
+                            to = {
+                                admin.username === ownUsername ?
+                                    `/profile`
+                                :
+                                    `/member/${admin.username}`
+                            }  
+                            className = "primary-link member-photo-col"
+                        >
+                            <img 
+                                src = { 
+                                    admin.small_photo || 
+                                    "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
+                                }
+                                alt = "small-profile"
+                                className="small-photo-round" 
+                            />
+                            <p className="members-list-username">
+                                { admin.username }
                             </p>
                         </Col>
                     </Row>
@@ -232,14 +249,13 @@ export default function Group(){
                             </p>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col>
-                            <p>Members:</p>
-                            <ul>
-                                { membersList }
-                            </ul>
-                        </Col>
+                    <Row>      
+                        <p>Members:</p>
                     </Row>
+                    <Row>
+                        { membersList }
+                    </Row>
+                        
                     <Row>
                         <Col>
                             <p>Events:</p>
@@ -286,13 +302,21 @@ export default function Group(){
                                         />
                                     </Col>
                                     <Col 
-                                    className = "emoji-show-button"
-                                    onClick = { emojiShowChange }>
-                                        Emoji
+                                        className = "emoji-show-button"
+                                        onClick = { emojiShowChange }
+                                    >
+                                        <img 
+                                            src="https://groupsiteimages.s3.amazonaws.com/icons/emoji-open-icon.png" 
+                                            alt="emoji-open-icon"
+                                        />
                                     </Col>
                                     <Col className = "chat-send-button-col">
                                         <Button onClick = { sendToChat }>
-                                            Send
+                                            <img 
+                                                src = "https://groupsiteimages.s3.amazonaws.com/icons/send-icon.png" 
+                                                alt = "send-button-icon"
+                                                className = "send-button-icon"
+                                            />
                                         </Button>
                                     </Col>
                                 </Row>

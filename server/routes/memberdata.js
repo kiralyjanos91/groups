@@ -27,7 +27,9 @@ const memberDataRoute = ({
                 birth,
                 city,
                 hobby,
-                about
+                about,
+                photo: memberData.photo || "",
+                small_photo: memberData.small_photo || ""
             }
             res.status(200).json(memberData)
         }

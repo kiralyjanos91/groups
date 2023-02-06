@@ -10,8 +10,8 @@ const memberSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    picture: {
-        type: String
+    photos: {
+        type: Object
     },
     own_groups: {
         type: Array

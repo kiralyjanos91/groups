@@ -40,7 +40,8 @@ const loginRoute = ({
     const user = {
         username,
         own_groups: userData?.own_groups,
-        groups: userData?.groups
+        groups: userData?.groups,
+        small_photo: userData?.photos?.small_photo || ""
     }
 
     res.status(200).json({ newToken , user })

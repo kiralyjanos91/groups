@@ -24,7 +24,7 @@ export default function LogoutModal( { handleClose , show  }){
 
     return (
         <>
-            <Modal show={ show } onHide={ handleClose }>
+            <Modal show={ show } onHide={ handleClose } centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Log Out Box</Modal.Title>
                 </Modal.Header>

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import axios from "axios"
 import { useSelector } from "react-redux"
 import EditProfileModal from "./edit_profile_modal/edit_profile_modal"
+import "./profile.css"
 
 export default function Profile(){
 
@@ -73,16 +74,6 @@ export default function Profile(){
                 <>
                     <Row>
                         <Col>
-                            <p
-                                className="edit-button"
-                                onClick = { handleShow }
-                            >
-                                Edit Profile Data
-                            </p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
                             <h1>
                                 Profile Page
                             </h1>
@@ -93,29 +84,26 @@ export default function Profile(){
                         <Col>
                             Username: {profileData.username}
                         </Col>
-                    </Row>
-                    <hr />
-                    <Row>
-                        <Col>
-                            Own Groups:
-                            <ul>
-                                { ownGroupsList }
-                            </ul>
+                        <Col className="edit-profile-col">
+                            <div
+                                className="edit-button"
+                                onClick = { handleShow }
+                            >
+                                Edit profile data
+                                <img 
+                                    src = "https://groupsiteimages.s3.amazonaws.com/icons/edit-icon.png" 
+                                    alt = "edit-icon" 
+                                    className="edit-icon"
+                                />
+                            </div>
                         </Col>
                     </Row>
-                    <hr />
-                    <Row>
-                        <Col>
-                            Groups:
-                            <ul>
-                                { groupsList }
-                            </ul>
-                        </Col>
-                    </Row>
-                    <hr />
                     <Row>
                         <Col>
                             <p>Date of birth:</p>
+                            <p>
+                                { profileData.birth }
+                            </p>
                         </Col>
                     </Row>
                     <hr />
@@ -149,6 +137,24 @@ export default function Profile(){
                             <p>
                                 { profileData.hobby }
                             </p>
+                        </Col>
+                    </Row>
+                    <hr />
+                    <Row>
+                        <Col>
+                            Own Groups:
+                            <ul>
+                                { ownGroupsList }
+                            </ul>
+                        </Col>
+                    </Row>
+                    <hr />
+                    <Row>
+                        <Col>
+                            Groups:
+                            <ul>
+                                { groupsList }
+                            </ul>
                         </Col>
                     </Row>
                     <EditProfileModal 

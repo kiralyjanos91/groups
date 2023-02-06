@@ -5,17 +5,17 @@ const addGroupsRoute = ({
 }) => {
     const router = express.Router()
     router.post("/" , async (req , res) => {
-        const { name , username , category } = req.body
+        const { name , user , category } = req.body
         const newGroup = new GroupModel({
             name,
             category,
-            admin: username
+            admin: user
         })
         try {
             const groupSaveResponse = await newGroup.save()
             group_Id = groupSaveResponse._id.toHexString()
             const memberUpdateResponse = await MemberModel.updateOne({
-                username
+                username: user.username
             } , {
                 $push: {
                     own_groups: {

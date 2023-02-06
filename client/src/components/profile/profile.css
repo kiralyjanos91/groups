@@ -1,0 +1,14 @@
+.edit-profile-col {
+    max-width: fit-content !important;
+}
+
+.edit-button {
+    display: flex;
+    align-items: center;
+}
+
+.edit-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}

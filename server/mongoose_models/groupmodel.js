@@ -16,7 +16,7 @@ const groupSchema = new mongoose.Schema({
         type: Array
     },
     admin: {
-        type: String
+        type: Object
     },
     events: {
         type: Array

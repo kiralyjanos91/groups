@@ -6,6 +6,23 @@
     display: flex !important;
 }
 
+.group-name {
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.join-button-col {
+    margin-bottom: 20px !important;
+}
+
+.member-photo-col {
+    display: flex;
+    max-width: fit-content !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .chat-container {
     background-color: rgb(29, 29, 29);
     border-radius: 5px;
@@ -68,11 +85,10 @@
 }
 
 .chat-input-row {
-    align-items: center
-}
-
-.chat-input-col {
-
+    align-items: center;
+    padding: 5px;
+    border-radius: 0px 0px 5px 5px;
+    background-color: #212121;
 }
 
 .chat-input {
@@ -81,6 +97,15 @@
 
 .chat-send-button-col {
     max-width: fit-content !important;
+}
+
+.chat-send-button-col > button {
+    display: flex;
+}
+
+.send-button-icon {
+    width: 20px;
+    height: 20px;
 }
 
 .emoji-picker-row {
@@ -96,4 +121,11 @@
 
 .emoji-show-button {
     max-width: fit-content !important;
+    cursor: pointer;
+    padding: 0 !important
+}
+
+.emoji-show-button > img {
+    width: 30px;
+    height: 30px
 }

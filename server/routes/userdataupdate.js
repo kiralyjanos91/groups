@@ -13,7 +13,8 @@ const userDataUpdateRoute = ({
         const userData = {
             username: member.username,
             own_groups: member.own_groups,
-            groups: member.groups
+            groups: member.groups,
+            small_photo: member?.photos?.small_photo || ""
         }
         res.status(200).json({ userData })
 
