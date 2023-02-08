@@ -2,6 +2,12 @@ const multer = require("multer")
 const multerS3 = require("multer-s3")
 const { S3Client } = require("@aws-sdk/client-s3")
 
+const pohotoUploadRoute = ({
+    express
+}) => {
+
+const router = express.Router()
+
 const s3 = new S3Client({
     credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -23,10 +29,9 @@ const s3Storage = multerS3({
     } 
 })
 
-
 function sanitizeFile(file, cb) {
 
-    const fileExts = [".png", ".jpg", ".jpeg", ".gif"];
+    const fileExts = [ ".jpg", ".jpeg", ".gif", ".png" ];
 
     const isAllowedExt = fileExts.includes(
         path.extname(file.originalname.toLowerCase())
@@ -54,8 +59,7 @@ const uploadImage = multer({
 })
 
 
-router.put("/:userId/profile-image", uploadImage.single("image"), // our uploadImage middleware
-    (req, res, next) => {
+router.put("/", uploadImage.single("image"), (req, res, next) => {
         /* 
            req.file = { 
              fieldname, originalname, 
@@ -72,3 +76,8 @@ router.put("/:userId/profile-image", uploadImage.single("image"), // our uploadI
         // HERE IS YOUR LOGIC TO UPDATE THE DATA IN DATABASE
     }
 )
+
+return router
+}
+
+module.exports = pohotoUploadRoute
