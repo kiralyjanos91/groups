@@ -1,4 +1,4 @@
-import React , { useState , useEffect } from "react"
+import React , { useState , useEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import Spinner from "react-bootstrap/Spinner"
 import { Link } from "react-router-dom"
@@ -12,6 +12,7 @@ export default function Profile(){
     const [profileData , setProfileData] = useState()
     const [show , setShow] = useState(false)
     const user = useSelector((state) => state.userData.data)
+    const photoRef = useRef()
 
     const handleShow = () => {
         setShow(true)
@@ -66,7 +67,12 @@ export default function Profile(){
     }
     const locationInfoString = locationInfoArray.join(", ")
 
-
+    const uploadPhoto = () => {
+        // console.log("Photo moto")
+        // console.log(photoRef.current.value)
+        axios.put("/photoupload" , photoRef.current.value)
+            .then(res => console.log(res))
+    }
 
     return (
         <Container>
@@ -80,6 +86,16 @@ export default function Profile(){
                         </Col>
                     </Row>
                     <hr />
+                    <Row>
+                        <input 
+                            name = "photo-file" 
+                            type = "file" 
+                            ref = { photoRef }
+                        />
+                        <p onClick = { uploadPhoto }>
+                            Upload Photo
+                        </p>
+                    </Row>
                     <Row>
                         <Col>
                             Username: {profileData.username}
