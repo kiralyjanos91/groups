@@ -13,6 +13,7 @@ export default function Profile(){
     const [show , setShow] = useState(false)
     const user = useSelector((state) => state.userData.data)
     const photoRef = useRef()
+    const [selectedFile , setSelectedFile] = useState(null)
 
     const handleShow = () => {
         setShow(true)
@@ -70,7 +71,10 @@ export default function Profile(){
     const uploadPhoto = () => {
         // console.log("Photo moto")
         // console.log(photoRef.current.value)
-        axios.put("/photoupload" , photoRef.current.value)
+        const formData = new FormData()
+        formData.append("image" , selectedFile , selectedFile.name)
+        formData.append("username" , profileData?.username)
+        axios.put("/photoupload" , formData)
             .then(res => console.log(res))
     }
 
@@ -91,6 +95,7 @@ export default function Profile(){
                             name = "photo-file" 
                             type = "file" 
                             ref = { photoRef }
+                            onChange = { e => setSelectedFile(e.target.files[0])}
                         />
                         <p onClick = { uploadPhoto }>
                             Upload Photo
