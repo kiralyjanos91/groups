@@ -3,8 +3,10 @@ const multerS3 = require("multer-s3")
 const { S3Client } = require("@aws-sdk/client-s3")
 const path = require("path")
 
-const pohotoUploadRoute = ({
-    express
+const profilePohotoUploadRoute = ({
+    express,
+    MemberModel,
+    GroupModel
 }) => {
 
 const router = express.Router()
@@ -25,7 +27,7 @@ const s3Storage = multerS3({
         cb(null, {fieldname: file.fieldname})
     },
     key: (req, file, cb) => {
-        const fileName = "profile_photos/" + Date.now() + "_" + file.fieldname + "_" + file.originalname;
+        const fileName = "profile_photos/" + Date.now() + "_" + "profile_photo" + "_" + file.originalname;
         cb(null,fileName)
     } 
 })
@@ -52,41 +54,31 @@ const uploadImage = multer({
         filterFile(file, callback)
     },
     limits: {
-        fileSize: 1024 * 1024 * 2 // 2mb file size
+        fileSize: 1024 * 1024 * 5
     }
 })
 
 
-router.put("/", 
-uploadImage.single("image"), 
-(req, res, next) => {
-        /* 
-           req.file = { 
-             fieldname, originalname, 
-             mimetype, size, bucket, key, location
-           }
-        */
+router.put("/", uploadImage.single("image"), async (req, res, next) => {
 
-        // location key in req.file holds the s3 url for the image
-
-
-
-        // let data = {}
-        // if(req.file) {
-        //     data.image = req.file.location
-        // }
-
-        // console.log(data.image)
+        await MemberModel.updateOne({
+            username: req.body.username
+        },
+        {
+            photos: {
+                big_photo: req.file.location,
+                small_photo: req.file.location
+            }
+        }
+        )
 
            console.log(req.body.username)
 
            res.status(200).json(req.file.location)
-
-        // HERE IS YOUR LOGIC TO UPDATE THE DATA IN DATABASE
     }
 )
 
 return router
 }
 
-module.exports = pohotoUploadRoute
+module.exports = profilePohotoUploadRoute

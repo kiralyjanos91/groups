@@ -107,8 +107,7 @@ export default function Group(){
                 >
                     <img 
                         src = { 
-                            member.small_photo || 
-                            "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
+                            member.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
                         }
                         alt = "small-profile"
                         className="small-photo-round" 

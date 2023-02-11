@@ -5,15 +5,19 @@ import { Link } from "react-router-dom"
 import axios from "axios"
 import { useSelector } from "react-redux"
 import EditProfileModal from "./edit_profile_modal/edit_profile_modal"
+import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 import "./profile.css"
 
 export default function Profile(){
 
     const [profileData , setProfileData] = useState()
+    const [changePhoto , setChangePhoto] = useState(false)
     const [show , setShow] = useState(false)
     const user = useSelector((state) => state.userData.data)
     const photoRef = useRef()
     const [selectedFile , setSelectedFile] = useState(null)
+    const { userDataUpdate } = UserDataUpdateHook()
+
 
     const handleShow = () => {
         setShow(true)
@@ -30,8 +34,9 @@ export default function Profile(){
 
     const ownGroupsList = profileData?.own_groups?.map(( group , index ) => {
         return (
-            <li 
+            <Col 
                 key = { index }
+                className = "group-col"
             > 
                 <Link 
                     to = {`/group/${group.group_Id}`}
@@ -39,22 +44,22 @@ export default function Profile(){
                 >
                     { group.name } 
                 </Link> 
-            </li>
+            </Col>
         ) 
     })
 
     const groupsList = profileData?.groups?.map(( group , index ) => {
         return (
-            <li 
+            <Col 
                 key = { index }
+                className = "group-col"
             >
                 <Link 
                     to = {`/group/${group.group_Id}`}
-                    className = "primary-link"
                 >
                     { group.name } 
                 </Link>
-            </li> 
+            </Col> 
         )
     })
 
@@ -69,13 +74,12 @@ export default function Profile(){
     const locationInfoString = locationInfoArray.join(", ")
 
     const uploadPhoto = () => {
-        // console.log("Photo moto")
-        // console.log(photoRef.current.value)
         const formData = new FormData()
         formData.append("image" , selectedFile , selectedFile.name)
         formData.append("username" , profileData?.username)
         axios.put("/photoupload" , formData)
-            .then(res => console.log(res))
+            .then(() => userDataUpdate())
+            .then(() => setChangePhoto(false))
     }
 
     return (
@@ -91,19 +95,12 @@ export default function Profile(){
                     </Row>
                     <hr />
                     <Row>
-                        <input 
-                            name = "photo-file" 
-                            type = "file" 
-                            ref = { photoRef }
-                            onChange = { e => setSelectedFile(e.target.files[0])}
-                        />
-                        <p onClick = { uploadPhoto }>
-                            Upload Photo
-                        </p>
-                    </Row>
-                    <Row>
                         <Col>
-                            Username: {profileData.username}
+                            <img 
+                                className="profile-img"
+                                src = {profileData.photos.small_photo} 
+                                alt = "profile_photo" 
+                            />
                         </Col>
                         <Col className="edit-profile-col">
                             <div
@@ -117,6 +114,40 @@ export default function Profile(){
                                     className="edit-icon"
                                 />
                             </div>
+                        </Col>
+                    </Row>
+                    <Row 
+                        className = "change-photo-row"
+                    >
+                        { changePhoto ?
+                            <>
+                                <input 
+                                    name = "photo-file" 
+                                    type = "file" 
+                                    ref = { photoRef }
+                                    onChange = { e => setSelectedFile(e.target.files[0])}
+                                    />
+                                <p onClick = { uploadPhoto }>
+                                    Upload Photo
+                                </p>
+                                <p
+                                onClick={() => setChangePhoto(false)}
+                            > 
+                                Cancel 
+                            </p>
+                             </>
+                        :
+                            <p
+                                onClick={() => setChangePhoto(true)}
+                            > 
+                                Change Photo 
+                            </p>
+
+                        }
+                    </Row>
+                    <Row>
+                        <Col>
+                            Username: {profileData.username}
                         </Col>
                     </Row>
                     <Row>
@@ -162,21 +193,17 @@ export default function Profile(){
                     </Row>
                     <hr />
                     <Row>
-                        <Col>
-                            Own Groups:
-                            <ul>
-                                { ownGroupsList }
-                            </ul>
-                        </Col>
+                        <p>
+                            Own groups:         
+                        </p>
+                        { ownGroupsList }                       
                     </Row>
                     <hr />
                     <Row>
-                        <Col>
-                            Groups:
-                            <ul>
-                                { groupsList }
-                            </ul>
-                        </Col>
+                        <p>
+                            Groups:         
+                        </p>
+                        { groupsList }                       
                     </Row>
                     <EditProfileModal 
                         profileData = { profileData }

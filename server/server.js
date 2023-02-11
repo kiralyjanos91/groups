@@ -21,7 +21,7 @@ const leaveGroupRoute = require("./routes/leavegroup")
 const profileDataChangeRoute = require("./routes/profiledatachange")
 const sendToChatRoute = require("./routes/sendtochat")
 const privateMessageRoute = require("./routes/privatemessage")
-const pohotoUploadRoute = require("./routes/photoupload")
+const profilePohotoUploadRoute = require("./routes/profilephotoupload")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -127,9 +127,10 @@ app.use("/sendpm" , privateMessageRoute({
     MemberModel
 }))
 
-app.use("/photoupload" , pohotoUploadRoute({
+app.use("/photoupload" , profilePohotoUploadRoute({
     express,
-    MemberModel
+    MemberModel,
+    GroupModel
 }))
 
 app.listen(PORT , serverCallback) 
