@@ -72,7 +72,42 @@ router.put("/", uploadImage.single("image"), async (req, res, next) => {
         }
         )
 
-           console.log(req.body.username)
+        const ownGroups = JSON.parse(req.body.ownGroups)
+        const ownGroupsNames = ownGroups.map(( owngroup , index ) => owngroup.name)
+
+        const groups = JSON.parse(req.body.groups)
+        const groupsNames = groups.map(( group , index ) => group.name)
+
+        await GroupModel.updateMany({"name": {
+            $in: [...ownGroupsNames]
+        }},
+            {     
+                $set: {
+                    "admin.small_photo": req.file.location
+                } 
+            }
+        )
+        
+        // await GroupModel.updateMany({"name": {
+        //     $in: [...groupsNames]
+        // }},
+        //     { 
+        //         members: {
+        //             $elemMatch: {
+        //                 "username": req.body.username
+        //             }, 
+        //             $set: {
+        //                 "admin.small_photo": req.file.location
+        //             } 
+        //         }     
+        //     }
+        // )
+
+        
+
+
+
+        console.log(ownGroupsNames)
 
            res.status(200).json(req.file.location)
     }

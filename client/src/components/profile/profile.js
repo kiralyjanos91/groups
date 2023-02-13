@@ -77,6 +77,9 @@ export default function Profile(){
         const formData = new FormData()
         formData.append("image" , selectedFile , selectedFile.name)
         formData.append("username" , profileData?.username)
+        formData.append("ownGroups" , JSON.stringify(profileData?.own_groups))
+        formData.append("groups" , JSON.stringify(profileData?.groups))
+
         axios.put("/photoupload" , formData)
             .then(() => userDataUpdate())
             .then(() => setChangePhoto(false))
