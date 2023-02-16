@@ -37,13 +37,10 @@ export default function Profile(){
             <Col 
                 key = { index }
                 className = "group-col"
+                as = { Link }
+                to = {`/group/${group.group_Id}`}
             > 
-                <Link 
-                    to = {`/group/${group.group_Id}`}
-                    className = "primary-link"    
-                >
-                    { group.name } 
-                </Link> 
+                { group.name } 
             </Col>
         ) 
     })
@@ -53,12 +50,10 @@ export default function Profile(){
             <Col 
                 key = { index }
                 className = "group-col"
-            >
-                <Link 
-                    to = {`/group/${group.group_Id}`}
-                >
-                    { group.name } 
-                </Link>
+                as = { Link }
+                to = {`/group/${group.group_Id}`}
+            >        
+                { group.name } 
             </Col> 
         )
     })

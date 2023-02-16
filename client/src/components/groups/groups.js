@@ -39,6 +39,7 @@ export default function HomePage(){
                     dispatch(changeCategory("all"))
                 }}
                 className = {`group-status-selector-col ${ selected }`}
+                key = { index }
             >
                 <p>{status}</p>
             </Col>
@@ -47,7 +48,6 @@ export default function HomePage(){
 
     const categoryChange = (e) => {
         dispatch(changeCategory(e.target.value))
-        // setGroupsCategory(prev => e.target.value)
         if ( location !== "/groups/1") {
             navigate("/groups/1")
         }
@@ -140,7 +140,6 @@ export default function HomePage(){
                 <option 
                     key = { index } 
                     value = { category }
-                    selected = { selectedCategory === category }
                 >
                     { category }
                 </option>
@@ -184,10 +183,11 @@ export default function HomePage(){
                                 name = "filter-by-category"
                                 className = "filter-by-category"
                                 onChange = {(e) => categoryChange(e)}
+                                value = { selectedCategory }
                             >
                                     <option value = "all">All</option>
                                     { groupFilterOptions }
-                                
+
                             </select>
                         </Col>
                     </Row>

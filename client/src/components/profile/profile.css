@@ -34,11 +34,11 @@
     background-color: #2f343a;
 }
 
-.group-col > a {
+.group-col {
     color: #ffffff;
     text-decoration: none;
 }
 
-.group-col > a:hover {
+.group-col:hover {
     color: #ffffff;
 }

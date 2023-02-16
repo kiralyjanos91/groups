@@ -44,7 +44,6 @@ export default function Group(){
             })
     }, [user])
 
-
     const joinToGroup = () => {
         setButtonLoading(true)
         axios.post("/joingroup" , { groupName , user , id })
@@ -289,7 +288,7 @@ export default function Group(){
                                             chatMessageRef.current.value += emoji.emoji 
                                         }
                                         theme = "dark"
-                                        emojiStyle = "facebook"
+                                        emojiStyle = "google"
                                         />
                                 </Row>
                                 <Row className = "chat-input-row">
