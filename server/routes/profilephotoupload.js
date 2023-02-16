@@ -88,28 +88,23 @@ router.put("/", uploadImage.single("image"), async (req, res, next) => {
             }
         )
         
-        // await GroupModel.updateMany({"name": {
-        //     $in: [...groupsNames]
-        // }},
-        //     { 
-        //         members: {
-        //             $elemMatch: {
-        //                 "username": req.body.username
-        //             }, 
-        //             $set: {
-        //                 "admin.small_photo": req.file.location
-        //             } 
-        //         }     
-        //     }
-        // )
-
+        const inGroups = await GroupModel.find({"name": {
+            $in: [...groupsNames]
+        }})
         
+        inGroups.forEach( (group) => {
+            const thisMember = group.members.find(member => member.username === req.body.username)
+            
+            if (thisMember) {
+                thisMember.small_photo = req.file.location
+            }
 
+            group.markModified("members")
+        })
+        
+        await GroupModel.bulkSave(inGroups)
 
-
-        console.log(ownGroupsNames)
-
-           res.status(200).json(req.file.location)
+        res.status(200).json(req.file.location)
     }
 )
 
