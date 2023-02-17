@@ -5,24 +5,24 @@ import axios from "axios"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
+import "./addgroupmodal.css"
 
 export default function AddGroupModal({ show , handleClose , groupCategoryOptions }){
     
     const username = useSelector((state) => state.userData.data.username)
     const small_photo = useSelector((state) => state.userData.data.small_photo)
-    const groupNameRef = useRef()
     const categoryRef = useRef()
     const [ groupPhoto , setGroupPhoto ] = useState(null)
     const [ photoLocation , setPhotoLocation ] = useState("")
-    const [ formFilled , setFormFilled ] = useState(false)
     const [ imageUploading , setImageUploading ] = useState(false)
+    const [ groupName , setGroupName ] = useState("")
     const { userDataUpdate } = UserDataUpdateHook()
     const navigate = useNavigate()
 
     const sendNewGroup = (e) => {
         e.preventDefault()
         axios.post("/addgroup" , {
-            name: groupNameRef.current.value,
+            name: groupName,
             user: {
                 username,
                 small_photo
@@ -41,31 +41,32 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
 
     useEffect(() => {
         if (groupPhoto) {
+            setPhotoLocation("")
             const photoForm = new FormData()
             photoForm.append("image" , groupPhoto , groupPhoto.name )
             axios.put("/groupphotoupload" , photoForm)
-            .then((res) => 
-            setPhotoLocation(() => res.data)
-            )
+                .then( (res) => 
+                    setPhotoLocation(() => res.data)       
+                )
+                .then( () => setImageUploading(false) )
         }
     } , [groupPhoto])
-
-    console.log(`Photo location is: ${photoLocation}`)
 
     return (
         <>
             <Modal show={ show } onHide={ handleClose } centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Log Out Box</Modal.Title>
+                    <Modal.Title>Create Group</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form>
-                        <label htmlFor="groupname">
+                        <label htmlFor = "groupname">
                             Name of you group:
                         </label>
                         <input 
                             name="groupname" 
-                            ref={ groupNameRef } 
+                            onChange = {(e) => setGroupName(e.target.value)}
+                            value = { groupName }
                         />
                         <label htmlFor="category">
                             Category:
@@ -77,10 +78,12 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
                         > 
                             { groupCategoryOptions }
                         </select>
+                        <labe htmlFor = "group_photo">Group Photo:</labe>
                         <input 
                             type = "file" 
                             name = "group_photo"
                             onChange = { (e) => {
+                                setImageUploading(true)
                                 setGroupPhoto(e.target.files[0]) 
                             }
                             }       
@@ -88,8 +91,17 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick = { sendNewGroup }> Create </Button>
-                    <Button variant="secondary" onClick = { handleClose }>
+                    <Button 
+                        variant="primary" 
+                        onClick = { sendNewGroup }
+                        className = { photoLocation && groupName ? "" : "disabled-create-button"}
+                    > 
+                        { imageUploading ? "Uploading..." : "Create" } 
+                    </Button>
+                    <Button 
+                        variant="secondary" 
+                        onClick = { handleClose }
+                    >
                         Close
                     </Button>
                 </Modal.Footer>
