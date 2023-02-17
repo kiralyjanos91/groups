@@ -22,6 +22,7 @@ const profileDataChangeRoute = require("./routes/profiledatachange")
 const sendToChatRoute = require("./routes/sendtochat")
 const privateMessageRoute = require("./routes/privatemessage")
 const profilePohotoUploadRoute = require("./routes/profilephotoupload")
+const groupPhotoUploadRoute = require("./routes/groupphotoupload")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -130,6 +131,11 @@ app.use("/sendpm" , privateMessageRoute({
 app.use("/photoupload" , profilePohotoUploadRoute({
     express,
     MemberModel,
+    GroupModel
+}))
+
+app.use("/groupphotoupload" , groupPhotoUploadRoute({
+    express,
     GroupModel
 }))
 

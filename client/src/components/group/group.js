@@ -159,6 +159,8 @@ export default function Group(){
         )
     })
 
+    console.log(groupInfo)
+
     return (
         <Container>
             { groupInfo ?

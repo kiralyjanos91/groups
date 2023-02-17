@@ -1,4 +1,4 @@
-import React , { useState , useEffect , useRef } from "react"
+import React , { useState , useEffect } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import Spinner from "react-bootstrap/Spinner"
 import { Link } from "react-router-dom"
@@ -14,7 +14,6 @@ export default function Profile(){
     const [changePhoto , setChangePhoto] = useState(false)
     const [show , setShow] = useState(false)
     const user = useSelector((state) => state.userData.data)
-    const photoRef = useRef()
     const [selectedFile , setSelectedFile] = useState(null)
     const { userDataUpdate } = UserDataUpdateHook()
 
@@ -96,7 +95,7 @@ export default function Profile(){
                         <Col>
                             <img 
                                 className="profile-img"
-                                src = {profileData.photos.small_photo} 
+                                src = { profileData.photos.small_photo } 
                                 alt = "profile_photo" 
                             />
                         </Col>
@@ -122,7 +121,6 @@ export default function Profile(){
                                 <input 
                                     name = "photo-file" 
                                     type = "file" 
-                                    ref = { photoRef }
                                     onChange = { e => setSelectedFile(e.target.files[0])}
                                     />
                                 <p onClick = { uploadPhoto }>
