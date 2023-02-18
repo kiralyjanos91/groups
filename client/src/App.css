@@ -1,5 +1,6 @@
 .app-body {
     min-height: calc(100vh - 55px);
+    margin-top: 50px;
 }
 
 .spinner-row {

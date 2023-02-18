@@ -21,11 +21,11 @@ export default function EditProfileModal ({
     const { userDataUpdate } = UserDataUpdateHook()
 
     const [locationSelector , setLocationSelector] = useState({
-        country: profileData?.location.country,
-        countryCode: profileData?.location.countryCode,
-        state: profileData?.location.state,
-        stateCode: profileData?.location.stateCode,
-        city: profileData?.location.city
+        country: profileData?.location?.country,
+        countryCode: profileData?.location?.countryCode,
+        state: profileData?.location?.state,
+        stateCode: profileData?.location?.stateCode,
+        city: profileData?.location?.city
     })
 
     const locationChange = (e) => {
@@ -146,7 +146,9 @@ export default function EditProfileModal ({
     return (    
         <Modal show={ show } onHide={ handleClose } centered>
             <Modal.Header closeButton>
-                <Modal.Title>Edit profile data</Modal.Title>
+                <Modal.Title>
+                    Edit profile data
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form>

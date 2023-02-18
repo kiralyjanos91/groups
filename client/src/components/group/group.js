@@ -131,13 +131,21 @@ export default function Group(){
     const messages = groupInfo?.messages?.map((message , index) => {
         const date = message.date
         let showMessageDate = ""
+        const senderName = message.username
 
         if (date) {
             const messageDate = new Date(date)
             showMessageDate = dateFormat.format(messageDate)
         }
 
-        const ownMessageClass = message.username === ownUsername ? "own-message" : ""
+        const ownMessageClass = senderName === ownUsername ? "own-message" : ""
+        const chatPhoto = senderName === admin?.username ? 
+                admin?.small_photo 
+            : 
+                groupInfo?.members?.find((member) => member.username === senderName)?.small_photo 
+
+
+        console.log(senderName)
 
         return (
             <Row 
@@ -146,13 +154,24 @@ export default function Group(){
             >
                 <Col className="message-col">
                     <Row>
-                        {showMessageDate}
+                        <img 
+                            src = { 
+                                chatPhoto 
+                                || 
+                                "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
+                            } 
+                            alt = "chat-user" 
+                            className = "chat-img"
+                        />
                     </Row>
                     <Row>
-                        {message.username}
+                        { showMessageDate }
                     </Row>
                     <Row>
-                        {message.message}
+                        { message.username }
+                    </Row>
+                    <Row>
+                        { message.message }
                     </Row>
                 </Col>
             </Row>
@@ -165,54 +184,70 @@ export default function Group(){
         <Container>
             { groupInfo ?
                 <>
-                    <Row>
+                    <Row className = "group-header-row">
+                        <Col className = "group-main-photo-col">
+                            <img 
+                                src = {
+                                    groupInfo?.photo 
+                                    || 
+                                    "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png"}
+                                alt = "group-img" 
+                                className = "group-main-photo"
+                            />
+                        </Col>
                         <Col>
                             <h1 className="group-name">
                                 { groupName }
-                            </h1>
+                            </h1>                       
+                            <p
+                                className="primary-link"
+                                onClick = { goToCategory }
+                            >                              
+                                { groupInfo.category }
+                            </p>
+                            { notOwnGroup &&
+                                <Row>
+                                    <Col className = "join-button-col">
+                                        { joined ?
+                                            <Button 
+                                                variant="secondary" 
+                                                onClick = { leaveGroup }
+                                            >
+                                                { buttonLoading ?
+                                                    <Spinner 
+                                                        animation="border" 
+                                                        role="status" 
+                                                        className="loading-button"
+                                                    >
+                                                        <span className="visually-hidden">Loading...</span>
+                                                    </Spinner>
+                                                :
+                                                    "Leave"
+                                                }
+                                            </Button>
+                                        :
+                                            <Button 
+                                                variant="primary" 
+                                                onClick = { joinToGroup }
+                                            >
+                                                { buttonLoading ?
+                                                    <Spinner 
+                                                        animation="border" 
+                                                        role="status"
+                                                        className="loading-button"
+                                                    >
+                                                        <span className="visually-hidden">Loading...</span>
+                                                    </Spinner>
+                                                :
+                                                    "Join"
+                                                }
+                                            </Button>
+                                        }
+                                    </Col>
+                                </Row>
+                            }
                         </Col>
                     </Row>
-                    { notOwnGroup &&
-                        <Row>
-                            <Col className = "join-button-col">
-                                { joined ?
-                                    <Button 
-                                        variant="secondary" 
-                                        onClick = { leaveGroup }
-                                    >
-                                        { buttonLoading ?
-                                            <Spinner 
-                                                animation="border" 
-                                                role="status" 
-                                                className="loading-button"
-                                            >
-                                                <span className="visually-hidden">Loading...</span>
-                                            </Spinner>
-                                        :
-                                            "Leave"
-                                        }
-                                    </Button>
-                                :
-                                    <Button 
-                                        variant="primary" 
-                                        onClick = { joinToGroup }
-                                    >
-                                        { buttonLoading ?
-                                            <Spinner 
-                                                animation="border" 
-                                                role="status"
-                                                className="loading-button"
-                                            >
-                                                <span className="visually-hidden">Loading...</span>
-                                            </Spinner>
-                                        :
-                                            "Join"
-                                        }
-                                    </Button>
-                                }
-                            </Col>
-                        </Row>
-                    }
                     <Row>
                         <p>Admin:</p>
                         <Col 
@@ -235,17 +270,6 @@ export default function Group(){
                             />
                             <p className="members-list-username">
                                 { admin.username }
-                            </p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <p>Category:</p>
-                            <p
-                                className="primary-link"
-                                onClick = { goToCategory }
-                            >                              
-                                { groupInfo.category }
                             </p>
                         </Col>
                     </Row>

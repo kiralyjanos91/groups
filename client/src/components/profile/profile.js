@@ -58,7 +58,7 @@ export default function Profile(){
     })
 
     const locationInfoArray = []
-    if (profileData) {
+    if (profileData?.location) {
         Object.values(profileData?.location).slice(0,3).forEach((data) => {
             if (data) {
                 locationInfoArray.push(data)
@@ -95,7 +95,7 @@ export default function Profile(){
                         <Col>
                             <img 
                                 className="profile-img"
-                                src = { profileData.photos.small_photo } 
+                                src = { profileData?.photos?.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" } 
                                 alt = "profile_photo" 
                             />
                         </Col>

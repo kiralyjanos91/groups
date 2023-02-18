@@ -6,13 +6,29 @@
     display: flex !important;
 }
 
+.group-header-row {
+    border-bottom: 1px solid white;
+    padding-bottom: 20px;
+    align-items: flex-end;
+}
+
+.group-main-photo-col {
+    max-width: fit-content !important;
+    max-height: fit-content !important;
+    padding: 0px !important;
+}
+
+.group-main-photo {
+    width: 150px;
+    height: 150px;
+    background-color: #41464b;
+}
+
 .group-name {
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 0px !important
 }
 
 .join-button-col {
-    margin-bottom: 20px !important;
 }
 
 .member-photo-col {
@@ -82,6 +98,13 @@
 
 .messages-window-row::-webkit-scrollbar-track {
     background-color: rgb(45, 45, 45);
+}
+
+.chat-img {
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    border-radius: 30px;
 }
 
 .chat-input-row {
