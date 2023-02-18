@@ -18,6 +18,14 @@
     height: 100px;
 }
 
+.profile-img-col {
+    height: 100px;
+    max-width: 100px !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .group-col {
     max-width: 200px !important;
     background-color: #212529;

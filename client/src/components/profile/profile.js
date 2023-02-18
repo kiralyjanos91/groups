@@ -93,11 +93,18 @@ export default function Profile(){
                     <hr />
                     <Row>
                         <Col>
-                            <img 
+                            <Col 
+                                className = "profile-img-col"
+                                style = {{
+                                    backgroundImage: `url(${ profileData?.photos?.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" })`
+                                }}
+                            >
+                        </Col>
+                            {/* <img 
                                 className="profile-img"
                                 src = { profileData?.photos?.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" } 
                                 alt = "profile_photo" 
-                            />
+                            /> */}
                         </Col>
                         <Col className="edit-profile-col">
                             <div

@@ -1,0 +1,7 @@
+.member-profile-photo-col {
+    height: 100px;
+    max-width: 100px !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

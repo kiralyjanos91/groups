@@ -17,11 +17,55 @@
 .group-listing-inner-col {
     cursor: pointer;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-end;
     align-items: center;
     border-radius: 5px;
-    border: 1px solid grey;
     min-height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: filter 0.2s ease-in-out
+}
+
+.group-listing-inner-col:hover {
+    filter: brightness(1.2)
+}
+
+.groups-list-image-filter-col {
+    display: flex;
+    min-height: 200px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.group-name-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: brightness(0.2);
+    border-radius: 0px 0px 5px 5px;
+    margin: 0px !important;
+}
+
+.groups-status-badge {
+    background-color: grey;
+    border-radius: 5px;
+    align-self: flex-end;
+}
+
+.groups-status-badge > p {
+    margin: 0px;
+    width: 100px;
+    text-align: center;
+}
+
+.groups-name {
+    text-align: center;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
 }
 
 .create-group {

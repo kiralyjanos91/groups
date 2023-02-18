@@ -91,6 +91,7 @@ export default function HomePage(){
     const groupsListing = statusFilteredList.slice(
             (parseInt(page) -1) * 15 , (parseInt(page) -1) * 15 + 15
         ).map((group , index) => {
+            console.log(group.photo)
             return (
                 <Col 
                     md="4" 
@@ -100,18 +101,32 @@ export default function HomePage(){
                     <Col
                         className="group-listing-inner-col" 
                         onClick = { () => navigate(`/group/${group._id}`) } 
-                    >
-                        <p>{ group.name }</p>
-                        { user.groups.some(oneGroup => oneGroup.name === group.name) ? 
-                            <p> - Joined</p> 
-                        : 
-                            null
+                        style = {
+                            {
+                                backgroundImage:`url(${ group.photo || "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png" })`
+                            }
                         }
-                        { user.own_groups.some(oneGroup => oneGroup.name === group.name) ?
-                            <p> - OwnGroup</p> 
-                        : 
-                            null
+                    >   
+                        { groupStatus === "All" &&
+                            <div className = "groups-status-badge">
+                                { user.groups.some(oneGroup => oneGroup.name === group.name) ? 
+                                    <p>Joined</p> 
+                                    : 
+                                    null
+                                }
+                                { user.own_groups.some(oneGroup => oneGroup.name === group.name) ?
+                                    <p>Own group</p> 
+                                    : 
+                                    null
+                                }
+                            </div>
                         }
+                        <Row className = "group-name-row">
+                            <p className = "groups-name">
+                                { group.name }
+                            </p>
+                        </Row>
+                          
                     </Col>
                 </Col>
             )

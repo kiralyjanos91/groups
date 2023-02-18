@@ -4,6 +4,7 @@ import Spinner from "react-bootstrap/Spinner"
 import { useParams } from "react-router"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import "./member.css"
 
 export default function Member(){
     const [ memberData , setMemberData ] = useState({})
@@ -25,7 +26,8 @@ export default function Member(){
         birth,
         city,
         hobby,
-        about
+        about,
+        small_photo
     } = memberData
 
     const groupsList = groups?.map(( group , index ) => {
@@ -66,9 +68,25 @@ export default function Member(){
                 <>
                     <Row>
                         <Col>
+                            <Col
+                                className = "member-profile-photo-col"    
+                                style = {{
+                                    backgroundImage: `url(${
+                                        small_photo 
+                                        || 
+                                        "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
+                                    })`
+                                }}
+                                >
+                            </Col>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
                             <h1>{username}</h1>
                         </Col>
                     </Row>
+                    <hr />
                     <Row>
                         <p>
                             About: {about}
