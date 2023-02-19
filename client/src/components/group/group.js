@@ -379,6 +379,8 @@ export default function Group(){
                 handleClose={ handleClose }
                 show = { show }
                 eventId = { eventId }
+                groupId = { id }
+                groupName = { groupName }
             />
         </>
     )

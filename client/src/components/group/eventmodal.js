@@ -20,8 +20,33 @@ export default function EventModal( { handleClose , show , eventId  }){
                         />
                     </Modal.Header>
                     <Modal.Body>
-                        Would you like to log out?
-                        <p>event id: {eventId}</p>
+                        <Row>
+                            <p>*Image*</p>
+                        </Row>
+                        <Row>
+                            <p>Admin:</p>
+                        </Row>
+                        <Row>
+                            <p>event id: {eventId}</p>
+                        </Row>
+                        <Row>
+                            <p>Name:</p>
+                        </Row>
+                        <Row>
+                            <p>Details:</p>
+                        </Row>
+                        <Row>
+                            <p>When:</p>
+                        </Row>
+                        <Row>
+                            <p>Where:</p>
+                        </Row>
+                        <Row>
+                            <p>Where:</p>
+                        </Row>
+                        <Row>
+                            <p>Joined Members:</p>
+                        </Row>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="primary">
