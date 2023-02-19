@@ -5,7 +5,7 @@ import Home from "./components/home/home";
 import Groups from "./components/groups/groups";
 import Group from "./components/group/group";
 import Profile from "./components/profile/profile";
-import Events from "./components/events/events";
+import Event from "./components/events/event";
 import Messages from "./components/messages/messages";
 import Login from "./components/login/login";
 import Register from "./components/registration/registration";
@@ -72,7 +72,7 @@ export default function App(){
                   <Route path=":page" element={<Groups />} />
                 </Route>
                 <Route path="/group/:id" element = { <Group /> } />
-                <Route path="/events" element = { <Events /> } />
+                <Route path="/group/:id/event/:eventid" element = { <Event /> } />
                 <Route path="/messages" element = { <Messages /> } />
                 <Route path="/member/:membername" element = { <Member /> } />
               </>

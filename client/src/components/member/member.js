@@ -80,6 +80,9 @@ export default function Member(){
                         <Col>
                             <h1>{ username }</h1>
                         </Col>
+                        <Col>
+                            <p>Send Message</p>
+                        </Col>
                     </Row>
                     <hr />
                     <Row>
