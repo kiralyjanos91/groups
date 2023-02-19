@@ -205,7 +205,7 @@ export default function Group(){
                             >                              
                                 { groupInfo.category }
                             </p>
-                            { notOwnGroup &&
+                            { notOwnGroup ?
                                 <Row>
                                     <Col className = "join-button-col">
                                         { joined ?
@@ -245,6 +245,12 @@ export default function Group(){
                                         }
                                     </Col>
                                 </Row>
+                                :
+                                <p 
+                                    className = "own-group-badge"
+                                >
+                                    Own Group
+                                </p>
                             }
                         </Col>
                     </Row>

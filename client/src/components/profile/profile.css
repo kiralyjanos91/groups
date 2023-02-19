@@ -26,27 +26,4 @@
     background-position: center;
 }
 
-.group-col {
-    max-width: 200px !important;
-    background-color: #212529;
-    margin: 5px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    cursor: pointer;
-}
 
-.group-col:hover {
-    background-color: #2f343a;
-}
-
-.group-col {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.group-col:hover {
-    color: #ffffff;
-}

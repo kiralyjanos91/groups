@@ -99,12 +99,7 @@ export default function Profile(){
                                     backgroundImage: `url(${ profileData?.photos?.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" })`
                                 }}
                             >
-                        </Col>
-                            {/* <img 
-                                className="profile-img"
-                                src = { profileData?.photos?.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" } 
-                                alt = "profile_photo" 
-                            /> */}
+                            </Col>
                         </Col>
                         <Col className="edit-profile-col">
                             <div
@@ -150,7 +145,7 @@ export default function Profile(){
                     </Row>
                     <Row>
                         <Col>
-                            Username: {profileData.username}
+                            Username: { profileData.username }
                         </Col>
                     </Row>
                     <Row>

@@ -27,38 +27,33 @@ export default function Member(){
         city,
         hobby,
         about,
-        small_photo
     } = memberData
 
     const groupsList = groups?.map(( group , index ) => {
         
         return (
-            <li 
+            <Col 
                 key = { index }
-            >  
-                <Link 
-                    to = {`/group/${group.group_Id}`}
-                    className = "primary-link"    
-                >
-                    { group.name } 
-                </Link>
-            </li>
+                className = "group-col"
+                as = { Link }
+                to = {`/group/${group.group_Id}`}
+            >        
+                { group.name } 
+            </Col> 
         ) 
     })
 
     const ownGroupsList = own_groups?.map(( group , index ) => {
         
         return (
-            <li 
+            <Col 
                 key = { index }
-            >  
-                <Link 
-                    to = {`/group/${group.group_Id}`}
-                    className = "primary-link"
-                >
-                    { group.name } 
-                </Link>
-            </li>
+                className = "group-col"
+                as = { Link }
+                to = {`/group/${group.group_Id}`}
+            >        
+                { group.name } 
+            </Col> 
         ) 
     })
 
@@ -72,7 +67,7 @@ export default function Member(){
                                 className = "member-profile-photo-col"    
                                 style = {{
                                     backgroundImage: `url(${
-                                        small_photo 
+                                        memberData?.photos?.small_photo 
                                         || 
                                         "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
                                     })`
@@ -83,32 +78,36 @@ export default function Member(){
                     </Row>
                     <Row>
                         <Col>
-                            <h1>{username}</h1>
+                            <h1>{ username }</h1>
                         </Col>
                     </Row>
                     <hr />
                     <Row>
                         <p>
-                            About: {about}
+                            About: { about || "-"}
                         </p>
                         <p>
-                            City: {city}
+                            Date of birth: { birth || "-" }
                         </p>
                         <p>
-                            Birth: {birth}
+                            Location: { city || "-" }
                         </p>
                         <p>
-                            Gender: {gender}
+                            Hobby: { hobby || "-" }
                         </p>
                         <p>
-                            Hobby: {hobby}
+                            Gender: { gender || "-" }
                         </p>
+                    </Row>
+                    <Row>
                         <p>
-                            Own groups: { ownGroupsList }
+                            Groups: 
                         </p>
+                        { groupsList }
                         <p>
-                            Groups: { groupsList }
+                            Own groups: 
                         </p>
+                        { ownGroupsList}
                     </Row>
                 </>
                 :

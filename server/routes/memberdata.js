@@ -16,7 +16,8 @@ const memberDataRoute = ({
                 birth,
                 city,
                 hobby,
-                about 
+                about,
+                photos 
             } = member
 
             const memberData = {
@@ -28,8 +29,7 @@ const memberDataRoute = ({
                 city,
                 hobby,
                 about,
-                photo: member.photo || "",
-                small_photo: member.small_photo || ""
+                photos: photos 
             }
             res.status(200).json(memberData)
         }
