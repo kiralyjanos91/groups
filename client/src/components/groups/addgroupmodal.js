@@ -1,6 +1,7 @@
 import React, { useRef , useState , useEffect } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
+import CloseButton from "react-bootstrap/CloseButton"
 import axios from "axios"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
@@ -55,8 +56,12 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
     return (
         <>
             <Modal show={ show } onHide={ handleClose } centered>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Create Group</Modal.Title>
+                    <CloseButton 
+                        variant = "white" 
+                        onClick = { () => handleClose() }
+                    />
                 </Modal.Header>
                 <Modal.Body>
                     <form>

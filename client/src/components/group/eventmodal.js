@@ -4,14 +4,20 @@ import { useNavigate } from "react-router-dom"
 import { Container , Row , Col } from "react-bootstrap"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
+import CloseButton from "react-bootstrap/CloseButton"
+import "./eventmodal.css"
 
 export default function EventModal( { handleClose , show , eventId  }){
     return (
         <>
             <Modal show={ show } onHide={ handleClose } fullscreen = { true } centered>
-                <Container>
-                    <Modal.Header closeButton>
+                <Container className = "event-modal-container">
+                    <Modal.Header>
                         <Modal.Title>Event</Modal.Title>
+                        <CloseButton 
+                            variant = "white" 
+                            onClick = { () => handleClose() }
+                        />
                     </Modal.Header>
                     <Modal.Body>
                         Would you like to log out?
