@@ -20,7 +20,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
             {
                 axios.post("/findprivatemessage" , {
                     username: user.username,
-                    messages_from: partnerName
+                    partner_name: partnerName
                 })
                 .then(res => console.log(res))
             }
