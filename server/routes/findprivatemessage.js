@@ -11,7 +11,7 @@ const findPrivateMessageRoute = ({
         const messagesWithThisPartner = user.messages?.find((message) => message.partner_name = partner_name )
         
         if( !messagesWithThisPartner ) {
-            return res.status(403).json("No messages yet")
+            return res.status(204).json("No messages yet")
         }
         res.status(200).json(messagesWithThisPartner?.messages)
     })
