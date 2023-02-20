@@ -20,7 +20,8 @@ const userDataUpdateRoute = require("./routes/userdataupdate")
 const leaveGroupRoute = require("./routes/leavegroup")
 const profileDataChangeRoute = require("./routes/profiledatachange")
 const sendToChatRoute = require("./routes/sendtochat")
-const privateMessageRoute = require("./routes/privatemessage")
+const updatePrivateMessageRoute = require("./routes/updateprivatemessage")
+const findPrivateMessageRoute = require("./routes/findprivatemessage")
 const profilePohotoUploadRoute = require("./routes/profilephotoupload")
 const groupPhotoUploadRoute = require("./routes/groupphotoupload")
 
@@ -123,11 +124,6 @@ app.use("/sendtochat" , sendToChatRoute({
     GroupModel
 }))
 
-app.use("/sendpm" , privateMessageRoute({
-    express,
-    MemberModel
-}))
-
 app.use("/photoupload" , profilePohotoUploadRoute({
     express,
     MemberModel,
@@ -137,6 +133,16 @@ app.use("/photoupload" , profilePohotoUploadRoute({
 app.use("/groupphotoupload" , groupPhotoUploadRoute({
     express,
     GroupModel
+}))
+
+app.use("/updateprivatemessage" , updatePrivateMessageRoute({
+    express,
+    MemberModel
+}))
+
+app.use("/findprivatemessage" , findPrivateMessageRoute({
+    express,
+    MemberModel
 }))
 
 app.listen(PORT , serverCallback) 
