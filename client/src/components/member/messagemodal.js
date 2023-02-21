@@ -28,13 +28,13 @@ export default function MessageModal( { handleClose , show , partnerName , partn
 
     console.log(user.username)
 
-    const sendToChat = () => {
-        axios.post("/privatemessageupdate" , {
+    const sendMessage = () => {
+        axios.post("/sendprivatemessage" , {
             sender_username: user?.username,
             sender_small_photo: user?.small_photo,
             receiver_username: partnerName,
             receiver_small_photo: partnerPhoto,
-            message: chatMessageRef.current.value,
+            current_message: chatMessageRef.current.value,
             date: new Date()
         })
             .then(
@@ -56,7 +56,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
     return (
         <>
             <Modal show={ show } onHide={ handleClose } centered>
-                <Container className = "event-modal-container">
+                <Container className = "message-modal-container">
                     <Modal.Header>
                         <Modal.Title>Send Message</Modal.Title>
                         <CloseButton 
@@ -99,7 +99,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                                 />
                             </Col>
                             <Col className = "chat-send-button-col">
-                                <Button onClick = { sendToChat }>
+                                <Button onClick = {() => sendMessage()}>
                                     <img 
                                         src = "https://groupsiteimages.s3.amazonaws.com/icons/send-icon.png" 
                                         alt = "send-button-icon"

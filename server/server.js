@@ -135,7 +135,7 @@ app.use("/groupphotoupload" , groupPhotoUploadRoute({
     GroupModel
 }))
 
-app.use("/updateprivatemessage" , updatePrivateMessageRoute({
+app.use("/sendprivatemessage" , updatePrivateMessageRoute({
     express,
     MemberModel
 }))
