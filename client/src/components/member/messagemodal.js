@@ -12,6 +12,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
 
     const user = useSelector((state) => state.userData.data)
     const [emojiShow , setEmojiShow] = useState(false)
+    const [messages , setMessages] = useState(null)
     const chatMessageRef = useRef()
     const chatWindowRef = useRef()
 
@@ -22,11 +23,11 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                     username: user.username,
                     partner_name: partnerName
                 })
-                .then(res => console.log(res))
+                .then(res => setMessages(res.data))
             }
     } , [user])
 
-    console.log(user.username)
+    console.log(messages)
 
     const sendMessage = () => {
         axios.post("/sendprivatemessage" , {
