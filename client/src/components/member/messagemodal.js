@@ -54,6 +54,61 @@ export default function MessageModal( { handleClose , show , partnerName , partn
         setEmojiShow(prev => !prev)
     }
 
+
+    const dateFormat = new Intl.DateTimeFormat("en-US",{
+        year: "numeric",
+        month: "short",
+        day: "2-digit"
+    })
+
+    const messagesList = messages?.messages.map((message , index) => {
+        const date = message.date
+        let showMessageDate = ""
+        const senderName = message.username
+
+        if (date) {
+            const messageDate = new Date(date)
+            showMessageDate = dateFormat.format(messageDate)
+        }
+
+        const ownMessageClass = message.sent ? "own-message" : ""
+        const chatPhoto = messages?.partner_photo 
+
+
+        return (
+            <Row 
+                key = { index } 
+                className = {`message-row ${ ownMessageClass }`}
+            >
+                <Col className="message-col">
+                    <Row>
+                        <img 
+                            src = { 
+                                message.sent ? user?.small_photo : message.partner_photo 
+                                || 
+                                "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
+                            } 
+                            alt = "chat-user" 
+                            className = "chat-img"
+                        />
+                    </Row>
+                    <Row>
+                        { showMessageDate }
+                    </Row>
+                    <Row>
+                        { message.sent? user?.username : message.partner }
+                    </Row>
+                    <Row>
+                        { message.message }
+                    </Row>
+                </Col>
+            </Row>
+        )
+    })
+
+
+
+
     return (
         <>
             <Modal show={ show } onHide={ handleClose } centered>
@@ -71,7 +126,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                             className = "messages-window-row"
                             ref = { chatWindowRef }
                         >
-                            {/* { messages } */}
+                            { messagesList }
                         </Row>
                         <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
                             <EmojiPicker 

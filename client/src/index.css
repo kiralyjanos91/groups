@@ -115,3 +115,117 @@ input {
   background-color: #2f343a;
   color: #ffffff;
 }
+
+.chat-container {
+  background-color: rgb(29, 29, 29);
+  border-radius: 5px;
+  padding: 0;
+}
+
+.message-row {
+  margin: 5px;  
+}
+
+.own-message {
+  justify-content: flex-end !important;
+}
+
+.message-col {
+  background-color: grey;
+  border-radius: 5px;
+  height: fit-content;
+  word-break: break-all;
+  max-width: fit-content !important;
+}
+
+.message-col > .row {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  min-width: 200px;
+}
+
+.own-message > .message-col {
+  justify-content: flex-end !important;
+  background-color: rgb(119, 146, 170);
+}
+
+.messages-window-row{
+  height: 400px;
+  padding-top: 15px;
+  padding-right: 25px;
+  padding-bottom: 15px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  row-gap: 15px;
+  display: flex;
+  flex-direction: row-reverse;
+  scrollbar-width: 15px;
+  scrollbar-color: rgb(69, 69, 69) rgb(45, 45, 45);
+}
+
+.messages-window-row::-webkit-scrollbar {
+  width: 15px;
+}
+
+.messages-window-row::-webkit-scrollbar-thumb {
+  background-color: rgb(69, 69, 69);
+}
+
+.messages-window-row::-webkit-scrollbar-track {
+  background-color: rgb(45, 45, 45);
+}
+
+.chat-img {
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0 !important;
+  border-radius: 30px;
+}
+
+.chat-input-row {
+  align-items: center;
+  padding: 5px;
+  border-radius: 0px 0px 5px 5px;
+  background-color: #212121;
+}
+
+.chat-input {
+  width: 100%;
+}
+
+.chat-send-button-col {
+  max-width: fit-content !important;
+}
+
+.chat-send-button-col > button {
+  display: flex;
+}
+
+.send-button-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.emoji-picker-row {
+  height: fit-content;
+  margin-top: -450px !important;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.emojihide {
+  display: none !important;
+}
+
+.emoji-show-button {
+  max-width: fit-content !important;
+  cursor: pointer;
+  padding: 0 !important
+}
+
+.emoji-show-button > img {
+  width: 30px;
+  height: 30px
+}
