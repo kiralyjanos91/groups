@@ -84,7 +84,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                     <Row>
                         <img 
                             src = { 
-                                message.sent ? user?.small_photo : message.partner_photo 
+                                message.sent ? user?.small_photo : chatPhoto
                                 || 
                                 "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
                             } 
