@@ -62,7 +62,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
         setEmojiShow(prev => !prev)
     }
 
-
     const dateFormat = new Intl.DateTimeFormat("en-US",{
         year: "numeric",
         month: "short",
@@ -81,7 +80,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
 
         const ownMessageClass = message.sent ? "own-message" : ""
         const chatPhoto = messages?.partner_photo 
-
 
         return (
             <Row 
@@ -113,9 +111,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
             </Row>
         )
     })
-
-
-
 
     return (
         <>

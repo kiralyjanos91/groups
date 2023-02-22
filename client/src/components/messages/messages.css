@@ -1,0 +1,24 @@
+.chat-partners-list-row {
+    max-width: 400px;
+    background-color: #212529;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.chat-partners-list-row:hover {
+    background-color: #2f343a;
+}
+
+.messages-chat-img-col {
+    max-width: fit-content;
+}
+
+.chat-partner-name-col {
+    display: flex;
+    align-items: center;
+}
+
+.chat-partner-name-col > p {
+    margin: 0px !important;
+}
