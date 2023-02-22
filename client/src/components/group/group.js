@@ -41,23 +41,18 @@ export default function Group(){
 
     useEffect(() => {
         axios.post("/groupdata" , { id })
-            .then((groupdata) => {
-                setGroupInfo((prevstate) => groupdata.data)
-                if (chatWindowRef.current) {
-                    chatWindowRef.current.scrollTo({
-                        top: chatWindowRef.current.scrollHeight
-                    })
-                }    
-            })
+            .then((groupdata) => 
+                setGroupInfo(() => groupdata.data)
+            )
             .then(() => { 
                 if (buttonLoading) {
                     setButtonLoading(false)
                 }
-                // if (chatWindowRef.current) {
-                //     chatWindowRef.current.scrollTo({
-                //         top: chatWindowRef.current.scrollHeight
-                //     })
-                // }
+                if (chatWindowRef.current) {
+                    chatWindowRef.current.scrollTo({
+                        top: chatWindowRef.current.scrollHeight
+                    })
+                }
             })
     }, [user])
 

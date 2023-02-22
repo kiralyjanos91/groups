@@ -1,7 +1,6 @@
 import React , { useState , useRef , useEffect } from "react"
 import { useSelector } from "react-redux"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
 import { Container , Row , Col } from "react-bootstrap"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
@@ -23,9 +22,18 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                     username: user.username,
                     partner_name: partnerName
                 })
-                .then(res => setMessages(res.data))
+                .then(res => 
+                    setMessages(res.data)
+                )
             }
     } , [user])
+
+    useEffect(() => {
+        if (show)
+            chatWindowRef.current.scrollTo({
+                top: chatWindowRef.current.scrollHeight
+            })
+    } , [show])
 
     console.log(messages)
 
@@ -166,14 +174,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                         </Row>
                     </>
                     </Modal.Body>
-                    {/* <Modal.Footer>
-                        <Button variant="primary">
-                            Join
-                        </Button>
-                        <Button variant="secondary" onClick={ handleClose }>
-                            Close
-                        </Button>
-                    </Modal.Footer> */}
                 </Container>
             </Modal>
         </>

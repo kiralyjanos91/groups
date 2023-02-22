@@ -24,6 +24,7 @@ const updatePrivateMessageRoute = require("./routes/updateprivatemessage")
 const findPrivateMessageRoute = require("./routes/findprivatemessage")
 const profilePohotoUploadRoute = require("./routes/profilephotoupload")
 const groupPhotoUploadRoute = require("./routes/groupphotoupload")
+const getAllMessagesRoute = require("./routes/getallmessages")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -141,6 +142,11 @@ app.use("/sendprivatemessage" , updatePrivateMessageRoute({
 }))
 
 app.use("/findprivatemessage" , findPrivateMessageRoute({
+    express,
+    MemberModel
+}))
+
+app.use("/getallmessages" , getAllMessagesRoute({
     express,
     MemberModel
 }))
