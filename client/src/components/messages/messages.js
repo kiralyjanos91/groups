@@ -136,58 +136,69 @@ export default function Messages() {
                     <h1>Messages Page</h1>
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    Partners:
-                    { chatPartners }
-                </Col>
-                <Col>
-                    <>
-                        <Row 
-                            className = "messages-window-row"
-                            ref = { chatWindowRef }
-                        >
-                            { messagesList }
-                        </Row>
-                        <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
-                            <EmojiPicker 
-                                onEmojiClick = {(emoji) => 
-                                    chatMessageRef.current.value += emoji.emoji 
-                                }
-                                theme = "dark"
-                                emojiStyle = "google"
-                                />
-                        </Row>
-                        <Row className = "chat-input-row">
-                            <Col className = "chat-input-col">
-                                <input 
-                                    name="chat-input"
-                                    ref = { chatMessageRef }
-                                    className = "chat-input"
-                                />
-                            </Col>
-                            <Col 
-                                className = "emoji-show-button"
-                                onClick = { emojiShowChange }
+            { allMessages.length > 0 ?
+                <Row>
+                    <Col>
+                        Partners:
+                        { chatPartners }
+                    </Col>
+                    <Col>
+                        <>
+                            <Row 
+                                className = "messages-window-row"
+                                ref = { chatWindowRef }
                             >
-                                <img 
-                                    src="https://groupsiteimages.s3.amazonaws.com/icons/emoji-open-icon.png" 
-                                    alt="emoji-open-icon"
-                                />
-                            </Col>
-                            <Col className = "chat-send-button-col">
-                                <Button onClick = {() => sendMessage()}>
-                                    <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/icons/send-icon.png" 
-                                        alt = "send-button-icon"
-                                        className = "send-button-icon"
+                                { messagesList }
+                            </Row>
+                            <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
+                                <EmojiPicker 
+                                    onEmojiClick = {(emoji) => 
+                                        chatMessageRef.current.value += emoji.emoji 
+                                    }
+                                    theme = "dark"
+                                    emojiStyle = "google"
                                     />
-                                </Button>
-                            </Col>
-                        </Row>
-                    </>
-                </Col>
-            </Row>
+                            </Row>
+                            <Row className = "chat-input-row">
+                                <Col className = "chat-input-col">
+                                    <input 
+                                        name="chat-input"
+                                        ref = { chatMessageRef }
+                                        className = "chat-input"
+                                    />
+                                </Col>
+                                <Col 
+                                    className = "emoji-show-button"
+                                    onClick = { emojiShowChange }
+                                >
+                                    <img 
+                                        src="https://groupsiteimages.s3.amazonaws.com/icons/emoji-open-icon.png" 
+                                        alt="emoji-open-icon"
+                                    />
+                                </Col>
+                                <Col className = "chat-send-button-col">
+                                    <Button onClick = {() => sendMessage()}>
+                                        <img 
+                                            src = "https://groupsiteimages.s3.amazonaws.com/icons/send-icon.png" 
+                                            alt = "send-button-icon"
+                                            className = "send-button-icon"
+                                        />
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </>
+                    </Col>
+                </Row>
+            :
+                <Row>
+                    <Col>
+                        <p>
+                            No messages
+                        </p>
+                    </Col>
+                </Row>
+
+            }
         </Container>
     )
 }
