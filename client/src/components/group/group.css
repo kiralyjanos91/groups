@@ -18,6 +18,13 @@
     padding: 0px !important;
 }
 
+.group-main-photo-div {
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+}
+
 .group-main-photo {
     width: 150px;
     height: 150px;

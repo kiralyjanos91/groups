@@ -54,7 +54,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                     behavior: "smooth"
                 })
             )    
-    }
+        }
 
     console.log(user)
 
@@ -68,7 +68,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
         day: "2-digit"
     })
 
-    const messagesList = messages?.messages.map((message , index) => {
+    const messagesList = messages?.messages?.map((message , index) => {
         const date = message.date
         let showMessageDate = ""
         const senderName = message.username

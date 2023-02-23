@@ -199,14 +199,25 @@ export default function Group(){
                     <>
                         <Row className = "group-header-row">
                             <Col className = "group-main-photo-col">
-                                <img 
+                            <div 
+                                className = "group-main-photo-div"
+                                style = {{
+                                    backgroundImage: `url(${
+                                        groupInfo?.photo 
+                                        || 
+                                        "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png"
+                                    })`
+                                }}
+                            >
+                                </div>
+                                {/* <img 
                                     src = {
                                         groupInfo?.photo 
                                         || 
                                         "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png"}
                                     alt = "group-img" 
                                     className = "group-main-photo"
-                                />
+                                /> */}
                             </Col>
                             <Col>
                                 <h1 className="group-name">

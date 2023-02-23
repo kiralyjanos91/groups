@@ -29,7 +29,16 @@ export default function HomePage(){
         setShow(false)
     }
 
-    const groupStatusSelectors = ["All" , "Joined" , "Own"].map((status , index) => {
+    const groupStatusTypes = ["All"]
+
+    if (user.groups.length > 0) {
+        groupStatusTypes.push("Joined")
+    }
+    if (user.own_groups.length > 0) {
+        groupStatusTypes.push("Own")
+    }
+
+    const groupStatusSelectors = groupStatusTypes.map((status , index) => {
         const selected = status === groupStatus ? "selected-selector" : ""
         return (
             <Col
@@ -109,12 +118,12 @@ export default function HomePage(){
                     >   
                         { groupStatus === "All" &&
                             <div className = "groups-status-badge">
-                                { user.groups.some(oneGroup => oneGroup.name === group.name) ? 
+                                { user.groups?.some(oneGroup => oneGroup.name === group.name) ? 
                                     <p>Joined</p> 
                                     : 
                                     null
                                 }
-                                { user.own_groups.some(oneGroup => oneGroup.name === group.name) ?
+                                { user.own_groups?.some(oneGroup => oneGroup.name === group.name) ?
                                     <p>Own group</p> 
                                     : 
                                     null
