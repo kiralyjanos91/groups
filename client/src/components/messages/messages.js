@@ -7,8 +7,8 @@ import axios from "axios"
 import "./messages.css"
 
 export default function Messages() {
-    const [ currentPartner , setCurrentPartner ] = useState("")
     const [ allMessages , setAllMessages ] = useState([])
+    const [ currentPartner , setCurrentPartner ] = useState("")
     const user = useSelector((state) => state.userData.data)
     const [emojiShow , setEmojiShow] = useState(false)
     const chatMessageRef = useRef()
@@ -17,9 +17,22 @@ export default function Messages() {
     useEffect(() => {
         if (user.username){
             axios.post("/getallmessages" , { username: user.username})
-            .then(res => setAllMessages(res.data))
+            .then(res => {
+                setAllMessages(res.data)
+            })   
         }
     }, [user])
+
+    useEffect(() => {
+        if (currentPartner === "" && allMessages.length > 0) {
+            setCurrentPartner({
+                username: allMessages[0]?.partner,
+                partner_photo: allMessages[0]?.partner_photo
+            })
+        }
+    }, [allMessages])
+
+    console.log(currentPartner)
 
     const sendMessage = () => {
         axios.post("/sendprivatemessage" , {
@@ -123,11 +136,6 @@ export default function Messages() {
                 </Row>
             )
     })
-
-
-
-
-    console.log(allMessages)
 
     return (
         <Container>
