@@ -16,7 +16,7 @@ export default function Menu(){
         <>
             <Navbar bg="dark" variant="dark" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                    <Navbar.Brand as = { Link } to = { accessToken ? "/groups/1" : "/" }>GROUPYX</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto container-fluid">
@@ -31,7 +31,7 @@ export default function Menu(){
                             :
                             <>
                                 <Nav.Link as={ Link } to="/login">Login</Nav.Link>
-                                <Nav.Link as={ Link } to="/registration">Registration</Nav.Link>
+                                <Nav.Link as={ Link } to="/registration">Sign up</Nav.Link>
                             </>
                         }
                     </Nav>
