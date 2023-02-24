@@ -11,11 +11,13 @@ export default function Register(){
     const [errorMessage , setErrorMessage] = useState("")
     const [password , setPassword] = useState("")
     const [passwordIsFine , setPasswordIsFine] = useState(false)
-    const [passwordMessage , setPasswordMessage] = useState("")
     const usernameRef = useRef()
 
     const sendRegistration = (e) => {
         e.preventDefault()
+        if (!usernameRef.current.value || !password) {
+            return setErrorMessage("Please fill out all required fields")
+        }
         if (usernameRef.current.value && passwordIsFine) {
             axios.post("/sendregistration" , {
                 username: usernameRef.current.value,
@@ -34,15 +36,15 @@ export default function Register(){
     useEffect(() => {
         if (password) {
             if (password.length < 6) {
-                setPasswordMessage("Password is too short")
+                setErrorMessage("Password is too short")
                 setPasswordIsFine(false)
             }
             else if (password.length > 14) {
-                setPasswordMessage("password is too long")
+                setErrorMessage("password is too long")
                 setPasswordIsFine(false)
             } 
             else {
-                setPasswordMessage("")
+                setErrorMessage("")
                 setPasswordIsFine(true)
             }
         }
@@ -53,14 +55,13 @@ export default function Register(){
     return (
         <Container>
             <Row>
-                <Col>
+                <Col
+                    className = "registration-headline-col"
+                >
                     <h1>
-                        Registration Page
+                        Sign Up
                     </h1>
                 </Col>
-            </Row>
-            <Row>
-                <p>{errorMessage}</p>
             </Row>
             <Row id="registration-row">
                 <form onSubmit={ sendRegistration } id="regform">
@@ -73,8 +74,14 @@ export default function Register(){
                         onChange = {(e) => setPassword(e.target.value)}
                         value = { password }
                     />
-                    <p>{ passwordMessage }</p>
-                    <button type="submit" id="submit-btn">Register</button>
+                    <p>{ errorMessage }</p>
+                    <button 
+                        type = "submit" 
+                        id = "registration-btn"
+                        className = "login-reg-btn"
+                    >
+                        Register
+                    </button>
                 </form>
             </Row>
         </Container>

@@ -23,8 +23,8 @@ const registrationRouter = ({
             token: refreshToken,
             username: username
         })
-        const rftSaveResponse = await newRefreshToMongo.save((err,user)=>{
-            if(err){
+        const rftSaveResponse = await newRefreshToMongo.save((err , user) => {
+            if(err) {
                 return res.status(405).json("Failed to save new user")
             }
         })

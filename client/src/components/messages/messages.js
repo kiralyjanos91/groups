@@ -32,6 +32,14 @@ export default function Messages() {
         }
     }, [allMessages])
 
+    useEffect(() => {
+        if (currentPartner){
+            chatWindowRef.current.scrollTo({
+                top: chatWindowRef.current.scrollHeight
+            })
+        }
+    }, [currentPartner])
+
     console.log(currentPartner)
 
     const sendMessage = () => {

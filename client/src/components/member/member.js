@@ -125,11 +125,11 @@ export default function Member(){
                             { ownGroupsList}
                         </Row>
                         <MessageModal 
-                        handleClose = { handleClose }
-                        show = { show }
-                        partnerName = { username }
-                        partnerPhoto = { memberData?.photos?.small_photo  }
-                    />
+                            handleClose = { handleClose }
+                            show = { show }
+                            partnerName = { username }
+                            partnerPhoto = { memberData?.photos?.small_photo  }
+                        />
                     </>
                     :
                     <Row className="spinner-row">

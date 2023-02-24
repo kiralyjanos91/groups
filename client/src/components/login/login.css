@@ -1,12 +1,21 @@
-#registration-row {
+#login-row {
     display: flex;
     justify-content: center;
 }
 
-#regform {
+#loginform {
     display: flex;
     flex-direction: column;
     row-gap: 5px;
     max-width: 500px;
     margin-top: 50px;
+    background-color: #21252942;
+    border-radius: 5px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.login-headline-col {
+    display: flex;
+    justify-content: center;
 }

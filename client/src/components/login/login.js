@@ -15,6 +15,9 @@ export default function Login(){
 
     const login = (e) => {
         e.preventDefault()
+        if (!usernameRef.current.value || !passwordRef.current.value) {
+            return setLoginError("Please fill out all required fields")
+        }
         axios.post("/sendlogin" , { 
             username: usernameRef.current.value, 
             password: passwordRef.current.value
@@ -32,24 +35,28 @@ export default function Login(){
     return (
         <Container>
             <Row>
-                <Col>
+                <Col 
+                    className = "login-headline-col"
+                >
                     <h1>
-                        Login Page
+                        Login
                     </h1>
                 </Col>
             </Row>
-            <Row>
-                <Col>
+            <Row id="login-row">
+                <form onSubmit={ login } id="loginform">
+                    <label htmlFor = "username">Username:</label>
+                    <input type="text" name = "username" ref={usernameRef} />
+                    <label htmlFor = "password">Password:</label>
+                    <input type = "password" name = "password" ref={passwordRef} />
                     <p>{loginError}</p>
-                </Col>
-            </Row>
-            <Row id="registration-row">
-                <form onSubmit={ login } id="regform">
-                    <label htmlFor="username">Username:</label>
-                    <input type="text" name="username" ref={usernameRef} />
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" name="password" ref={passwordRef} />
-                    <button type="submit" id="submit-btn">Login</button>
+                    <button 
+                        type = "submit" 
+                        id = "login-btn"
+                        className = "login-reg-btn"
+                    >
+                        Login
+                    </button>
                 </form>
             </Row>
         </Container>

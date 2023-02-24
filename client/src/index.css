@@ -229,3 +229,12 @@ input {
   width: 30px;
   height: 30px
 }
+
+.login-reg-btn {
+  background-color: #dc3545;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  width: 80%;
+  align-self: center;
+}
