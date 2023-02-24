@@ -8,7 +8,7 @@ const findPrivateMessageRoute = ({
     router.post("/" , async (req , res) => {
         const { username , partner_name } = req.body
         const user = await MemberModel.findOne({ "username": username })
-        const messagesWithThisPartner = user.private_messages?.find((message) => message.partner = partner_name )
+        const messagesWithThisPartner = user.private_messages?.find((message) => message.partner === partner_name )
         
         if( !messagesWithThisPartner ) {
             return res.status(204).json("No messages yet")
