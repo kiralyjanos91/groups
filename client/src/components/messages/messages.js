@@ -75,7 +75,7 @@ export default function Messages() {
                     className = "messages-chat-img-col"
                 >
                     <img 
-                        src = { message.partner_photo } 
+                        src = { message.partner_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" } 
                         alt = "partner-img" 
                         className = "chat-img"
                     />
