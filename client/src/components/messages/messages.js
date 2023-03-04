@@ -1,6 +1,7 @@
 import React , { useState , useEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
+import Spinner from "react-bootstrap/Spinner"
 import { useSelector } from "react-redux"
 import EmojiPicker from "emoji-picker-react"
 import axios from "axios"
@@ -9,8 +10,9 @@ import "./messages.css"
 export default function Messages() {
     const [ allMessages , setAllMessages ] = useState([])
     const [ currentPartner , setCurrentPartner ] = useState("")
+    const [ showChat , setShowChat ] = useState(false)
     const user = useSelector((state) => state.userData.data)
-    const [emojiShow , setEmojiShow] = useState(false)
+    const [ emojiShow , setEmojiShow ] = useState(false)
     const chatMessageRef = useRef()
     const chatWindowRef = useRef()
 
@@ -18,7 +20,13 @@ export default function Messages() {
         if (user.username){
             axios.post("/getallmessages" , { username: user.username})
             .then(res => {
-                setAllMessages(res.data)
+                const dataForSort = res.data
+                dataForSort.sort((a,b) => {
+                    return new Date(b.messages.slice(-1)[0].date) - new Date(a.messages.slice(-1)[0].date)
+                    
+                })
+                // console.log(dataForSort[0].messages.slice(-1)[0].date)
+                setAllMessages(dataForSort)
             })   
         }
     }, [user])
@@ -99,6 +107,8 @@ export default function Messages() {
         setEmojiShow(prev => !prev)
     }
 
+    const chatDisplayStyle = showChat ? "" : "hide-chat"
+
     const messagesList = allMessages.find((message) => 
         message.partner === currentPartner.username)?.messages.map((message , index) => {
             const date = message.date
@@ -112,7 +122,6 @@ export default function Messages() {
 
             const ownMessageClass = message.sent ? "own-message" : ""
             const chatPhoto = currentPartner.partner_photo 
-
 
             return (
                 <Row 
@@ -161,7 +170,7 @@ export default function Messages() {
                     <Col>
                         <>
                             <Row 
-                                className = "messages-window-row"
+                                className = {`messages-window-row ${chatDisplayStyle}`}
                                 ref = { chatWindowRef }
                             >
                                 { messagesList }
@@ -206,12 +215,10 @@ export default function Messages() {
                     </Col>
                 </Row>
             :
-                <Row>
-                    <Col>
-                        <p>
-                            No messages
-                        </p>
-                    </Col>
+                <Row className="spinner-row">
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
                 </Row>
 
             }
