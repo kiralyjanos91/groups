@@ -25,7 +25,6 @@ export default function Messages() {
                     return new Date(b.messages.slice(-1)[0].date) - new Date(a.messages.slice(-1)[0].date)
                     
                 })
-                // console.log(dataForSort[0].messages.slice(-1)[0].date)
                 setAllMessages(dataForSort)
             })   
         }
@@ -37,6 +36,7 @@ export default function Messages() {
                 username: allMessages[0]?.partner,
                 partner_photo: allMessages[0]?.partner_photo
             })
+            setShowChat(true)
         }
     }, [allMessages])
 
@@ -47,8 +47,6 @@ export default function Messages() {
             })
         }
     }, [currentPartner])
-
-    console.log(currentPartner)
 
     const sendMessage = () => {
         axios.post("/sendprivatemessage" , {
