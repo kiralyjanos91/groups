@@ -154,7 +154,7 @@ export default function Messages() {
             </Row>
             { allMessages.length > 0 ?
                 <Row>
-                    <Col>
+                    <Col className = "chat-partners-col">
                         Partners:
                         { chatPartners }
                     </Col>
