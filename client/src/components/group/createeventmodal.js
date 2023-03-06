@@ -13,7 +13,9 @@ export default function CreateEventModal({ show , handleClose }){
     const [ groupPhoto , setGroupPhoto ] = useState(null)
     const [ photoLocation , setPhotoLocation ] = useState("")
     const [ imageUploading , setImageUploading ] = useState(false)
-    const [ groupName , setGroupName ] = useState("")
+    const [ title , setTitle ] = useState("")
+    const [ description , setDescription ] = useState("")
+    const [ date , setDate ] = useState("")
     const { userDataUpdate } = UserDataUpdateHook()
     const navigate = useNavigate()
 
@@ -47,14 +49,31 @@ export default function CreateEventModal({ show , handleClose }){
                 <Modal.Body>
                     <form>
                         <label htmlFor = "groupname">
-                            Name of you group:
+                            *Title:
                         </label>
                         <input 
-                            name="groupname" 
-                            onChange = {(e) => setGroupName(e.target.value)}
-                            value = { groupName }
+                            name="title" 
+                            onChange = {(e) => setTitle(e.target.value)}
+                            value = { title }
                         />
-                        <labe htmlFor = "group_photo">Group Photo:</labe>
+                        <label htmlFor = "groupname">
+                            *Description:
+                        </label>
+                        <input 
+                            name="description" 
+                            onChange = {(e) => setDescription(e.target.value)}
+                            value = { description }
+                        />
+                        <label htmlFor = "groupname">
+                            *When:
+                        </label>
+                        <input 
+                            type = "date"
+                            name="when" 
+                            onChange = {(e) => setDate(e.target.value)}
+                            value = { date }
+                        />
+                        <labe htmlFor = "group_photo">*Photo:</labe>
                         <input 
                             type = "file" 
                             name = "group_photo"
@@ -70,7 +89,7 @@ export default function CreateEventModal({ show , handleClose }){
                     <Button 
                         variant="primary" 
                         onClick = { createEvent }
-                        className = { photoLocation && groupName ? "" : "disabled-create-button"}
+                        className = { photoLocation && title ? "" : "disabled-create-button"}
                     > 
                         { imageUploading ? "Uploading..." : "Create" } 
                     </Button>
