@@ -1,6 +1,4 @@
 .groups-and-newgroup-row {
-    margin-top: 40px !important;
-    margin-bottom: 40px;
     align-items: center;
 }
 
@@ -9,7 +7,7 @@
 }
 
 .group-listing-row {
-    margin-top: 50px !important;
+    margin-top: 30px !important;
     margin-bottom: 50px;
     row-gap: 20px;
 }
