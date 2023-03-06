@@ -54,17 +54,11 @@ export default function Register(){
 
     return (
         <Container>
-            <Row>
-                <Col
-                    className = "registration-headline-col"
-                >
+            <Row id="registration-row">
+                <form onSubmit={ sendRegistration } id="regform">
                     <h1>
                         Sign Up
                     </h1>
-                </Col>
-            </Row>
-            <Row id="registration-row">
-                <form onSubmit={ sendRegistration } id="regform">
                     <label htmlFor="username">Username:</label>
                     <input type = "text" name = "username" ref = { usernameRef }/>
                     <label htmlFor = "password">Password:</label>
@@ -80,7 +74,7 @@ export default function Register(){
                         id = "registration-btn"
                         className = "login-reg-btn"
                     >
-                        Register
+                        Sign up
                     </button>
                 </form>
             </Row>

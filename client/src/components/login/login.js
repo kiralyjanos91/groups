@@ -34,17 +34,11 @@ export default function Login(){
 
     return (
         <Container>
-            <Row>
-                <Col 
-                    className = "login-headline-col"
-                >
+            <Row id="login-row">
+                <form onSubmit={ login } id="loginform">
                     <h1>
                         Login
                     </h1>
-                </Col>
-            </Row>
-            <Row id="login-row">
-                <form onSubmit={ login } id="loginform">
                     <label htmlFor = "username">Username:</label>
                     <input type="text" name = "username" ref={usernameRef} />
                     <label htmlFor = "password">Password:</label>
