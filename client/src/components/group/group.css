@@ -35,8 +35,22 @@
     margin-bottom: 0px !important
 }
 
+.own-group-badge-col, .create-event-badge-col {
+    max-width: fit-content !important;
+}
+
 .own-group-badge {
     background-color: #dc3545;
+    max-width: fit-content;
+    padding: 2px;
+    padding-inline: 5px;
+    border-radius: 5px;
+    margin: 0px;
+}
+
+.create-event-badge {
+    cursor: pointer;
+    background-color: #959595;
     max-width: fit-content;
     padding: 2px;
     padding-inline: 5px;

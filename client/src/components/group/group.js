@@ -12,6 +12,7 @@ import { changeCategory } from "../../redux_slices/categoryslice"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 import "./group.css"
 import EventModal from "./eventmodal"
+import CreateEventModal from "./createeventmodal"
 
 export default function Group(){
     const [groupInfo , setGroupInfo] = useState()
@@ -31,11 +32,16 @@ export default function Group(){
     const notOwnGroup = user.own_groups?.find( ( group ) => group.name === groupName ) ? false : true
     const joined = user.groups?.find( ( group ) => group.name === groupName ) ? true : false
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = (event) => {
+    const [eventShow, setEventShow] = useState(false);
+    const handleEventClose = () => setEventShow(false);
+    const handleEventShow = (event) => {
         setEventId(event)
-        setShow(true);
+        setEventShow(true);
+    }
+    const [createEventShow, setcreateEventShow] = useState(false);
+    const handleCreateEventClose = () => setcreateEventShow(false);
+    const handleCreateEventShow = () => {
+        setcreateEventShow(true);
     }
     const [ eventId , setEventId ] = useState("")
 
@@ -270,11 +276,24 @@ export default function Group(){
                                         </Col>
                                     </Row>
                                     :
-                                    <p 
-                                        className = "own-group-badge"
-                                    >
-                                        Own Group
-                                    </p>
+                                    <Row>
+                                        <Col className = "own-group-badge-col">
+                                            <p 
+                                                className = "own-group-badge"
+                                                >
+                                                Own Group
+                                            </p>
+                                        </Col>
+                                        <Col className = "create-event-badge-col">
+                                            <p 
+                                                className = "create-event-badge"
+                                                onClick = {() => handleCreateEventShow()}
+                                            >
+                                                Create Event
+                                            </p>
+                                        </Col>
+                                    </Row>
+                                    
                                 }
                             </Col>
                         </Row>
@@ -313,7 +332,7 @@ export default function Group(){
                         <Row>
                             <Col>
                                 <p>Events:</p>
-                                <p onClick = {() => handleShow(1) } >Test event</p>
+                                <p onClick = {() => handleEventShow(1) } >Test event</p>
                             </Col>
                         </Row>
                         <Row>
@@ -389,11 +408,16 @@ export default function Group(){
             </Container>
 
             <EventModal 
-                handleClose={ handleClose }
-                show = { show }
+                handleClose={ handleEventClose }
+                show = { eventShow }
                 eventId = { eventId }
                 groupId = { id }
                 groupName = { groupName }
+            />
+
+            <CreateEventModal 
+                show = { createEventShow }
+                handleClose = { handleCreateEventClose }
             />
         </>
     )

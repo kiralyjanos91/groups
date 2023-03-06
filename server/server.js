@@ -25,6 +25,7 @@ const findPrivateMessageRoute = require("./routes/findprivatemessage")
 const profilePohotoUploadRoute = require("./routes/profilephotoupload")
 const groupPhotoUploadRoute = require("./routes/groupphotoupload")
 const getAllMessagesRoute = require("./routes/getallmessages")
+const createEventRoute = require("./routes/createevent")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -149,6 +150,11 @@ app.use("/findprivatemessage" , findPrivateMessageRoute({
 app.use("/getallmessages" , getAllMessagesRoute({
     express,
     MemberModel
+}))
+
+app.use("/createevent" , createEventRoute({
+    express,
+    GroupModel
 }))
 
 app.listen(PORT , serverCallback) 
