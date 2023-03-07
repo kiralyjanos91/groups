@@ -7,16 +7,31 @@ const createEventRoute = ({
     router.post("/" , async (req , res) => {
         const {
             groupId,
-            eventName,
-            eventDate,
-            location,
-            details
-        } = req.body
+            title,
+            description,
+            date,
+            photo,
+            location
+        } = req.body.formData
 
-        await GroupModel.findOne({
-            id: groupId
+        const eventData = {
+            title,
+            description,
+            date,
+            photo,
+            location,
+            members: []
+        }
+
+        const thisGroup = await GroupModel.findOne({
+            _id: groupId
         })
-        res.status(200).json("ok")
+
+        thisGroup.events.push(eventData)
+
+        await thisGroup.save()
+
+        res.status(200).json("The new group was created successfully!")
     })
 
     return router

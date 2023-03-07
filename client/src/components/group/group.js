@@ -417,6 +417,7 @@ export default function Group(){
 
             <CreateEventModal 
                 show = { createEventShow }
+                groupId = { id }
                 handleClose = { handleCreateEventClose }
             />
         </>

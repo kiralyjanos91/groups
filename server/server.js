@@ -26,6 +26,7 @@ const profilePohotoUploadRoute = require("./routes/profilephotoupload")
 const groupPhotoUploadRoute = require("./routes/groupphotoupload")
 const getAllMessagesRoute = require("./routes/getallmessages")
 const createEventRoute = require("./routes/createevent")
+const eventPhotoUploadRoute = require("./routes/eventphotoupload")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -153,6 +154,11 @@ app.use("/getallmessages" , getAllMessagesRoute({
 }))
 
 app.use("/createevent" , createEventRoute({
+    express,
+    GroupModel
+}))
+
+app.use("/eventphotoupload" , eventPhotoUploadRoute({
     express,
     GroupModel
 }))
