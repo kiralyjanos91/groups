@@ -1,4 +1,4 @@
-import React from "react"
+import React , { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { Container , Row , Col } from "react-bootstrap"
@@ -7,7 +7,15 @@ import Button from "react-bootstrap/Button"
 import CloseButton from "react-bootstrap/CloseButton"
 import "./eventmodal.css"
 
-export default function EventModal( { handleClose , show , eventId  }){
+export default function EventModal( { handleClose , show , eventName , groupInfo  }){
+
+    const eventData = groupInfo.events.find((event,i) => {
+        return event.title === eventName
+    })
+
+    console.log(eventData)
+    const locationText = `${eventData?.location.country}, ${eventData?.location.state}, ${eventData?.location.city}`
+
     return (
         <>
             <Modal show={ show } onHide={ handleClose } fullscreen = { true } centered>
@@ -21,28 +29,32 @@ export default function EventModal( { handleClose , show , eventId  }){
                     </Modal.Header>
                     <Modal.Body>
                         <Row>
-                            <p>*Image*</p>
+                            <p>{eventData?.title}</p>
+                            <img 
+                                src = {eventData?.photo} 
+                                alt = "event-img" 
+                                className = "event-photo"
+                            />
                         </Row>
                         <Row>
                             <p>Admin:</p>
-                        </Row>
-                        <Row>
-                            <p>event id: {eventId}</p>
+                            <p>{groupInfo.admin.username}</p>
                         </Row>
                         <Row>
                             <p>Name:</p>
+                            {/* <p>{thisEventData?.title}</p> */}
                         </Row>
                         <Row>
-                            <p>Details:</p>
+                            <p>Description:</p>
+                            <p>{eventData?.description}</p>
                         </Row>
                         <Row>
                             <p>When:</p>
+                            <p>{eventData?.date}</p>
                         </Row>
                         <Row>
                             <p>Where:</p>
-                        </Row>
-                        <Row>
-                            <p>Where:</p>
+                            <p>{locationText}</p>
                         </Row>
                         <Row>
                             <p>Joined Members:</p>

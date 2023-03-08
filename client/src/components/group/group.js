@@ -15,27 +15,33 @@ import EventModal from "./eventmodal"
 import CreateEventModal from "./createeventmodal"
 
 export default function Group(){
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const [groupInfo , setGroupInfo] = useState()
     const [buttonLoading , setButtonLoading] = useState(false)
     const [emojiShow , setEmojiShow] = useState(false)
+    const [eventName , setEventName] = useState("")
+    const [eventShow, setEventShow] = useState(false);
+    
     const groupName = groupInfo?.name
     const admin = groupInfo?.admin
+
     const chatMessageRef = useRef()
     const chatWindowRef = useRef()
     
     const { userDataUpdate } = UserDataUpdateHook()
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
     const { id } = useParams()
     const user = useSelector((state) => state.userData.data)
+
     const ownUsername = user?.username
     const notOwnGroup = user.own_groups?.find( ( group ) => group.name === groupName ) ? false : true
     const joined = user.groups?.find( ( group ) => group.name === groupName ) ? true : false
 
-    const [eventShow, setEventShow] = useState(false);
     const handleEventClose = () => setEventShow(false);
     const handleEventShow = (event) => {
-        setEventId(event)
+        setEventName(event)
         setEventShow(true);
     }
     const [createEventShow, setcreateEventShow] = useState(false);
@@ -43,7 +49,6 @@ export default function Group(){
     const handleCreateEventShow = () => {
         setcreateEventShow(true);
     }
-    const [ eventId , setEventId ] = useState("")
 
     useEffect(() => {
         axios.post("/groupdata" , { id })
@@ -140,6 +145,10 @@ export default function Group(){
         }
     })
 
+    const eventsList = groupInfo?.events.map((event , i) => {
+        return <Col><p onClick = {(e) => handleEventShow(e.target.innerText)}>{event.title}</p></Col>
+    })
+
     const dateFormat = new Intl.DateTimeFormat("en-US",{
         year: "numeric",
         month: "short",
@@ -161,9 +170,6 @@ export default function Group(){
                 admin?.small_photo 
             : 
                 groupInfo?.members?.find((member) => member.username === senderName)?.small_photo 
-
-
-        console.log(senderName)
 
         return (
             <Row 
@@ -332,7 +338,7 @@ export default function Group(){
                         <Row>
                             <Col>
                                 <p>Events:</p>
-                                <p onClick = {() => handleEventShow(1) } >Test event</p>
+                                {eventsList}
                             </Col>
                         </Row>
                         <Row>
@@ -396,6 +402,18 @@ export default function Group(){
                                     </Row>
                                 </>
                             }   
+                            <EventModal 
+                                handleClose={ handleEventClose }
+                                show = { eventShow }
+                                groupInfo = { groupInfo }
+                                eventName = { eventName }
+                            />
+
+                            <CreateEventModal 
+                                show = { createEventShow }
+                                groupId = { id }
+                                handleClose = { handleCreateEventClose }
+                            />
                         </Container>
                     </>
                 :
@@ -406,20 +424,6 @@ export default function Group(){
                     </Row>
                 }
             </Container>
-
-            <EventModal 
-                handleClose={ handleEventClose }
-                show = { eventShow }
-                eventId = { eventId }
-                groupId = { id }
-                groupName = { groupName }
-            />
-
-            <CreateEventModal 
-                show = { createEventShow }
-                groupId = { id }
-                handleClose = { handleCreateEventClose }
-            />
         </>
     )
 }
