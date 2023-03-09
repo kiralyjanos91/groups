@@ -37,14 +37,6 @@ export default function EventModal( { handleClose , show , eventName , groupInfo
                             />
                         </Row>
                         <Row>
-                            <p>Admin:</p>
-                            <p>{groupInfo.admin.username}</p>
-                        </Row>
-                        <Row>
-                            <p>Name:</p>
-                            {/* <p>{thisEventData?.title}</p> */}
-                        </Row>
-                        <Row>
                             <p>Description:</p>
                             <p>{eventData?.description}</p>
                         </Row>

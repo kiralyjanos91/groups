@@ -146,7 +146,14 @@ export default function Group(){
     })
 
     const eventsList = groupInfo?.events.map((event , i) => {
-        return <Col><p onClick = {(e) => handleEventShow(e.target.innerText)}>{event.title}</p></Col>
+        return (
+            <Col 
+                className = "event-col"
+                onClick = {(e) => handleEventShow(e.target.innerText)}
+            >
+                <p>{event.title}</p>
+            </Col>
+        )
     })
 
     const dateFormat = new Intl.DateTimeFormat("en-US",{
