@@ -50,7 +50,7 @@
 
 .create-event-badge {
     cursor: pointer;
-    background-color: #959595;
+    background-color: #2e3439;
     max-width: fit-content;
     padding: 2px;
     padding-inline: 5px;
@@ -67,9 +67,32 @@
 }
 
 .event-col {
+    padding: 5px;
     max-width: fit-content;
     padding-inline: 5px;
-    background-color: #41464b;
+    background-color: #2e3439;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.event-img {
+    max-width: 100%;
+}
+
+.event-title {
+    font-size: 25px;
+    text-transform: uppercase;
+    text-decoration: underline;
+}
+
+.event-list-details-icon-col {
+    max-width: fit-content !important;
+}
+
+.event-details-row {
+    align-items: center;
+}
+
+.event-list-detals-text {
+    margin: 0 !important
 }

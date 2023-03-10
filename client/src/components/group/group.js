@@ -150,6 +150,8 @@ export default function Group(){
 
         return (
             <Col 
+                md = "4"
+                lg = "3"
                 className = "event-col"
                 id = {event.title}
                 onClick = {(e) => {
@@ -157,18 +159,44 @@ export default function Group(){
                 }}
             >
                 <Col>
-                    <img src = {event.photo} alt = "event-img" />
+                    <img 
+                        src = {event.photo} 
+                        className = "event-img"
+                        alt = "event-img" 
+                    />
                 </Col>
                 <Col>
                     <Row>
-                        <p name="title">{event.title}</p>
+                        <p 
+                            className="event-title"
+                        >
+                            {event.title}
+                        </p>             
                     </Row>
-                    <Row>
-                        <p>{event.description}</p>
+                    <Row className = "event-details-row">
+                        <Col className = "event-list-details-icon-col">
+                            <img 
+                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/location-icon.png"
+                                alt = "location-icon"
+                                className = "event-list-details-icon"
+                            />
+                        </Col>
+                        <Col>
+                            <p className = "event-list-detals-text">{locationText}</p>
+                        </Col>
                     </Row>
-                    <Row>
-                        <p>{locationText}</p>
-                    </Row>
+                    <Row className = "event-details-row">
+                        <Col className = "event-list-details-icon-col">
+                            <img 
+                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/date-icon.png"
+                                alt = "date-icon"
+                                className = "event-list-details-icon"
+                            />
+                        </Col>
+                        <Col>
+                            <p className = "event-list-detals-text">{event.date}</p>
+                        </Col>
+                    </Row>   
                 </Col>
             </Col>
         )
