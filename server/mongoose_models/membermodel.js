@@ -19,6 +19,9 @@ const memberSchema = new mongoose.Schema({
     groups: {
         type: Array
     },
+    events: {
+        type: Array
+    },
     private_messages: {
         type: Array
     },

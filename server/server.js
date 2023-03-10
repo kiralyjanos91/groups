@@ -27,6 +27,7 @@ const groupPhotoUploadRoute = require("./routes/groupphotoupload")
 const getAllMessagesRoute = require("./routes/getallmessages")
 const createEventRoute = require("./routes/createevent")
 const eventPhotoUploadRoute = require("./routes/eventphotoupload")
+const joinToEvent = require("./routes/jointoevent")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -161,6 +162,12 @@ app.use("/createevent" , createEventRoute({
 app.use("/eventphotoupload" , eventPhotoUploadRoute({
     express,
     GroupModel
+}))
+
+app.use("/jointoevent" , joinToEvent({
+    express,
+    GroupModel,
+    MemberModel
 }))
 
 app.listen(PORT , serverCallback) 

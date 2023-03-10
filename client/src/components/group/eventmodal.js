@@ -2,19 +2,36 @@ import React , { useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { Container , Row , Col } from "react-bootstrap"
+import { useSelector } from "react-redux"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import CloseButton from "react-bootstrap/CloseButton"
 import "./eventmodal.css"
 
-export default function EventModal( { handleClose , show , eventName , groupInfo  }){
+export default function EventModal({ handleClose , show , eventName , groupInfo }){
+
+    const user = useSelector((state) => state.userData.data)
 
     const eventData = groupInfo.events.find((event,i) => {
         return event.title === eventName
     })
 
-    console.log(eventData)
     const locationText = `${eventData?.location.country}, ${eventData?.location.state}, ${eventData?.location.city}`
+
+    const joinToEvent = () => {
+        eventData &&
+        axios.post("/jointoevent" , {
+            groupId: groupInfo._id,
+            groupName: groupInfo.name,
+            eventName,
+            eventPhoto: eventData?.photo,
+            eventDate:eventData?.date,
+            eventLocation:eventData?.location,
+            username: user.username,
+            userPhoto: user.small_photo
+        })
+            .then(res => console.log(res))
+    }
 
     return (
         <>
@@ -53,10 +70,10 @@ export default function EventModal( { handleClose , show , eventName , groupInfo
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary">
+                        <Button variant="primary" onClick = {joinToEvent}>
                             Join
                         </Button>
-                        <Button variant="secondary" onClick={ handleClose }>
+                        <Button variant="secondary" onClick = { handleClose }>
                             Close
                         </Button>
                     </Modal.Footer>
