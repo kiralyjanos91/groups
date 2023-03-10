@@ -41,7 +41,7 @@ export default function Group(){
 
     const handleEventClose = () => setEventShow(false);
     const handleEventShow = (event) => {
-        setEventName(event)
+        setEventName(event.currentTarget.id)
         setEventShow(true);
     }
     const [createEventShow, setcreateEventShow] = useState(false);
@@ -146,12 +146,30 @@ export default function Group(){
     })
 
     const eventsList = groupInfo?.events.map((event , i) => {
+        const locationText = `${event?.location.country}, ${event?.location.state}, ${event?.location.city}`
+
         return (
             <Col 
                 className = "event-col"
-                onClick = {(e) => handleEventShow(e.target.innerText)}
+                id = {event.title}
+                onClick = {(e) => {
+                    handleEventShow(e)
+                }}
             >
-                <p>{event.title}</p>
+                <Col>
+                    <img src = {event.photo} alt = "event-img" />
+                </Col>
+                <Col>
+                    <Row>
+                        <p name="title">{event.title}</p>
+                    </Row>
+                    <Row>
+                        <p>{event.description}</p>
+                    </Row>
+                    <Row>
+                        <p>{locationText}</p>
+                    </Row>
+                </Col>
             </Col>
         )
     })
