@@ -1,4 +1,4 @@
-import React , { useState } from "react"
+import React , { useState , useEffect } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { Container , Row , Col } from "react-bootstrap"
@@ -27,6 +27,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
 
     const joinToEvent = () => {
         eventData &&
+        setButtonLoading(true)
         axios.post("/jointoevent" , {
             groupId: groupInfo._id,
             groupName: groupInfo.name,
@@ -37,7 +38,10 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
             username: user.username,
             userPhoto: user.small_photo
         })
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res)
+                userDataUpdate()
+            })
     }
 
     const leaveEvent = () => {
@@ -52,6 +56,12 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                 userDataUpdate()
             })
     }
+
+    useEffect(() => {
+        if (buttonLoading) {
+            setButtonLoading(false)
+        }
+    }, [user])
 
     return (
         <>
