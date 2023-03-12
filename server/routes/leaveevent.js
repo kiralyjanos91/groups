@@ -7,7 +7,6 @@ const leaveEvent = ({
 
     router.post("/" , async (req , res) => {
         try{
-
             const { groupId, eventName, userName } = req.body
             const thisGroup = await GroupModel.findOne({ _id: groupId })
             const thisMember = await MemberModel.findOne({ username: userName })

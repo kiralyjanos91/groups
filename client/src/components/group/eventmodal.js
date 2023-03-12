@@ -61,7 +61,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
         if (buttonLoading) {
             setButtonLoading(false)
         }
-    }, [user])
+    }, [groupInfo])
 
     return (
         <>
