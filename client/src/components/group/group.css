@@ -68,7 +68,6 @@
 
 .event-col {
     padding: 5px;
-    max-width: fit-content;
     padding-inline: 5px;
     background-color: #2e3439;
     border-radius: 5px;
@@ -77,6 +76,23 @@
 
 .event-img {
     max-width: 100%;
+}
+
+.event-img-col {
+    min-height: 300px;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    padding-inline: 5px;
+    background-size: cover;
+    background-position: center;
+}
+
+.joined-badge-col > p {
+    background-color: #141619;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
 }
 
 .event-title {

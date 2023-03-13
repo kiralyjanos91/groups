@@ -146,8 +146,8 @@ export default function Group(){
     })
 
     const eventsList = groupInfo?.events.map((event , i) => {
+        const isMember = event.members.find((member) => member.username === ownUsername) ? true : false
         const locationText = `${event?.location.country}, ${event?.location.state}, ${event?.location.city}`
-
         return (
             <Col 
                 key = { i }
@@ -159,12 +159,19 @@ export default function Group(){
                     handleEventShow(e)
                 }}
             >
-                <Col>
-                    <img 
-                        src = {event.photo} 
-                        className = "event-img"
-                        alt = "event-img" 
-                    />
+                <Col
+                    className = "event-img-col"
+                    style = {{
+                        backgroundImage: `url("${event.photo}")`
+                    }}
+                >
+                    { isMember &&
+                        <Col className = "joined-badge-col">
+                            <p>
+                                Joined
+                            </p>
+                        </Col>
+                    }
                 </Col>
                 <Col>
                     <Row>
