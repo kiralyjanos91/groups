@@ -150,6 +150,7 @@ export default function Group(){
 
         return (
             <Col 
+                key = { i }
                 md = "4"
                 lg = "3"
                 className = "event-col"
@@ -274,15 +275,7 @@ export default function Group(){
                                     })`
                                 }}
                             >
-                                </div>
-                                {/* <img 
-                                    src = {
-                                        groupInfo?.photo 
-                                        || 
-                                        "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png"}
-                                    alt = "group-img" 
-                                    className = "group-main-photo"
-                                /> */}
+                            </div>
                             </Col>
                             <Col>
                                 <h1 className="group-name">
@@ -386,17 +379,11 @@ export default function Group(){
                         </Row>
                         <Row>
                             { membersList }
-                        </Row>
-                            
+                        </Row>   
                         <Row>
                             <Col>
                                 <p>Events:</p>
                                 {eventsList}
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <p>Location:</p>
                             </Col>
                         </Row>
                         <Row>

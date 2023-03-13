@@ -1,0 +1,6 @@
+.events-event-photo-col {
+    max-width: 300px !important;
+    min-height: 200px !important;
+    background-size: cover;
+    background-position: center;
+}

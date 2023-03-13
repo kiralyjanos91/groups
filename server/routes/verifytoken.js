@@ -17,6 +17,7 @@ const verifyTokenRoute = ({
             username,
             own_groups: userData?.own_groups,
             groups: userData?.groups,
+            events: userData?.events,
             small_photo: userData?.photos?.small_photo || ""
         }
 

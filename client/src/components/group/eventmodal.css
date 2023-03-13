@@ -3,3 +3,10 @@
     flex-direction: column;
     min-height: 100vh;
 }
+
+.event-photo-col {
+    height: 200px !important;
+    max-width: 200px !important;
+    background-size: cover;
+    background-position: center;
+}

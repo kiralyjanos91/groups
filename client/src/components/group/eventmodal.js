@@ -1,6 +1,6 @@
 import React , { useState , useEffect } from "react"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useNavigate , Link } from "react-router-dom"
 import { Container , Row , Col } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
@@ -13,6 +13,7 @@ import "./eventmodal.css"
 export default function EventModal({ handleClose , show , eventName , groupInfo }){
 
     const user = useSelector((state) => state.userData.data)
+    const ownUsername = user.username
     const { userDataUpdate } = UserDataUpdateHook()
 
     const eventData = groupInfo.events.find((event,i) => {
@@ -24,6 +25,33 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
     const [buttonLoading , setButtonLoading] = useState(false)
 
     const locationText = `${eventData?.location.country}, ${eventData?.location.state}, ${eventData?.location.city}`
+
+    const eventMembersList = eventData?.members?.map((member , index) => {
+        return (
+            <Col 
+                as = { Link }
+                key = { index }
+                className = "primary-link member-photo-col" 
+                to = {
+                    member.username === ownUsername ?
+                        `/profile`
+                    :
+                        `/member/${member.username}`
+                }
+            >
+                <img 
+                    src = { 
+                        member.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
+                    }
+                    alt = "small-profile"
+                    className="small-photo-round" 
+                />
+                <p className="members-list-username">
+                    { member.username }
+                </p>
+            </Col>
+        )
+    })
 
     const joinToEvent = () => {
         eventData &&
@@ -76,12 +104,16 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                     </Modal.Header>
                     <Modal.Body>
                         <Row>
-                            <p>{eventData?.title}</p>
-                            <img 
-                                src = {eventData?.photo} 
-                                alt = "event-img" 
-                                className = "event-photo"
-                            />
+                            <Col 
+                                className = "event-photo-col"
+                                style = {{
+                                    backgroundImage: `url("${eventData?.photo}")`
+                                }}
+                                >
+                            </Col>
+                            <Col>
+                                <p>{eventData?.title}</p>
+                            </Col>
                         </Row>
                         <Row>
                             <p>Description:</p>
@@ -96,7 +128,9 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                             <p>{locationText}</p>
                         </Row>
                         <Row>
-                            <p>Joined Members:</p>
+                            <p>Joined Members:</p> 
+                            { eventMembersList }
+
                         </Row>
                     </Modal.Body>
                     <Modal.Footer>

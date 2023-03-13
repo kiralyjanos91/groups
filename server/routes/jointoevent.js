@@ -41,7 +41,8 @@ const joinToEvent = ({
                     eventPhoto,
                     eventDate,
                     eventLocation,
-                    groupName
+                    groupName,
+                    groupId
                 })
                 
                 thisGroup.markModified("events")
