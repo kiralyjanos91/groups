@@ -90,6 +90,7 @@ export default function Member(){
                             </Col>
                             <Col>
                                 <p
+                                    className = "send-message-p"
                                     onClick = {() => handleShow()}
                                 >
                                     Send Message

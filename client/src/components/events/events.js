@@ -11,10 +11,15 @@ export default function Events(){
     const eventsList = user.events.map((event , i) => {
         const eventLocation = `${event?.eventLocation.country}, ${event?.eventLocation.state}, ${event?.eventLocation.city}`
         return (
-            <Col>
-                <Row>
+            <Col 
+                key = { i }
+                className = "events-event-main-col"
+                md = "3"
+            >
+                <Row
+                    className = "event-event-row"
+                >
                     <Col 
-                        key = { i }
                         className = "events-event-photo-col"
                         style = {{
                             backgroundImage: `url("${event.eventPhoto}")`
