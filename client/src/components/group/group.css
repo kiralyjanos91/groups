@@ -98,11 +98,14 @@
 .event-title {
     font-size: 25px;
     text-transform: uppercase;
-    text-decoration: underline;
 }
 
 .event-list-details-icon-col {
     max-width: fit-content !important;
+}
+
+.event-list-details-icon {
+    max-width: 30px;
 }
 
 .event-details-row {

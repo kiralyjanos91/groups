@@ -26,4 +26,49 @@
     background-position: center;
 }
 
+.change-photo-row > input {
+    max-width: fit-content;
+}
+
+.change-photo-text-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: grey;
+    max-width: fit-content !important;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px !important;
+}
+
+.change-photo-text-col:hover {
+    background-color: rgb(118, 118, 118);
+}
+
+.photo-upload-input-row {
+    max-width: fit-content !important;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.upload-or-cancel-row {
+    column-gap: 5px;
+}
+
+.upload-or-cancel-buttons-col {
+    max-width: fit-content !important;
+    padding: 0px !important;
+}
+
+.change-photo-text {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.about-section-row {
+    margin-top: 20px !important;
+    margin-bottom: 20px;
+}
+
 

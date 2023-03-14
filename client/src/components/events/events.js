@@ -42,15 +42,16 @@ export default function Events(){
                     </p>
                 </Row>
                 <Row>
-                    <p>
-                    <Button 
-                        variant="secondary" 
-                        as = { Link }
-                        to = { `/group/${event.groupId}` }
-                    >
-                        Go to Group
-                    </Button>
-                    </p>
+                    <Col>
+                        <Button 
+                            variant="primary" 
+                            className = "go-to-group-button"
+                            as = { Link }
+                            to = { `/group/${event.groupId}` }
+                            >
+                            Go to Group
+                        </Button>
+                    </Col>
                 </Row>
 
             </Col>

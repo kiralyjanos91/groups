@@ -1,5 +1,6 @@
 import React , { useState , useEffect } from "react"
 import { Container , Col , Row } from "react-bootstrap"
+import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import { Link } from "react-router-dom"
 import axios from "axios"
@@ -120,76 +121,105 @@ export default function Profile(){
                     >
                         { changePhoto ?
                             <>
-                                <input 
-                                    name = "photo-file" 
-                                    type = "file" 
-                                    onChange = { e => setSelectedFile(e.target.files[0])}
+                                <Row
+                                    className = "photo-upload-input-row"
+                                >
+                                    <input 
+                                        name = "photo-file" 
+                                        type = "file" 
+                                        onChange = { e => setSelectedFile(e.target.files[0])}
                                     />
-                                <p onClick = { uploadPhoto }>
-                                    Upload Photo
-                                </p>
-                                <p
-                                onClick={() => setChangePhoto(false)}
-                            > 
-                                Cancel 
-                            </p>
+                                </Row>
+                                <Row
+                                    className = "upload-or-cancel-row"
+                                >
+                                    <Col
+                                        className = "upload-or-cancel-buttons-col"
+                                    >
+                                        <Button 
+                                            variant = "primary"
+                                            onClick = { uploadPhoto }
+                                            >
+                                            Upload Photo
+                                        </Button>
+                                    </Col>
+                                    <Col
+                                        className = "upload-or-cancel-buttons-col"
+                                    >
+                                        <Button 
+                                            variant = "secondary"
+                                            onClick={() => setChangePhoto(false)}
+                                            >
+                                            Cancel                                    
+                                        </Button>
+                                    </Col>
+                                </Row>
                              </>
                         :
-                            <p
-                                onClick={() => setChangePhoto(true)}
-                            > 
-                                Change Photo 
-                            </p>
+                            <Col
+                                className = "change-photo-text-col"
+                            >
+                                <p
+                                    onClick={() => setChangePhoto(true)}
+                                    className = "change-photo-text"
+                                    > 
+                                    Change Photo 
+                                </p>
+                            </Col>
 
                         }
                     </Row>
-                    <Row>
-                        <Col>
-                            Username: { profileData.username }
-                        </Col>
+                    <Row
+                        className = "about-section-row"
+                    >
+                        <Row>
+                            <Col>
+                                Username: { profileData.username }
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <p>Date of birth:</p>
+                                <p>
+                                    { profileData.birth }
+                                </p>
+                            </Col>
+                        </Row>
+                        <hr />
+                        <Row>
+                            <Col>
+                                <p>
+                                    Location:
+                                </p>
+                                <p>
+                                    { locationInfoString }
+                                </p>
+                            </Col>
+                        </Row>
+                        <hr />
+                        <Row>
+                            <Col>
+                                <p>
+                                    Gender:
+                                </p>
+                                <p>
+                                    { profileData.gender }
+                                </p>
+                            </Col>
+                        </Row>
+                        <hr />
+                        <Row>
+                            <Col>
+                                <p>
+                                    Hobby:
+                                </p>
+                                <p>
+                                    { profileData.hobby }
+                                </p>
+                            </Col>
+                        </Row>
+                        <hr />
                     </Row>
-                    <Row>
-                        <Col>
-                            <p>Date of birth:</p>
-                            <p>
-                                { profileData.birth }
-                            </p>
-                        </Col>
-                    </Row>
-                    <hr />
-                    <Row>
-                        <Col>
-                            <p>
-                                Location:
-                            </p>
-                            <p>
-                                { locationInfoString }
-                            </p>
-                        </Col>
-                    </Row>
-                    <hr />
-                    <Row>
-                        <Col>
-                            <p>
-                                Gender:
-                            </p>
-                            <p>
-                                { profileData.gender }
-                            </p>
-                        </Col>
-                    </Row>
-                    <hr />
-                    <Row>
-                        <Col>
-                            <p>
-                                Hobby:
-                            </p>
-                            <p>
-                                { profileData.hobby }
-                            </p>
-                        </Col>
-                    </Row>
-                    <hr />
                     <Row>
                         <p>
                             Own groups:         
