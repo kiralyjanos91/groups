@@ -1,10 +1,8 @@
-import React, { useRef , useState , useEffect } from "react"
+import React, { useState , useEffect } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import CloseButton from "react-bootstrap/CloseButton"
 import axios from "axios"
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 import { Country, State, City }  from 'country-state-city';
 import "./createeventmodal.css"
@@ -17,6 +15,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
     const [ title , setTitle ] = useState("")
     const [ description , setDescription ] = useState("")
     const [ date , setDate ] = useState("")
+    const [ errorMessage , setErrorMessage ] = useState("")
     const [locationSelector , setLocationSelector] = useState({
         country: "",
         countryCode: "",
@@ -26,8 +25,6 @@ export default function CreateEventModal({ show , handleClose , groupId }){
     })
 
     const { userDataUpdate } = UserDataUpdateHook()
-    const navigate = useNavigate()
-
 
     useEffect(() => {
         if (eventPhoto) {
@@ -122,12 +119,36 @@ export default function CreateEventModal({ show , handleClose , groupId }){
         axios.post("/createevent" , {
             formData
         })
-            .then(response => console.log(response))
-            .then(
-                handleClose(),
+            .then(() => {   
+                handleClose()
                 userDataUpdate()
+            }
             )
-            .catch((err) => console.log(err))
+            .catch((err) => {
+                if(err.response.status === 406)
+                    {
+                        return setErrorMessage(err.response.data)
+                    }
+                console.log(err)
+            }
+            )
+    }
+
+    const clearOnClose = () => {
+        setEventPhoto(null)
+        setPhotoLocation("")
+        setImageUploading(false)
+        setTitle("")
+        setDescription("")
+        setDate("")
+        setErrorMessage("")
+        setLocationSelector({
+            country: "",
+            countryCode: "",
+            state: "",
+            stateCode: "",
+            city: ""
+        })
     }
 
     return (
@@ -146,8 +167,11 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                             *Title:
                         </label>
                         <input 
-                            name="title" 
-                            onChange = {(e) => setTitle(e.target.value)}
+                            name = "title" 
+                            onChange = {(e) => {
+                                setTitle(e.target.value)
+                                setErrorMessage("")
+                            }}
                             value = { title }
                         />
                         <label htmlFor = "groupname">
@@ -226,6 +250,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                             </>
                         }
                     </form>
+                    <p> { errorMessage }</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button 
@@ -237,7 +262,11 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                     </Button>
                     <Button 
                         variant="secondary" 
-                        onClick = { handleClose }
+                        onClick = {() => {
+                            handleClose()
+                            clearOnClose()
+                        }
+                        }
                     >
                         Close
                     </Button>

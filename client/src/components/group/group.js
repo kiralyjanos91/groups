@@ -388,10 +388,8 @@ export default function Group(){
                             { membersList }
                         </Row>   
                         <Row>
-                            <Col>
-                                <p>Events:</p>
-                                {eventsList}
-                            </Col>
+                            <p>Events:</p>
+                            {eventsList}                       
                         </Row>
                         <Row>
                             <Col>
