@@ -16,6 +16,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
     const [ description , setDescription ] = useState("")
     const [ date , setDate ] = useState("")
     const [ errorMessage , setErrorMessage ] = useState("")
+    const [ address , setAddress ] = useState("")
     const [locationSelector , setLocationSelector] = useState({
         country: "",
         countryCode: "",
@@ -113,7 +114,11 @@ export default function CreateEventModal({ show , handleClose , groupId }){
             description,
             date,
             photo: photoLocation,
-            location: locationSelector
+            location: {
+                ...locationSelector,
+                address
+            },
+            address
         }
 
         axios.post("/createevent" , {
@@ -122,6 +127,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
             .then(() => {   
                 handleClose()
                 userDataUpdate()
+                clearOnClose()
             }
             )
             .catch((err) => {
@@ -149,6 +155,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
             stateCode: "",
             city: ""
         })
+        setAddress("")
     }
 
     return (
@@ -158,7 +165,10 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                     <Modal.Title>Create Event</Modal.Title>
                     <CloseButton 
                         variant = "white" 
-                        onClick = { () => handleClose() }
+                        onClick = { () => {
+                            handleClose()
+                            clearOnClose()
+                        }}
                     />
                 </Modal.Header>
                 <Modal.Body>
@@ -247,6 +257,18 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                                     </option>
                                     { cities }
                                 </select>
+                            </>
+                        }
+                        { locationSelector.city &&
+                            <>
+                                <label htmlFor = "address">
+                                    *Address:
+                                </label>
+                                <input
+                                    name = "address"
+                                    value = { address }
+                                    onChange = {(e) => setAddress(e.target.value)}
+                                />
                             </>
                         }
                     </form>

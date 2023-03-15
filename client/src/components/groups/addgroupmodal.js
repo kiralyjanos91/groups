@@ -17,6 +17,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
     const [ photoLocation , setPhotoLocation ] = useState("")
     const [ imageUploading , setImageUploading ] = useState(false)
     const [ groupName , setGroupName ] = useState("")
+    const [ errorMessage , setErrorMessage] = useState("")
     const { userDataUpdate } = UserDataUpdateHook()
     const navigate = useNavigate()
 
@@ -36,8 +37,24 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
             userDataUpdate()
             navigate(`/group/${groupId}`)
             handleClose()
+            clearForm()
         }
         )
+        .catch((err) => {
+            if(err.response.status === 406)
+                {
+                    return setErrorMessage(err.response.data)
+                }
+            console.log(err)
+        })
+    }
+
+    const clearForm = () => {
+        setGroupPhoto(null)
+        setPhotoLocation("")
+        setImageUploading(false)
+        setGroupName("")
+        setErrorMessage("")
     }
 
     useEffect(() => {
@@ -55,12 +72,15 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
 
     return (
         <>
-            <Modal show={ show } onHide={ handleClose } centered>
+            <Modal show = { show } onHide = { handleClose } centered>
                 <Modal.Header>
                     <Modal.Title>Create Group</Modal.Title>
                     <CloseButton 
                         variant = "white" 
-                        onClick = { () => handleClose() }
+                        onClick = { () => {
+                            handleClose()
+                            clearForm()
+                        } }
                     />
                 </Modal.Header>
                 <Modal.Body>
@@ -70,7 +90,11 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
                         </label>
                         <input 
                             name="groupname" 
-                            onChange = {(e) => setGroupName(e.target.value)}
+                            onChange = {(e) => {
+                                setGroupName(e.target.value)
+                                setErrorMessage("")
+                            }
+                            }
                             value = { groupName }
                         />
                         <label htmlFor="category">
@@ -94,6 +118,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
                             }       
                         />
                     </form>
+                    <p>{ errorMessage }</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button 
@@ -105,7 +130,10 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
                     </Button>
                     <Button 
                         variant="secondary" 
-                        onClick = { handleClose }
+                        onClick = {() => {
+                            handleClose()
+                            clearForm()
+                        } }
                     >
                         Close
                     </Button>

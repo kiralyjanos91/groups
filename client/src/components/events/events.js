@@ -9,7 +9,7 @@ export default function Events(){
 
     const user = useSelector((state) => state.userData.data)
     const eventsList = user.events.map((event , i) => {
-        const eventLocation = `${event?.eventLocation.country}, ${event?.eventLocation.state}, ${event?.eventLocation.city}`
+        const eventLocation = `${event?.eventLocation.country}, ${event?.eventLocation.state}, ${event?.eventLocation.city}, ${event?.eventLocation.address || ""}`
         return (
             <Col 
                 key = { i }
@@ -61,11 +61,13 @@ export default function Events(){
 
     return (
         <Container>
-            { eventsList.length > 0 ?
-                eventsList
-            :
-                <h1>You haven't joined any events yet</h1>
-            }
+            <Row>
+                { eventsList.length > 0 ?
+                    eventsList
+                    :
+                    <h1>You haven't joined any events yet</h1>
+                }
+            </Row>
         </Container>
     )
 }

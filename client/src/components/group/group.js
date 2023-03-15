@@ -147,7 +147,7 @@ export default function Group(){
 
     const eventsList = groupInfo?.events.map((event , i) => {
         const isMember = event.members.find((member) => member.username === ownUsername) ? true : false
-        const locationText = `${event?.location.country}, ${event?.location.state}, ${event?.location.city}`
+        const locationText = `${event?.location.country}, ${event?.location.state}, ${event?.location.city}, ${event?.location.address || ""}`
         return (
             <Col 
                 key = { i }

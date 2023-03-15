@@ -190,7 +190,7 @@ export default function HomePage(){
                                 onClick = {handleShow}
                                 className = "create-group"
                             >
-                                Create a group +
+                                Create group +
                             </h3>
                         </Col>
                     </Row>

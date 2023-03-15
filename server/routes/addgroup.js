@@ -13,6 +13,14 @@ const addGroupsRoute = ({
             photo: photoLocation
         })
         try {
+            const isNameTaken = await GroupModel.findOne({
+                name: name
+            })
+
+            if (isNameTaken) {
+                return res.status(406).json("Group name is taken")
+            }
+
             const groupSaveResponse = await newGroup.save()
             group_Id = groupSaveResponse._id.toHexString()
             const memberUpdateResponse = await MemberModel.updateOne({
