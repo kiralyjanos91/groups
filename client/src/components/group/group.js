@@ -58,7 +58,7 @@ export default function Group(){
         setBanShow(false)
         setBanUsername("")
     }
-    
+
     useEffect(() => {
         axios.post("/groupdata" , { id })
             .then((groupdata) => 
@@ -130,33 +130,41 @@ export default function Group(){
     const membersList = groupInfo?.members?.map((member , index) => {
         if (member.username !== admin.username) {
             return (
-                <Col                   
-                    key = { index }
-                    className = "primary-link member-photo-col" 
+                <Col
+                    className = "member-list-element-main-col"
                 >
-                    <img 
-                        src = { 
-                            member.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
-                        }
-                        alt = "small-profile"
-                        className="small-photo-round" 
+                    { !notOwnGroup &&                       
+                        <p
+                            onClick = {
+                                () => banMember(member.username) 
+                            }
+                            className = "ban-x"
+                            >
+                            ⨉
+                    </p>
+                    }
+                    <Col                   
+                        key = { index }
+                        className = "primary-link member-photo-col" 
                         as = { Link }
                         to = {
                             member.username === ownUsername ?
-                                `/profile`
+                            `/profile`
                             :
-                                `/member/${member.username}`
+                            `/member/${member.username}`
                         }
-
-                    />
-                    <p className="members-list-username">
-                        { member.username }
-                    </p>
-                    <p
-                        onClick = {() => banMember(member.username) }
-                    >
-                        ban X
-                    </p>
+                        >
+                        <img 
+                            src = { 
+                                member.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
+                            }
+                            alt = "small-profile"
+                            className="small-photo-round" 
+                            />
+                        <p className="members-list-username">
+                            { member.username }
+                        </p>
+                    </Col>
                 </Col>
             )
         }   

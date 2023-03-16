@@ -12,6 +12,17 @@
     align-items: flex-end;
 }
 
+.member-list-element-main-col {
+    max-width: fit-content !important;
+}
+
+.ban-x {
+    cursor: pointer;
+    text-align: right;
+    margin-bottom: -3px;
+    color: grey;
+}
+
 .group-main-photo-col {
     max-width: fit-content !important;
     max-height: fit-content !important;
