@@ -13,6 +13,7 @@ import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 import "./group.css"
 import EventModal from "./eventmodal"
 import CreateEventModal from "./createeventmodal"
+import BanMemberModal from "./banmembermodal"
 
 export default function Group(){
 
@@ -24,6 +25,9 @@ export default function Group(){
     const [emojiShow , setEmojiShow] = useState(false)
     const [eventName , setEventName] = useState("")
     const [eventShow, setEventShow] = useState(false);
+    const [banShow, setBanShow] = useState(false);
+
+    const [banUsername , setBanUsername] = useState("")
     
     const groupName = groupInfo?.name
     const admin = groupInfo?.admin
@@ -50,6 +54,11 @@ export default function Group(){
         setcreateEventShow(true);
     }
 
+    const handleBanClose = () => {
+        setBanShow(false)
+        setBanUsername("")
+    }
+    
     useEffect(() => {
         axios.post("/groupdata" , { id })
             .then((groupdata) => 
@@ -85,6 +94,11 @@ export default function Group(){
             })
     }
 
+    const banMember = (username) => {
+        setBanUsername(username)
+        setBanShow(true)
+    }
+
     const sendToChat = () => {
         if (chatMessageRef.current.value) {
                 axios.post("/sendtochat" , {
@@ -116,16 +130,9 @@ export default function Group(){
     const membersList = groupInfo?.members?.map((member , index) => {
         if (member.username !== admin.username) {
             return (
-                <Col 
-                    as = { Link }
+                <Col                   
                     key = { index }
                     className = "primary-link member-photo-col" 
-                    to = {
-                        member.username === ownUsername ?
-                            `/profile`
-                        :
-                            `/member/${member.username}`
-                    }
                 >
                     <img 
                         src = { 
@@ -133,9 +140,22 @@ export default function Group(){
                         }
                         alt = "small-profile"
                         className="small-photo-round" 
+                        as = { Link }
+                        to = {
+                            member.username === ownUsername ?
+                                `/profile`
+                            :
+                                `/member/${member.username}`
+                        }
+
                     />
                     <p className="members-list-username">
                         { member.username }
+                    </p>
+                    <p
+                        onClick = {() => banMember(member.username) }
+                    >
+                        ban X
                     </p>
                 </Col>
             )
@@ -459,6 +479,13 @@ export default function Group(){
                                 show = { createEventShow }
                                 groupId = { id }
                                 handleClose = { handleCreateEventClose }
+                            />
+
+                            <BanMemberModal 
+                                handleClose={ handleBanClose }
+                                show = { banShow }
+                                username = { banUsername }
+                                groupId = { id }
                             />
                         </Container>
                     </>

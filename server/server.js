@@ -29,6 +29,7 @@ const createEventRoute = require("./routes/createevent")
 const eventPhotoUploadRoute = require("./routes/eventphotoupload")
 const joinToEvent = require("./routes/jointoevent")
 const leaveEvent = require("./routes/leaveevent")
+const banMemberRoute = require("./routes/banmember")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -103,6 +104,12 @@ app.use("/profiledatachange" , profileDataChangeRoute({
 }))
 
 app.use("/joingroup" , joinGroupRoute({
+    express,
+    GroupModel,
+    MemberModel
+}))
+
+app.use("/banmember" , banMemberRoute({
     express,
     GroupModel,
     MemberModel
