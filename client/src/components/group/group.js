@@ -177,62 +177,66 @@ export default function Group(){
         const isMember = event.members.find((member) => member.username === ownUsername) ? true : false
         const locationText = `${event?.location.country}, ${event?.location.state}, ${event?.location.city}, ${event?.location.address || ""}`
         return (
-            <Col 
-                key = { i }
+            <Col
+                className = "event-list-element-main-col"
                 md = "4"
                 lg = "3"
-                className = "event-col"
-                id = {event.title}
-                onClick = {(e) => {
-                    handleEventShow(e)
-                }}
             >
-                <Col
-                    className = "event-img-col"
-                    style = {{
-                        backgroundImage: `url("${event.photo}")`
+                <Col 
+                    key = { i }
+                    className = "event-col"
+                    id = {event.title}
+                    onClick = {(e) => {
+                        handleEventShow(e)
                     }}
                 >
-                    { isMember &&
-                        <Col className = "joined-badge-col">
-                            <p>
-                                Joined
-                            </p>
-                        </Col>
-                    }
-                </Col>
-                <Col>
-                    <Row>
-                        <p 
-                            className="event-title"
-                        >
-                            {event.title}
-                        </p>             
-                    </Row>
-                    <Row className = "event-details-row">
-                        <Col className = "event-list-details-icon-col">
-                            <img 
-                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/location-icon.png"
-                                alt = "location-icon"
-                                className = "event-list-details-icon"
-                            />
-                        </Col>
-                        <Col>
-                            <p className = "event-list-detals-text">{locationText}</p>
-                        </Col>
-                    </Row>
-                    <Row className = "event-details-row">
-                        <Col className = "event-list-details-icon-col">
-                            <img 
-                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/date-icon.png"
-                                alt = "date-icon"
-                                className = "event-list-details-icon"
-                            />
-                        </Col>
-                        <Col>
-                            <p className = "event-list-detals-text">{event.date}</p>
-                        </Col>
-                    </Row>   
+                    <Col
+                        className = "event-img-col"
+                        style = {{
+                            backgroundImage: `url("${event.photo}")`
+                        }}
+                    >
+                        { isMember &&
+                            <Col className = "joined-badge-col">
+                                <p>
+                                    Joined
+                                </p>
+                            </Col>
+                        }
+                    </Col>
+                    <Col>
+                        <Row>
+                            <p 
+                                className="event-title"
+                            >
+                                {event.title}
+                            </p>             
+                        </Row>
+                        <Row className = "event-details-row">
+                            <Col className = "event-list-details-icon-col">
+                                <img 
+                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/location-icon.png"
+                                    alt = "location-icon"
+                                    className = "event-list-details-icon"
+                                />
+                            </Col>
+                            <Col>
+                                <p className = "event-list-detals-text">{locationText}</p>
+                            </Col>
+                        </Row>
+                        <Row className = "event-details-row">
+                            <Col className = "event-list-details-icon-col">
+                                <img 
+                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/date-icon.png"
+                                    alt = "date-icon"
+                                    className = "event-list-details-icon"
+                                />
+                            </Col>
+                            <Col>
+                                <p className = "event-list-detals-text">{event.date}</p>
+                            </Col>
+                        </Row>   
+                    </Col>
                 </Col>
             </Col>
         )
