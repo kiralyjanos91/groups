@@ -85,6 +85,19 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
             })
     }
 
+    const deleteEvent = () => {
+        axios.delete("/deleteevent" , {
+            data: {
+                groupId: groupInfo._id,
+                eventName 
+            }
+        })
+            .then((res) => {
+                console.log(res)
+                userDataUpdate()
+            })
+    }
+
     useEffect(() => {
         if (buttonLoading) {
             setButtonLoading(false)
@@ -171,6 +184,9 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                         }
                         <Button variant="secondary" onClick = { handleClose }>
                             Close
+                        </Button>
+                        <Button variant="secondary" onClick = { deleteEvent }>
+                            Delete Event
                         </Button>
                     </Modal.Footer>
                 </Container>

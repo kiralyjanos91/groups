@@ -30,6 +30,7 @@ const eventPhotoUploadRoute = require("./routes/eventphotoupload")
 const joinToEvent = require("./routes/jointoevent")
 const leaveEvent = require("./routes/leaveevent")
 const banMemberRoute = require("./routes/banmember")
+const deleteEventRoute = require("./routes/deleteevent")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -179,6 +180,12 @@ app.use("/jointoevent" , joinToEvent({
 }))
 
 app.use("/leaveevent" , leaveEvent({
+    express,
+    GroupModel,
+    MemberModel
+}))
+
+app.use("/deleteevent" , deleteEventRoute({
     express,
     GroupModel,
     MemberModel
