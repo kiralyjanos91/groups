@@ -29,19 +29,45 @@ export default function Events(){
                         </Col>
                     </Row>
                     <Row>
-                        <p>
+                        <p
+                            className = "event-title"
+                        >
                             {event.eventName}
                         </p>
                     </Row>
                     <Row>
-                        <p>
-                            {event.eventDate}
-                        </p>
+                        <Col className = "event-list-details-icon-col">
+                            <img 
+                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/location-icon.png"
+                                alt = "location-icon"
+                                className = "event-list-details-icon"
+                            />
+                        </Col>
+                        <Col>
+                            <p>
+                                {event.eventDate}
+                            </p>
+                        </Col>
                     </Row>
                     <Row>
-                        <p>
-                            {eventLocation}
-                        </p>
+                        <Col
+                            className = "event-list-details-seperator"
+                        >
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className = "event-list-details-icon-col">
+                            <img 
+                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/date-icon.png"
+                                alt = "date-icon"
+                                className = "event-list-details-icon"
+                            />
+                        </Col>
+                        <Col>
+                            <p>
+                                {eventLocation}
+                            </p>
+                        </Col>
                     </Row>
                     <Row
                         className = "h-100"

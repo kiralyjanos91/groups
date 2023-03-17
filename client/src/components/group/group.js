@@ -222,6 +222,12 @@ export default function Group(){
                             </Col>
                             <Col>
                                 <p className = "event-list-detals-text">{locationText}</p>
+                            </Col>                           
+                        </Row>
+                        <Row>
+                            <Col
+                                className = "event-list-details-seperator"
+                            >
                             </Col>
                         </Row>
                         <Row className = "event-details-row">

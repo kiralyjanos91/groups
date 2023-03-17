@@ -77,8 +77,12 @@
     justify-content: center;
 }
 
-.event-list-element-main-col {
-
+.event-list-details-seperator {
+    height: 1px;
+    background-color: #616161;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    margin-inline: 10px;
 }
 
 .event-col {
