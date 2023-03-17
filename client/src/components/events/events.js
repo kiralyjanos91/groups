@@ -16,7 +16,7 @@ export default function Events(){
             >          
                 <Col 
                     key = { i }
-                    className = "events-event-main-col"
+                    className = "events-event-main-col h-100"
                 >
                     <Row
                         className = "event-event-row"
@@ -43,8 +43,12 @@ export default function Events(){
                             {eventLocation}
                         </p>
                     </Row>
-                    <Row>
-                        <Col>
+                    <Row
+                        className = "h-100"
+                    >
+                        <Col
+                            className = "go-to-group-button-col"
+                        >
                             <Button 
                                 variant="primary" 
                                 className = "go-to-group-button"

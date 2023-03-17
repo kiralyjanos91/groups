@@ -1,5 +1,5 @@
 .events-event-main-col {
-    display: grid;
+    display: flex;
     flex-direction: column;
     background-color: #212529;
     padding: 5px;
@@ -19,6 +19,10 @@
 }
 
 .go-to-group-button-row {
+    align-self: flex-end;
+}
+
+.go-to-group-button-col {
     align-self: flex-end;
 }
 
