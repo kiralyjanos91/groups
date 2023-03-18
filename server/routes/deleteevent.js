@@ -14,27 +14,28 @@ const deleteEventRoute = ({
 
         const thisEvent = thisGroup.events.find((event) => event.title === eventName)
 
-        // if (thisEvent.members.lenght > 0) {
+        if (thisEvent.members.length > 0) {
 
-            
-            // const eventMembers = await MemberModel.find({
-            //     name: {
-            //             $in: [thisEvent.members]
-            //         }
-            // })
+            const eventMemberNames = thisEvent.members.map((member) => member.username)
+                
+            const eventMembers = await MemberModel.find({
+                username: {
+                    $in: eventMemberNames
+                }
+            })
 
-            // eventMembers.forEach((member) => {
+            eventMembers.forEach((member) => {
+                member.events = member.events.filter((event) => event.eventName !== eventName)
+                console.log(member.events)
+            })
 
-            // })
-
-        // }
-
-
+            await MemberModel.bulkSave(eventMembers)
+        
+        }
+               
         thisGroup.events = thisGroup.events.filter((event) => event.title !== eventName)
-
-        console.log(eventName)
-
-        console.log(thisGroup.events)
+        
+        await thisGroup.save()
 
     })
 
