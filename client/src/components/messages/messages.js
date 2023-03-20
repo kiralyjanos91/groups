@@ -159,6 +159,9 @@ export default function Messages() {
                     <h1>Messages Page</h1>
                 </Col>
             </Row>
+            <Row>
+                Find member
+            </Row>
             { allMessages.length > 0 ?
                 <Row>
                     <Col className = "chat-partners-col">
