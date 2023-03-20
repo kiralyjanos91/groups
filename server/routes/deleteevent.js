@@ -8,35 +8,41 @@ const deleteEventRoute = ({
     router.delete("/" , async (req , res) => {
         const { groupId , eventName } = req.body
 
-        const thisGroup = await GroupModel.findOne({
-            _id: groupId
-        })
+        try {
+            const thisGroup = await GroupModel.findOne({
+                _id: groupId
+            })
 
-        const thisEvent = thisGroup.events.find((event) => event.title === eventName)
+            const thisEvent = thisGroup.events.find((event) => event.title === eventName)
 
-        if (thisEvent.members.length > 0) {
+            if (thisEvent.members.length > 0) {
 
-            const eventMemberNames = thisEvent.members.map((member) => member.username)
+                const eventMemberNames = thisEvent.members.map((member) => member.username)
+                    
+                const eventMembers = await MemberModel.find({
+                    username: {
+                        $in: eventMemberNames
+                    }
+                })
+
+                eventMembers.forEach((member) => {
+                    member.events = member.events.filter((event) => event.eventName !== eventName)
+                    console.log(member.events)
+                })
+
+                await MemberModel.bulkSave(eventMembers)
+            
+            }
                 
-            const eventMembers = await MemberModel.find({
-                username: {
-                    $in: eventMemberNames
-                }
-            })
+            thisGroup.events = thisGroup.events.filter((event) => event.title !== eventName)
+            
+            await thisGroup.save()
 
-            eventMembers.forEach((member) => {
-                member.events = member.events.filter((event) => event.eventName !== eventName)
-                console.log(member.events)
-            })
-
-            await MemberModel.bulkSave(eventMembers)
-        
+            res.status(200).json("Deleted")
         }
-               
-        thisGroup.events = thisGroup.events.filter((event) => event.title !== eventName)
-        
-        await thisGroup.save()
-
+        catch(err){
+            res.status(400).json("Server error. Event delete failed.")
+        }
     })
 
     return router

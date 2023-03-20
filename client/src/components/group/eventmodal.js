@@ -21,11 +21,9 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
     })
 
     const joined = eventData?.members.find((member) => member.username === user.username) ? true : false
-
     const [buttonLoading , setButtonLoading] = useState(false)
-
+    const [deletePage , setDeletePage] = useState(false)
     const locationText = `${eventData?.location.country}, ${eventData?.location.state}, ${eventData?.location.city}`
-
     const eventMembersList = eventData?.members?.map((member , index) => {
         return (
             <Col 
@@ -86,6 +84,8 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
     }
 
     const deleteEvent = () => {
+        setDeletePage(false)
+        handleClose()
         axios.delete("/deleteevent" , {
             data: {
                 groupId: groupInfo._id,
@@ -96,6 +96,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                 console.log(res)
                 userDataUpdate()
             })
+            .catch(err => console.log(err))
     }
 
     useEffect(() => {
@@ -107,90 +108,117 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
     return (
         <>
             <Modal show={ show } onHide={ handleClose } fullscreen = { true } centered>
-                <Container className = "event-modal-container">
-                    <Modal.Header>
-                        <Modal.Title>Event</Modal.Title>
-                        <CloseButton 
-                            variant = "white" 
-                            onClick = { () => handleClose() }
-                        />
-                    </Modal.Header>
-                    <Modal.Body>
+                { deletePage ? 
+                    <Container>
                         <Row>
-                            <Col 
-                                className = "event-photo-col"
-                                style = {{
-                                    backgroundImage: `url("${eventData?.photo}")`
-                                }}
+                            <Col>
+                                <h1>Wanna Delete?</h1>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Button 
+                                    variant = "primary"
+                                    onClick = { deleteEvent }
                                 >
+                                    Delete
+                                </Button>
                             </Col>
                             <Col>
-                                <p>{eventData?.title}</p>
+                                <Button 
+                                    variant = "secondary"
+                                    onClick = {() => setDeletePage(false)}
+                                >
+                                    Close
+                                </Button>
                             </Col>
                         </Row>
-                        <Row>
-                            <p>Description:</p>
-                            <p>{eventData?.description}</p>
-                        </Row>
-                        <Row>
-                            <p>When:</p>
-                            <p>{eventData?.date}</p>
-                        </Row>
-                        <Row>
-                            <p>Where:</p>
-                            <p>{locationText}</p>
-                        </Row>
-                        <Row>
-                            <p>Joined Members:</p> 
-                            { eventMembersList }
-
-                        </Row>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        { joined ?
-                            <Button 
-                                variant="secondary" 
-                                onClick = { leaveEvent }
-                            >
-                                { buttonLoading ?
-                                    <Spinner 
-                                        animation="border" 
-                                        role="status" 
-                                        className="loading-button"
+                    </Container>
+                :
+                    <Container className = "event-modal-container">
+                        <Modal.Header>
+                            <Modal.Title>Event</Modal.Title>
+                            <CloseButton 
+                                variant = "white" 
+                                onClick = { () => handleClose() }
+                            />
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Row>
+                                <Col 
+                                    className = "event-photo-col"
+                                    style = {{
+                                        backgroundImage: `url("${eventData?.photo}")`
+                                    }}
                                     >
-                                        <span className="visually-hidden">Loading...</span>
-                                    </Spinner>
-                                :
-                                    "Leave"
-                                }
-                            </Button>
-                        :
-                            <Button 
-                                variant="primary" 
-                                onClick = { joinToEvent }
-                            >
-                                { buttonLoading ?
-                                    <Spinner 
-                                        animation="border" 
-                                        role="status"
-                                        className="loading-button"
+                                </Col>
+                                <Col>
+                                    <p>{eventData?.title}</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <p>Description:</p>
+                                <p>{eventData?.description}</p>
+                            </Row>
+                            <Row>
+                                <p>When:</p>
+                                <p>{eventData?.date}</p>
+                            </Row>
+                            <Row>
+                                <p>Where:</p>
+                                <p>{locationText}</p>
+                            </Row>
+                            <Row>
+                                <p>Joined Members:</p> 
+                                { eventMembersList }
+                            </Row>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            { joined ?
+                                <Button 
+                                    variant="secondary" 
+                                    onClick = { leaveEvent }
+                                >
+                                    { buttonLoading ?
+                                        <Spinner 
+                                            animation="border" 
+                                            role="status" 
+                                            className="loading-button"
+                                        >
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner>
+                                    :
+                                        "Leave"
+                                    }
+                                </Button>
+                            :
+                                <Button 
+                                    variant="primary" 
+                                    onClick = { joinToEvent }
                                     >
-                                        <span className="visually-hidden">Loading...</span>
-                                    </Spinner>
-                                :
-                                    "Join"
-                                }
+                                    { buttonLoading ?
+                                        <Spinner 
+                                            animation="border" 
+                                            role="status"
+                                            className="loading-button"
+                                        >
+                                            <span className="visually-hidden">Loading...</span>
+                                        </Spinner>
+                                    :
+                                        "Join"
+                                    }
+                                </Button>
+                            }
+                            <Button variant="secondary" onClick = { handleClose }>
+                                Close
                             </Button>
-                        }
-                        <Button variant="secondary" onClick = { handleClose }>
-                            Close
-                        </Button>
-                        <Button variant="secondary" onClick = { deleteEvent }>
-                            Delete Event
-                        </Button>
-                    </Modal.Footer>
-                </Container>
+                            <Button variant="secondary" onClick = { () => setDeletePage(true) }>
+                                Delete Event
+                            </Button>
+                        </Modal.Footer>
+                    </Container>
+                }
             </Modal>
         </>
-    )
+        )
 }

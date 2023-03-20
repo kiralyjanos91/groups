@@ -48,6 +48,7 @@
 
 .own-group-badge-col, .create-event-badge-col {
     max-width: fit-content !important;
+    padding-right: 0 !important;
 }
 
 .own-group-badge {

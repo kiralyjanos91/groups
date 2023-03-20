@@ -211,7 +211,11 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                             }
                             }       
                         />
-                        <p>Location:</p>
+                        <p
+                            className = "create-event-location-p"
+                        >
+                            Location:
+                        </p>
                         <label htmlFor="country">Country:</label>
                         <select 
                             name="country"
