@@ -13,6 +13,7 @@ export default function Messages() {
     const [ showChat , setShowChat ] = useState(false)
     const user = useSelector((state) => state.userData.data)
     const [ emojiShow , setEmojiShow ] = useState(false)
+    const [ findMember , setFindMember ] = useState("")
     const chatMessageRef = useRef()
     const chatWindowRef = useRef()
 
@@ -160,7 +161,18 @@ export default function Messages() {
                 </Col>
             </Row>
             <Row>
-                Find member
+                <Col>
+                    <label 
+                        htmlFor = "findMembers"
+                    >
+                        Find Members:
+                    </label>
+                    <input 
+                        name = "findMembers" 
+                        value = { findMember }
+                        onChange = { (e) => setFindMember(e.target.value) }
+                    />
+                </Col>
             </Row>
             { allMessages.length > 0 ?
                 <Row>

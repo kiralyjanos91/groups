@@ -219,7 +219,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                             <Button variant="secondary" onClick = { handleClose }>
                                 Close
                             </Button>
-                            <Button variant="secondary" onClick = { () => setDeletePage(true) }>
+                            <Button variant="dark" onClick = { () => setDeletePage(true) }>
                                 Delete Event
                             </Button>
                         </Modal.Footer>
