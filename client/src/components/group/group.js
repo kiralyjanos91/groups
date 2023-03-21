@@ -131,6 +131,7 @@ export default function Group(){
         if (member.username !== admin.username) {
             return (
                 <Col
+                    key = { index }
                     className = "member-list-element-main-col"
                 >
                     { !notOwnGroup &&                       
@@ -144,7 +145,6 @@ export default function Group(){
                     </p>
                     }
                     <Col                   
-                        key = { index }
                         className = "primary-link member-photo-col" 
                         as = { Link }
                         to = {
@@ -178,12 +178,12 @@ export default function Group(){
         const locationText = `${event?.location.country}, ${event?.location.state}, ${event?.location.city}, ${event?.location.address || ""}`
         return (
             <Col
+                key = { i }
                 className = "event-list-element-main-col"
                 md = "4"
                 lg = "3"
             >
                 <Col 
-                    key = { i }
                     className = "event-col"
                     id = {event.title}
                     onClick = {(e) => {

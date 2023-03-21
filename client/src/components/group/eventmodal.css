@@ -10,3 +10,20 @@
     background-size: cover;
     background-position: center;
 }
+
+.delete-event-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.delete-event-page-button {
+    width: 100px;
+}
+
+.delete-question {
+    text-align: center;
+}

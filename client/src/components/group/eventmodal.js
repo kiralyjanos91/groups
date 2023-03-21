@@ -109,15 +109,21 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
         <>
             <Modal show={ show } onHide={ handleClose } fullscreen = { true } centered>
                 { deletePage ? 
-                    <Container>
+                    <Container
+                        className = "delete-event-container"
+                    >
                         <Row>
                             <Col>
-                                <h1>Wanna Delete?</h1>
+                                <h1
+                                    className = "delete-question"
+                                >
+                                    Do You want to delete this event?</h1>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
                                 <Button 
+                                    className = "delete-event-page-button"
                                     variant = "primary"
                                     onClick = { deleteEvent }
                                 >
@@ -126,6 +132,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                             </Col>
                             <Col>
                                 <Button 
+                                    className = "delete-event-page-button"
                                     variant = "secondary"
                                     onClick = {() => setDeletePage(false)}
                                 >
