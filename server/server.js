@@ -31,6 +31,7 @@ const joinToEvent = require("./routes/jointoevent")
 const leaveEvent = require("./routes/leaveevent")
 const banMemberRoute = require("./routes/banmember")
 const deleteEventRoute = require("./routes/deleteevent")
+const findMemberRoute = require("./routes/findmember")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -159,6 +160,11 @@ app.use("/findprivatemessage" , findPrivateMessageRoute({
 }))
 
 app.use("/getallmessages" , getAllMessagesRoute({
+    express,
+    MemberModel
+}))
+
+app.use("/findmember/:memberletters/" , findMemberRoute({
     express,
     MemberModel
 }))

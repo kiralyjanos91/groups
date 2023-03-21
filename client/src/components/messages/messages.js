@@ -49,6 +49,12 @@ export default function Messages() {
         }
     }, [currentPartner])
 
+    useEffect(() => {
+        findMember && (
+            axios.get(`/findmember/:${findMember}`)
+        )
+    }, [findMember])
+
     const sendMessage = () => {
         axios.post("/sendprivatemessage" , {
             sender_username: user?.username,
