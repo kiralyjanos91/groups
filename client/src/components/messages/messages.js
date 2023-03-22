@@ -51,7 +51,12 @@ export default function Messages() {
 
     useEffect(() => {
         findMember && (
-            axios.get(`/findmember/:${findMember}`)
+            axios.get(`/findmember` , {
+                params: {
+                    memberletters: findMember
+                }
+            })
+                .then(res => console.log(res))
         )
     }, [findMember])
 

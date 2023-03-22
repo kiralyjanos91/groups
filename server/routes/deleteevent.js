@@ -16,22 +16,18 @@ const deleteEventRoute = ({
             const thisEvent = thisGroup.events.find((event) => event.title === eventName)
 
             if (thisEvent.members.length > 0) {
-
-                const eventMemberNames = thisEvent.members.map((member) => member.username)
-                    
+                const eventMemberNames = thisEvent.members.map((member) => member.username)   
                 const eventMembers = await MemberModel.find({
                     username: {
                         $in: eventMemberNames
                     }
                 })
-
                 eventMembers.forEach((member) => {
                     member.events = member.events.filter((event) => event.eventName !== eventName)
                     console.log(member.events)
                 })
 
                 await MemberModel.bulkSave(eventMembers)
-            
             }
                 
             thisGroup.events = thisGroup.events.filter((event) => event.title !== eventName)

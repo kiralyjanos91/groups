@@ -164,7 +164,7 @@ app.use("/getallmessages" , getAllMessagesRoute({
     MemberModel
 }))
 
-app.use("/findmember/:memberletters/" , findMemberRoute({
+app.use("/findmember" , findMemberRoute({
     express,
     MemberModel
 }))

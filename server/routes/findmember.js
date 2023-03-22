@@ -4,13 +4,21 @@ const findMemberRoute = ({
 }) => {
     const router = express.Router()
 
-    router.get("/" , (req , res) => {
+    router.get("/" , async (req , res) => {
 
-        const { memberletters } = req.params
+        const membersListRaw = await MemberModel.find({})
 
-        console.log(req.params)
+        const { memberletters } = req.query
 
-        res.status(200).json("ok")
+        const filteredList = membersListRaw.filter((member) => member.username.startsWith(memberletters))
+        const membersList = filteredList.map((member) => {
+            return {
+                username: member.username,
+                small_photo: member.photos?.small_photo
+            }
+        })
+    
+        res.status(200).json(membersList)
     })
 
     return router
