@@ -1,3 +1,18 @@
+.messages-page-container {
+    display: grid;
+}
+
+.messages-page-container > .row {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.messages-page-container > .row:nth-child(2) {
+    margin-top: 100px
+}
+
 .hide-chat {
     visibility: hidden !important
 }
@@ -32,4 +47,19 @@
 
 .chat-partner-name-col > p {
     margin: 0px !important;
+}
+
+.find-member-list-row {
+    min-height: 100px;
+    max-height: 300px;
+    overflow-y: scroll;
+    background-color: #212529;
+    z-index: 2 !important;
+    position: relative;
+}
+
+.find-member-spinner-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

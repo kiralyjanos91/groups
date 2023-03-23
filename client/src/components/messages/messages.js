@@ -14,6 +14,8 @@ export default function Messages() {
     const user = useSelector((state) => state.userData.data)
     const [ emojiShow , setEmojiShow ] = useState(false)
     const [ findMember , setFindMember ] = useState("")
+    const [ findMemberLoading , setFindMemberLoading ] = useState(false)
+    const [ findMemberList , setFindMemberList ] = useState([])
     const chatMessageRef = useRef()
     const chatWindowRef = useRef()
 
@@ -50,14 +52,20 @@ export default function Messages() {
     }, [currentPartner])
 
     useEffect(() => {
-        findMember && (
+        if (findMember) {
+            setFindMemberLoading(true)
             axios.get(`/findmember` , {
                 params: {
                     memberletters: findMember
                 }
             })
-                .then(res => console.log(res))
-        )
+                .then(res => setFindMemberList(res.data))
+                .then(() => setFindMemberLoading(false))
+                .catch(err => console.log(err))
+        }
+        else {
+            setFindMemberList([])
+        }
     }, [findMember])
 
     const sendMessage = () => {
@@ -164,25 +172,61 @@ export default function Messages() {
             )
     })
 
+    const findMemberListElements = findMemberList.map((member , i) => {
+        return (
+            <Row>
+                <Col>
+                    <img 
+                        src = { member.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" } 
+                        alt = "member-img" 
+                        className = "chat-img"
+                    />
+                </Col>
+                <Col>{ member.username }</Col>    
+            </Row>
+        )
+    })
+
     return (
-        <Container>
+        <Container
+            className = "messages-page-container"
+        >
             <Row>
                 <Col>
                     <h1>Messages Page</h1>
                 </Col>
-            </Row>
-            <Row>
                 <Col>
-                    <label 
-                        htmlFor = "findMembers"
-                    >
-                        Find Members:
-                    </label>
-                    <input 
-                        name = "findMembers" 
-                        value = { findMember }
-                        onChange = { (e) => setFindMember(e.target.value) }
-                    />
+                    <Row>
+                        <label 
+                            htmlFor = "findMembers"
+                        >
+                            Find Member:
+                        </label>
+                        <input 
+                            name = "findMembers" 
+                            value = { findMember }
+                            onChange = { (e) => setFindMember(e.target.value) }
+                        />
+                    </Row>
+                    {findMember &&
+                        <Row
+                            className = "find-member-list-row"
+                        >
+                            { findMemberLoading ?
+                                <Col 
+                                    className = "find-member-spinner-col"
+                                >
+                                    <Spinner animation="border" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </Spinner>
+                                </Col>
+                            :
+                                <Col>
+                                    { findMemberList.length > 0 ? findMemberListElements : "no result" }
+                                </Col>
+                            }
+                        </Row>
+                    }
                 </Col>
             </Row>
             { allMessages.length > 0 ?
