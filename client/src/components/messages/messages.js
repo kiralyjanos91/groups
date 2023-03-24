@@ -114,10 +114,13 @@ export default function Messages() {
                 >
                     <p>{ message.partner }</p>
                 </Col>
-                <Col>
+                <Col
+                    as = { Link }
+                    to = {`/member/${message.partner}`}
+                >
                     <img 
                         src = "https://groupsiteimages.s3.amazonaws.com/icons/profileicon.png"
-                        alt = "prof-img" 
+                        alt = "go-profile-icon" 
                     />
                 </Col>
             </Row>
@@ -202,10 +205,13 @@ export default function Messages() {
                     />
                 </Col>
                 <Col>{ member.username }</Col>    
-                <Col>
+                <Col
+                    as = { Link }
+                    to = {`/member/${member.username}`}
+                >
                     <img 
                         src = "https://groupsiteimages.s3.amazonaws.com/icons/profileicon.png"
-                        alt = "prof-img" 
+                        alt = "go-profile-icon" 
                     />
                 </Col>
             </Row>
