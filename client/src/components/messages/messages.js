@@ -1,5 +1,6 @@
-import React , { useState , useEffect , useRef } from "react"
+import React , { useState , useEffect , useLayoutEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import { useSelector } from "react-redux"
@@ -51,12 +52,14 @@ export default function Messages() {
         }
     }, [currentPartner])
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (findMember) {
+            const currentPartners = allMessages.map((message) => message.partner)
             setFindMemberLoading(true)
             axios.get(`/findmember` , {
                 params: {
-                    memberletters: findMember
+                    memberletters: findMember,
+                    currentPartners: [ ...currentPartners , user.username ]
                 }
             })
                 .then(res => setFindMemberList(res.data))
@@ -111,6 +114,12 @@ export default function Messages() {
                 >
                     <p>{ message.partner }</p>
                 </Col>
+                <Col>
+                    <img 
+                        src = "https://groupsiteimages.s3.amazonaws.com/icons/profileicon.png"
+                        alt = "prof-img" 
+                    />
+                </Col>
             </Row>
         ) 
     })
@@ -131,7 +140,6 @@ export default function Messages() {
         message.partner === currentPartner.username)?.messages.map((message , index) => {
             const date = message.date
             let showMessageDate = ""
-            const senderName = message.username
 
             if (date) {
                 const messageDate = new Date(date)
@@ -172,10 +180,21 @@ export default function Messages() {
             )
     })
 
+    const addMemberToPartners = (member) => {
+        setFindMember("")
+        allMessages.unshift({
+            messages: [],
+            partner: member.username,
+            partner_photo: member.small_photo
+        })
+    }
+
     const findMemberListElements = findMemberList.map((member , i) => {
         return (
             <Row>
-                <Col>
+                <Col
+                    onClick = { () => addMemberToPartners(member) }
+                >
                     <img 
                         src = { member.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" } 
                         alt = "member-img" 
@@ -183,6 +202,12 @@ export default function Messages() {
                     />
                 </Col>
                 <Col>{ member.username }</Col>    
+                <Col>
+                    <img 
+                        src = "https://groupsiteimages.s3.amazonaws.com/icons/profileicon.png"
+                        alt = "prof-img" 
+                    />
+                </Col>
             </Row>
         )
     })
