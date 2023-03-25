@@ -1,0 +1,21 @@
+.home-page-main-buttons-row > .col > .btn{
+    width: 100%;
+    margin-top: 50px;
+}
+
+.home-join-button-row {
+    justify-content: center;
+}
+
+.home-join-button {
+    max-width: 300px;
+    margin-top: 50px;
+}
+
+.home-page-container {
+    text-align: center;
+}
+
+.home-page-container > .row > .row {
+    margin-top: 100px
+}

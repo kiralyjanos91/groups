@@ -32,6 +32,7 @@ const leaveEvent = require("./routes/leaveevent")
 const banMemberRoute = require("./routes/banmember")
 const deleteEventRoute = require("./routes/deleteevent")
 const findMemberRoute = require("./routes/findmember")
+const popularGroupsRoute = require("./routes/populargroups")
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING
 const mongoOptions = {
@@ -195,6 +196,11 @@ app.use("/deleteevent" , deleteEventRoute({
     express,
     GroupModel,
     MemberModel
+}))
+
+app.use("/populargroups" , popularGroupsRoute({
+    express,
+    GroupModel
 }))
 
 app.listen(PORT , serverCallback) 
