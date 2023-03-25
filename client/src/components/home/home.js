@@ -53,7 +53,9 @@ export default function Home({ accessChecked } ) {
             { accessChecked ?
                 <Row>
                     <Row>
-                        <Col>
+                        <Col
+                            md = "6"
+                        >
                             <Row>
                                 <h1>    
                                     This is the home page
@@ -81,7 +83,9 @@ export default function Home({ accessChecked } ) {
                                 </Col>
                             </Row>
                         </Col>
-                        <Col>
+                        <Col
+                            md = "6"
+                        >
                             <img 
                                 src = ""
                                 alt = "main-img"
@@ -99,8 +103,12 @@ export default function Home({ accessChecked } ) {
                                 Meet new people who share your interests through online and in-person events. It’s free to create an account.
                             </p>
                         </Row>
-                        <Row>
-                            <Col>
+                        <Row
+                            className = "bullet-points-row"
+                        >
+                            <Col
+                                md = "4"
+                            >
                                 <h1>
                                     Join a group
                                 </h1>
@@ -108,7 +116,9 @@ export default function Home({ accessChecked } ) {
                                     Do what you love, meet others who love it, find your community. The rest is history!
                                 </p>
                             </Col>
-                            <Col>
+                            <Col
+                                md = "4"
+                            >
                                 <h1>
                                     Find an event
                                 </h1>
@@ -116,7 +126,9 @@ export default function Home({ accessChecked } ) {
                                     Events are happening on just about any topic you can think of, from online gaming and photography to yoga and hiking.
                                 </p>
                             </Col>
-                            <Col>
+                            <Col
+                                md = "4"
+                            >
                                 <h1>
                                     Start a group
                                 </h1>
@@ -128,15 +140,19 @@ export default function Home({ accessChecked } ) {
                         <Row
                             className = "home-join-button-row"
                         >
-                            <Button 
-                                variant = "primary"
-                                className = "home-join-button"
-                            >
-                                Join GROUPYX
-                            </Button>
+                            <Col>
+                                <Button 
+                                    variant = "primary"
+                                    className = "home-join-button"
+                                    >
+                                    Join GROUPYX
+                                </Button>
+                            </Col>
                         </Row>
                     </Row>
-                    <Row>
+                    <Row
+                        className = "popular-groups-row"
+                    >
                         <h1>
                             Most Popular Groups:
                         </h1>

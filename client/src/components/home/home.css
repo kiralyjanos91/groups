@@ -16,6 +16,15 @@
     text-align: center;
 }
 
-.home-page-container > .row > .row {
-    margin-top: 100px
+.home-page-container > .row > .row , .home-page-container > .row {
+    margin-top: 100px;
+    justify-content: center;
+}
+
+.bullet-points-row {
+    margin-top: 50px;
+}
+
+.popular-groups-row > h1 {
+    margin-bottom: 50px;
 }
