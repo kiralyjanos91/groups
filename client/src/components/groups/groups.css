@@ -26,6 +26,21 @@
     transition: filter 0.2s ease-in-out
 }
 
+.groups-member-count-col {
+    max-width: fit-content !important;
+}
+
+
+.groups-member-count-col > .col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.groups-member-count-col > .col > img {
+    max-width: 20px;
+}
+
 .group-listing-inner-col:hover {
     filter: brightness(1.2)
 }

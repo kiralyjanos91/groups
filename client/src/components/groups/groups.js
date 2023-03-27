@@ -83,8 +83,6 @@ export default function HomePage(){
         }
         })
 
-        console.log(user)
-
     const statusFilteredList = groupsList.filter((group) => {
         if (groupStatus === "All") {
             return group
@@ -100,7 +98,6 @@ export default function HomePage(){
     const groupsListing = statusFilteredList.slice(
             (parseInt(page) -1) * 15 , (parseInt(page) -1) * 15 + 15
         ).map((group , index) => {
-            console.log(group.photo)
             return (
                 <Col 
                     md="4" 
@@ -131,9 +128,20 @@ export default function HomePage(){
                             </div>
                         }
                         <Row className = "group-name-row">
-                            <p className = "groups-name">
-                                { group.name }
-                            </p>
+                            <Col>
+                                    { group.name }
+                            </Col>
+                            <Col
+                                className = "groups-member-count-col"
+                            >
+                                <Col>
+                                    <img 
+                                        src = "https://groupsiteimages.s3.amazonaws.com/icons/user-icon.png"
+                                        alt = "member-count-icon"
+                                    />
+                                    { group.members.length + 1 }
+                                </Col>
+                            </Col>
                         </Row>
                           
                     </Col>
