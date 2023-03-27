@@ -28,3 +28,44 @@
 .popular-groups-row > h1 {
     margin-bottom: 50px;
 }
+
+.popular-group-col {
+    min-height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+}
+
+.group-photo-member-count-col {
+    display: grid;
+}
+
+.group-photo-member-count-col > .col {
+    grid-row-start: 1;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-column-start: 1;
+}
+
+.group-photo-member-count-col > .col:nth-child(2) {
+    justify-self: flex-end;
+    height: fit-content;
+    padding: 0;
+    padding-inline: 5px;
+    color: rgb(255, 255, 255);
+    background-color: red;
+    font-weight: 400;
+    border-radius: 0 5px 0 5px;
+}
+
+.group-photo-member-count-col > .col:nth-child(2) > img {
+    max-width: 20px;
+}
+
+.member-count-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

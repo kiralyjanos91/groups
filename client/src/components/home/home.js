@@ -1,5 +1,6 @@
 import React, { useState , useEffect } from "react"
 import { Col, Container, Row } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import Button from "react-bootstrap/Button"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
@@ -30,11 +31,25 @@ export default function Home({ accessChecked } ) {
         return (
             <Col>
                 <Row>
-                    <Col>
-                        <img 
-                            src = { group.photo || "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png" }
-                            alt = "group-img"
-                        />
+                    <Col
+                        className = "group-photo-member-count-col"
+                    >
+                        <Col
+                            className = "popular-group-col"
+                            style = {{
+                                backgroundImage: `url(${group.photo || "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png"})`
+                            }}
+                            >
+                        </Col>
+                        <Col
+                            className = "member-count-col"
+                        >            
+                            <img 
+                                src = "https://groupsiteimages.s3.amazonaws.com/icons/user-icon.png"
+                                alt = "member-icon"
+                            />              
+                            { group.membersCount }                        
+                        </Col>
                     </Col>
                 </Row>
                 <Row>
@@ -72,12 +87,20 @@ export default function Home({ accessChecked } ) {
                                 className = "home-page-main-buttons-row"
                             >
                                 <Col>
-                                    <Button variant = "primary">
+                                    <Button 
+                                        as = { Link }
+                                        to = "/registration"
+                                        variant = "primary"
+                                    >
                                         Sign Up
                                     </Button>
                                 </Col>
                                 <Col>
-                                    <Button variant = "secondary">
+                                    <Button 
+                                        as = { Link }
+                                        to = "/login"
+                                        variant = "secondary"
+                                    >
                                         Sign in
                                     </Button>
                                 </Col>
@@ -150,14 +173,16 @@ export default function Home({ accessChecked } ) {
                             </Col>
                         </Row>
                     </Row>
-                    <Row
+                    { popularGroups.length > 0 &&
+                        <Row
                         className = "popular-groups-row"
-                    >
-                        <h1>
-                            Most Popular Groups:
-                        </h1>
-                        { popularGroupsElements }
-                    </Row>
+                        >
+                            <h1>
+                                Most Popular Groups:
+                            </h1>
+                            { popularGroupsElements }
+                        </Row>
+                    }
                 </Row>
                 :
                 <Row className="spinner-row">
