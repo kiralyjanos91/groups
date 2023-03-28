@@ -20,6 +20,7 @@ export default function HomePage(){
     const [groups , setGroups] = useState([])
     const [show , setShow] = useState(false)
     const [groupStatus , setGroupStatus] = useState("All")
+    const [ sortBy , setSortBy ] = useState("newest")
     
     const handleShow = () => {
         setShow(true)
@@ -62,6 +63,13 @@ export default function HomePage(){
         }
     }
 
+    const sortByChange = (e) => {
+        setSortBy(e.target.value)
+        if ( location !== "/groups/1") {
+            navigate("/groups/1")
+        }
+    }
+
     useEffect(() => {
         if ( location.pathname === "/groups") {
             navigate("/groups/1")
@@ -75,13 +83,61 @@ export default function HomePage(){
             })
     }, [ user ])
 
-    const groupsList = groups.filter((group)=>{
+    const groupsForSort = [...groups]
+
+    if (sortBy !== "newest"){
+        sortBy === "oldest" ?
+            void(0)
+            :
+            groupsForSort.sort((a , b) => {
+                if (sortBy === "name-ascending") {
+                    if (a.name > b.name) {
+                        return 1
+                    }
+                    if (a.name < b.name) {
+                        return -1
+                    }           
+                    return 0
+                }
+                else if (sortBy === "name-descending"){
+                    if (a.name < b.name) {
+                        return 1
+                    }
+                    if (a.name > b.name) {
+                        return -1
+                    }
+                        return 0
+                }
+                else if (sortBy === "members-ascending"){
+                    if (a.members.length > b.members.length) {
+                        return 1
+                    }
+                    if (a.members.length < b.members.length) {
+                        return -1
+                    }
+                        return 0
+                }
+                else {
+                    if (a.members.length < b.members.length) {
+                        return 1
+                    }
+                    if (a.members.length > b.members.length) {
+                        return -1
+                    }
+                        return 0
+                }
+        })
+    }
+
+    const isReversedGroups = sortBy === "oldest" ? [...groups].reverse() : groupsForSort
+
+    const groupsList = isReversedGroups.filter((group) => {
         if (selectedCategory === "all") {
             return group
         } else {
             return group.category === selectedCategory
         }
-        })
+    })
 
     const statusFilteredList = groupsList.filter((group) => {
         if (groupStatus === "All") {
@@ -178,9 +234,28 @@ export default function HomePage(){
             )
         })
 
+        const sortByValues = [
+            "newest",
+            "oldest",
+            "members-descending",
+            "members-ascending",
+            "name-descending",
+            "name-ascending"
+        ]
+
+        const sortByOptions = sortByValues.map(( value , index ) => {
+            return (
+                <option 
+                    key = { index } 
+                    value = { value }
+                >
+                    { value }
+                </option>
+            )
+        })
+
     return (
         <Container>
-           
             { groups.length < 1 ? 
                 <Row className="spinner-row">
                     <Spinner animation="border" role="status">
@@ -205,7 +280,9 @@ export default function HomePage(){
                     <Row>
                         { groupStatusSelectors }
                     </Row>
-                    <Row>
+                    <Row
+                        className = "filter-and-sort-row"
+                    >
                         <Col>
                             <label htmlFor="filter-by-category">
                                 Category:
@@ -219,6 +296,21 @@ export default function HomePage(){
                             >
                                     <option value = "all">All</option>
                                     { groupFilterOptions }
+
+                            </select>
+                        </Col>
+                        <Col>
+                            <label htmlFor="sort-by">
+                                Sort by:
+                            </label>
+                            <select
+                                id = "sort-by"
+                                name = "sort-by"
+                                className = "sort-by"
+                                onChange = {(e) => sortByChange(e)}
+                                value = { sortBy }
+                            >
+                                { sortByOptions }
 
                             </select>
                         </Col>

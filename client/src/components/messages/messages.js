@@ -1,6 +1,6 @@
 import React , { useState , useEffect , useLayoutEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link , useNavigate } from "react-router-dom"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import { useSelector } from "react-redux"
@@ -17,8 +17,18 @@ export default function Messages() {
     const [ findMember , setFindMember ] = useState("")
     const [ findMemberLoading , setFindMemberLoading ] = useState(false)
     const [ findMemberList , setFindMemberList ] = useState([])
-    const chatMessageRef = useRef()
-    const chatWindowRef = useRef()
+    const chatMessageRef = useRef(null)
+    const chatWindowRef = useRef(null)
+    const emojiRef = useRef(null)
+    const findMemberRef = useRef(null)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        document.addEventListener("click" , (e) => {
+            console.log(findMemberRef.current)
+            console.log(e.target)
+        })
+    }, [])
 
     useEffect(() => {
         if (user.username){
@@ -115,8 +125,8 @@ export default function Messages() {
                     <p>{ message.partner }</p>
                 </Col>
                 <Col
-                    as = { Link }
-                    to = {`/member/${message.partner}`}
+                    onClick = { () => navigate(`/member/${message.partner}`) }
+                    className = "go-profile-icon-col"
                 >
                     <img 
                         src = "https://groupsiteimages.s3.amazonaws.com/icons/profileicon.png"
@@ -190,6 +200,10 @@ export default function Messages() {
             partner: member.username,
             partner_photo: member.small_photo
         })
+        setCurrentPartner({
+            username: member.username,
+            partner_photo: member.small_photo
+        })
     }
 
     const findMemberListElements = findMemberList.map((member , i) => {
@@ -208,6 +222,7 @@ export default function Messages() {
                 <Col
                     as = { Link }
                     to = {`/member/${member.username}`}
+                    className = "go-profile-icon-col"
                 >
                     <img 
                         src = "https://groupsiteimages.s3.amazonaws.com/icons/profileicon.png"
@@ -226,7 +241,9 @@ export default function Messages() {
                 <Col>
                     <h1>Messages Page</h1>
                 </Col>
-                <Col>
+                <Col
+                    ref = { findMemberRef }
+                >
                     <Row>
                         <label 
                             htmlFor = "findMembers"
@@ -252,7 +269,9 @@ export default function Messages() {
                                     </Spinner>
                                 </Col>
                             :
-                                <Col>
+                                <Col
+                                    className = "find-member-list-col"
+                                >
                                     { findMemberList.length > 0 ? findMemberListElements : "no result" }
                                 </Col>
                             }
@@ -274,14 +293,17 @@ export default function Messages() {
                             >
                                 { messagesList }
                             </Row>
-                            <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
+                            <Row 
+                                className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}
+                                ref = { emojiRef }
+                            >
                                 <EmojiPicker 
                                     onEmojiClick = {(emoji) => 
                                         chatMessageRef.current.value += emoji.emoji 
                                     }
                                     theme = "dark"
                                     emojiStyle = "google"
-                                    />
+                                />
                             </Row>
                             <Row className = "chat-input-row">
                                 <Col className = "chat-input-col">

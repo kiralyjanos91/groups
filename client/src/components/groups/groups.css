@@ -45,6 +45,10 @@
     filter: brightness(1.2)
 }
 
+.filter-and-sort-row > .col {
+    max-width: fit-content;
+}
+
 .groups-list-image-filter-col {
     display: flex;
     min-height: 200px;

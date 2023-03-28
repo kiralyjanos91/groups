@@ -58,8 +58,33 @@
     position: relative;
 }
 
+.find-member-list-col {
+    row-gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.find-member-list-col > .row{
+    background-color: #1d2124;
+    padding: 10px;
+}
+
+.find-member-list-col > .row > .col:nth-child(1){
+    max-width: fit-content;
+}
+
 .find-member-spinner-col {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.go-profile-icon-col {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.go-profile-icon-col > img {
+    max-width: 30px;
 }

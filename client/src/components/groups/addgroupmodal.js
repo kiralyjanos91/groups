@@ -86,7 +86,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
                 <Modal.Body>
                     <form>
                         <label htmlFor = "groupname">
-                            Name of you group:
+                            Name of your group:
                         </label>
                         <input 
                             name="groupname" 
