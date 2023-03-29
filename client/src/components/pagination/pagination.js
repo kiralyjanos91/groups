@@ -33,7 +33,7 @@ export default function PagePagination ( { root , pageCount } ) {
             onClick={ () => pageSelector(i) }
             active={i === page}
         >
-            {i}
+            { i }
         </Pagination.Item>
       )
     }

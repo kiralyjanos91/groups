@@ -48,7 +48,7 @@ export default function Home({ accessChecked } ) {
                                 src = "https://groupsiteimages.s3.amazonaws.com/icons/user-icon.png"
                                 alt = "member-icon"
                             />              
-                            { group.membersCount }                        
+                            { group.membersCount + 1 }                        
                         </Col>
                     </Col>
                 </Row>

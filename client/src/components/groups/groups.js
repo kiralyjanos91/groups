@@ -9,6 +9,7 @@ import AddGroupModal from "./addgroupmodal"
 import { groupCategoryOptions } from "./groupcategories"
 import { changeCategory } from "../../redux_slices/categoryslice"
 import { useSelector , useDispatch } from "react-redux"
+import GroupCard from "./group_card"
 
 export default function HomePage(){
     const user = useSelector((state) => state.userData.data)
@@ -155,53 +156,12 @@ export default function HomePage(){
             (parseInt(page) -1) * 15 , (parseInt(page) -1) * 15 + 15
         ).map((group , index) => {
             return (
-                <Col 
-                    md="4" 
-                    key = { index } 
-                    className="group-listing-col"
-                >
-                    <Col
-                        className="group-listing-inner-col" 
-                        onClick = { () => navigate(`/group/${group._id}`) } 
-                        style = {
-                            {
-                                backgroundImage:`url(${ group.photo || "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png" })`
-                            }
-                        }
-                    >   
-                        { groupStatus === "All" &&
-                            <div className = "groups-status-badge">
-                                { user.groups?.some(oneGroup => oneGroup.name === group.name) ? 
-                                    <p>Joined</p> 
-                                    : 
-                                    null
-                                }
-                                { user.own_groups?.some(oneGroup => oneGroup.name === group.name) ?
-                                    <p>Own group</p> 
-                                    : 
-                                    null
-                                }
-                            </div>
-                        }
-                        <Row className = "group-name-row">
-                            <Col>
-                                    { group.name }
-                            </Col>
-                            <Col
-                                className = "groups-member-count-col"
-                            >
-                                <Col>
-                                    <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/icons/user-icon.png"
-                                        alt = "member-count-icon"
-                                    />
-                                    { group.members.length + 1 }
-                                </Col>
-                            </Col>
-                        </Row>
-                          
-                    </Col>
-                </Col>
+                <GroupCard 
+                    index = { index }
+                    group = { group }
+                    groupStatus = { groupStatus }
+                    user = { user }
+                />
             )
         })
 

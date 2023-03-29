@@ -3,7 +3,7 @@ import { Container , Col , Row } from "react-bootstrap"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
-import EmojiPicker from 'emoji-picker-react';
+// import EmojiPicker from 'emoji-picker-react';
 import { useParams , useNavigate } from "react-router"
 import { Link } from "react-router-dom"
 import axios from "axios"
@@ -14,6 +14,8 @@ import "./group.css"
 import EventModal from "./eventmodal"
 import CreateEventModal from "./createeventmodal"
 import BanMemberModal from "./banmembermodal"
+import EventCard from "../event_card/eventcard"
+import Chat from "../chat/chat"
 
 export default function Group(){
 
@@ -177,74 +179,14 @@ export default function Group(){
         const isMember = event.members.find((member) => member.username === ownUsername) ? true : false
         const locationText = `${event?.location.country}, ${event?.location.state}, ${event?.location.city}, ${event?.location.address || ""}`
         return (
-            <Col
-                key = { i }
-                className = "event-list-element-main-col"
-                md = "4"
-                lg = "3"
-            >
-                <Col 
-                    className = "event-col"
-                    id = {event.title}
-                    onClick = {(e) => {
-                        handleEventShow(e)
-                    }}
-                >
-                    <Col
-                        className = "event-img-col"
-                        style = {{
-                            backgroundImage: `url("${event.photo}")`
-                        }}
-                    >
-                        { isMember &&
-                            <Col className = "joined-badge-col">
-                                <p>
-                                    Joined
-                                </p>
-                            </Col>
-                        }
-                    </Col>
-                    <Col>
-                        <Row>
-                            <p 
-                                className="event-title"
-                            >
-                                {event.title}
-                            </p>             
-                        </Row>
-                        <Row className = "event-details-row">
-                            <Col className = "event-list-details-icon-col">
-                                <img 
-                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/location-icon.png"
-                                    alt = "location-icon"
-                                    className = "event-list-details-icon"
-                                />
-                            </Col>
-                            <Col>
-                                <p className = "event-list-detals-text">{locationText}</p>
-                            </Col>                           
-                        </Row>
-                        <Row>
-                            <Col
-                                className = "event-list-details-seperator"
-                            >
-                            </Col>
-                        </Row>
-                        <Row className = "event-details-row">
-                            <Col className = "event-list-details-icon-col">
-                                <img 
-                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/date-icon.png"
-                                    alt = "date-icon"
-                                    className = "event-list-details-icon"
-                                />
-                            </Col>
-                            <Col>
-                                <p className = "event-list-detals-text">{event.date}</p>
-                            </Col>
-                        </Row>   
-                    </Col>
-                </Col>
-            </Col>
+            <EventCard 
+                i = { i }
+                event = { event }
+                eventLocation = { locationText }
+                showEvent = { handleEventShow }
+                photo = { event.photo }
+                date = { event.date }
+            />
         )
     })
 
@@ -440,50 +382,58 @@ export default function Group(){
                                     You have to be a member to see the messages
                                 </>
                             :
-                                <>
-                                    <Row 
-                                        className = "messages-window-row"
-                                        ref = { chatWindowRef }
-                                    >
-                                        { messages }
-                                    </Row>
-                                    <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
-                                        <EmojiPicker 
-                                            onEmojiClick = {(emoji) => 
-                                                chatMessageRef.current.value += emoji.emoji 
-                                            }
-                                            theme = "dark"
-                                            emojiStyle = "google"
-                                            />
-                                    </Row>
-                                    <Row className = "chat-input-row">
-                                        <Col className = "chat-input-col">
-                                            <input 
-                                                name="chat-input"
-                                                ref = { chatMessageRef }
-                                                className = "chat-input"
-                                            />
-                                        </Col>
-                                        <Col 
-                                            className = "emoji-show-button"
-                                            onClick = { emojiShowChange }
-                                        >
-                                            <img 
-                                                src="https://groupsiteimages.s3.amazonaws.com/icons/emoji-open-icon.png" 
-                                                alt="emoji-open-icon"
-                                            />
-                                        </Col>
-                                        <Col className = "chat-send-button-col">
-                                            <Button onClick = { sendToChat }>
-                                                <img 
-                                                    src = "https://groupsiteimages.s3.amazonaws.com/icons/send-icon.png" 
-                                                    alt = "send-button-icon"
-                                                    className = "send-button-icon"
-                                                />
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                </>
+                                <Chat 
+                                    emojiShow = { emojiShow }
+                                    chatWindowRef = { chatWindowRef }
+                                    chatMessageRef = { chatMessageRef }
+                                    sendToChat = { sendToChat }
+                                    messages = { messages }
+                                    emojiShowChange = { emojiShowChange }
+                                />
+                                // <>
+                                //     <Row 
+                                //         className = "messages-window-row"
+                                //         ref = { chatWindowRef }
+                                //     >
+                                //         { messages }
+                                //     </Row>
+                                //     <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
+                                //         <EmojiPicker 
+                                //             onEmojiClick = {(emoji) => 
+                                //                 chatMessageRef.current.value += emoji.emoji 
+                                //             }
+                                //             theme = "dark"
+                                //             emojiStyle = "google"
+                                //             />
+                                //     </Row>
+                                //     <Row className = "chat-input-row">
+                                //         <Col className = "chat-input-col">
+                                //             <input 
+                                //                 name="chat-input"
+                                //                 ref = { chatMessageRef }
+                                //                 className = "chat-input"
+                                //             />
+                                //         </Col>
+                                //         <Col 
+                                //             className = "emoji-show-button"
+                                //             onClick = { emojiShowChange }
+                                //         >
+                                //             <img 
+                                //                 src="https://groupsiteimages.s3.amazonaws.com/icons/emoji-open-icon.png" 
+                                //                 alt="emoji-open-icon"
+                                //             />
+                                //         </Col>
+                                //         <Col className = "chat-send-button-col">
+                                //             <Button onClick = { sendToChat }>
+                                //                 <img 
+                                //                     src = "https://groupsiteimages.s3.amazonaws.com/icons/send-icon.png" 
+                                //                     alt = "send-button-icon"
+                                //                     className = "send-button-icon"
+                                //                 />
+                                //             </Button>
+                                //         </Col>
+                                //     </Row>
+                                // </>
                             }   
                             <EventModal 
                                 handleClose={ handleEventClose }
