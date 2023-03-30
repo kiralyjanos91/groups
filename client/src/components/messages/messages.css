@@ -36,6 +36,10 @@
     background-color: #2f343a;
 }
 
+.current {
+    background-color: #2f343a;
+}
+
 .messages-chat-img-col {
     max-width: fit-content;
 }
@@ -65,8 +69,13 @@
 }
 
 .find-member-list-col > .row{
+    cursor: pointer;
     background-color: #1d2124;
     padding: 10px;
+}
+
+.find-member-list-col > .row:hover{
+    background-color: #25292d;
 }
 
 .find-member-list-col > .row > .col:nth-child(1){
@@ -83,8 +92,10 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    max-width: fit-content !important;
 }
 
 .go-profile-icon-col > img {
     max-width: 30px;
+    filter: opacity(0.6);
 }

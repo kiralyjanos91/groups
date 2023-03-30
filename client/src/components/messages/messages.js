@@ -1,17 +1,16 @@
 import React , { useState , useEffect , useLayoutEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import { Link , useNavigate } from "react-router-dom"
-import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import { useSelector } from "react-redux"
-import EmojiPicker from "emoji-picker-react"
 import axios from "axios"
+import Chat from "../chat/chat"
+import ChatMessageEl from "../chat/chat_message_el"
 import "./messages.css"
 
 export default function Messages() {
     const [ allMessages , setAllMessages ] = useState([])
     const [ currentPartner , setCurrentPartner ] = useState("")
-    const [ showChat , setShowChat ] = useState(false)
     const user = useSelector((state) => state.userData.data)
     const [ emojiShow , setEmojiShow ] = useState(false)
     const [ findMember , setFindMember ] = useState("")
@@ -50,7 +49,6 @@ export default function Messages() {
                 username: allMessages[0]?.partner,
                 partner_photo: allMessages[0]?.partner_photo
             })
-            setShowChat(true)
         }
     }, [allMessages])
 
@@ -101,6 +99,7 @@ export default function Messages() {
         }
 
     const chatPartners = allMessages.map((message , index) => {
+        const currentStyle = message.partner === currentPartner.username ? "current" : ""
         return (
             <Row 
                 onClick = { () => setCurrentPartner({
@@ -108,7 +107,7 @@ export default function Messages() {
                     partner_photo: message.partner_photo
                 }) }
                 key = { index }
-                className = "chat-partners-list-row"
+                className = {`chat-partners-list-row ${currentStyle}`}
             >
                 <Col
                     className = "messages-chat-img-col"
@@ -147,9 +146,7 @@ export default function Messages() {
         setEmojiShow(prev => !prev)
     }
 
-    const chatDisplayStyle = showChat ? "" : "hide-chat"
-
-    const messagesList = allMessages.find((message) => 
+    const messagesList = allMessages.find((message) =>
         message.partner === currentPartner.username)?.messages.map((message , index) => {
             const date = message.date
             let showMessageDate = ""
@@ -163,33 +160,40 @@ export default function Messages() {
             const chatPhoto = currentPartner.partner_photo 
 
             return (
-                <Row 
-                    key = { index } 
-                    className = {`message-row ${ ownMessageClass }`}
-                >
-                    <Col className="message-col">
-                        <Row>
-                            <img 
-                                src = { 
-                                    message.sent ? user?.small_photo : chatPhoto
-                                    || 
-                                    "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
-                                } 
-                                alt = "chat-user" 
-                                className = "chat-img"
-                            />
-                        </Row>
-                        <Row>
-                            { showMessageDate }
-                        </Row>
-                        <Row>
-                            { message.sent? user?.username : currentPartner.username }
-                        </Row>
-                        <Row>
-                            { message.message }
-                        </Row>
-                    </Col>
-                </Row>
+                <ChatMessageEl 
+                    index = { index }
+                    ownMessageClass = { ownMessageClass }
+                    chatPhoto = { message.sent ? user?.small_photo : chatPhoto }
+                    showMessageDate = { showMessageDate }
+                    message = { message }
+                />
+                // <Row 
+                //     key = { index } 
+                //     className = {`message-row ${ ownMessageClass }`}
+                // >
+                //     <Col className="message-col">
+                //         <Row>
+                //             <img 
+                //                 src = { 
+                //                     message.sent ? user?.small_photo : chatPhoto
+                //                     || 
+                //                     "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
+                //                 } 
+                //                 alt = "chat-user" 
+                //                 className = "chat-img"
+                //             />
+                //         </Row>
+                //         <Row>
+                //             { showMessageDate }
+                //         </Row>
+                //         <Row>
+                //             { message.sent? user?.username : currentPartner.username }
+                //         </Row>
+                //         <Row>
+                //             { message.message }
+                //         </Row>
+                //     </Col>
+                // </Row>
             )
     })
 
@@ -208,10 +212,10 @@ export default function Messages() {
 
     const findMemberListElements = findMemberList.map((member , i) => {
         return (
-            <Row>
-                <Col
-                    onClick = { () => addMemberToPartners(member) }
-                >
+            <Row
+                onClick = { () => addMemberToPartners(member) }          
+            >
+                <Col>
                     <img 
                         src = { member.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" } 
                         alt = "member-img" 
@@ -286,53 +290,14 @@ export default function Messages() {
                         { chatPartners }
                     </Col>
                     <Col>
-                        <>
-                            <Row 
-                                className = {`messages-window-row ${chatDisplayStyle}`}
-                                ref = { chatWindowRef }
-                            >
-                                { messagesList }
-                            </Row>
-                            <Row 
-                                className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}
-                                ref = { emojiRef }
-                            >
-                                <EmojiPicker 
-                                    onEmojiClick = {(emoji) => 
-                                        chatMessageRef.current.value += emoji.emoji 
-                                    }
-                                    theme = "dark"
-                                    emojiStyle = "google"
-                                />
-                            </Row>
-                            <Row className = "chat-input-row">
-                                <Col className = "chat-input-col">
-                                    <input 
-                                        name="chat-input"
-                                        ref = { chatMessageRef }
-                                        className = "chat-input"
-                                    />
-                                </Col>
-                                <Col 
-                                    className = "emoji-show-button"
-                                    onClick = { emojiShowChange }
-                                >
-                                    <img 
-                                        src="https://groupsiteimages.s3.amazonaws.com/icons/emoji-open-icon.png" 
-                                        alt="emoji-open-icon"
-                                    />
-                                </Col>
-                                <Col className = "chat-send-button-col">
-                                    <Button onClick = {() => sendMessage()}>
-                                        <img 
-                                            src = "https://groupsiteimages.s3.amazonaws.com/icons/send-icon.png" 
-                                            alt = "send-button-icon"
-                                            className = "send-button-icon"
-                                        />
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </>
+                        <Chat 
+                            emojiShow = { emojiShow }
+                            chatWindowRef = { chatWindowRef }
+                            chatMessageRef = { chatMessageRef }
+                            sendToChat = { sendMessage }
+                            messages = { messagesList }
+                            emojiShowChange = { emojiShowChange }
+                        />
                     </Col>
                 </Row>
             :

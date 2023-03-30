@@ -16,6 +16,7 @@ import CreateEventModal from "./createeventmodal"
 import BanMemberModal from "./banmembermodal"
 import EventCard from "../event_card/eventcard"
 import Chat from "../chat/chat"
+import ChatMessageEl from "../chat/chat_message_el"
 
 export default function Group(){
 
@@ -213,33 +214,41 @@ export default function Group(){
                 groupInfo?.members?.find((member) => member.username === senderName)?.small_photo 
 
         return (
-            <Row 
-                key = { index } 
-                className = {`message-row ${ ownMessageClass }`}
-            >
-                <Col className="message-col">
-                    <Row>
-                        <img 
-                            src = { 
-                                chatPhoto 
-                                || 
-                                "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
-                            } 
-                            alt = "chat-user" 
-                            className = "chat-img"
-                        />
-                    </Row>
-                    <Row>
-                        { showMessageDate }
-                    </Row>
-                    <Row>
-                        { message.username }
-                    </Row>
-                    <Row>
-                        { message.message }
-                    </Row>
-                </Col>
-            </Row>
+            <ChatMessageEl 
+                index = { index }
+                ownMessageClass = { ownMessageClass }
+                chatPhoto = { chatPhoto }
+                showMessageDate = { showMessageDate }
+                message = { message }
+            />
+            
+            // <Row 
+            //     key = { index } 
+            //     className = {`message-row ${ ownMessageClass }`}
+            // >
+            //     <Col className="message-col">
+            //         <Row>
+            //             <img 
+            //                 src = { 
+            //                     chatPhoto 
+            //                     || 
+            //                     "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
+            //                 } 
+            //                 alt = "chat-user" 
+            //                 className = "chat-img"
+            //             />
+            //         </Row>
+            //         <Row>
+            //             { showMessageDate }
+            //         </Row>
+            //         <Row>
+            //             { message.username }
+            //         </Row>
+            //         <Row>
+            //             { message.message }
+            //         </Row>
+            //     </Col>
+            // </Row>
         )
     })
 
@@ -390,50 +399,6 @@ export default function Group(){
                                     messages = { messages }
                                     emojiShowChange = { emojiShowChange }
                                 />
-                                // <>
-                                //     <Row 
-                                //         className = "messages-window-row"
-                                //         ref = { chatWindowRef }
-                                //     >
-                                //         { messages }
-                                //     </Row>
-                                //     <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
-                                //         <EmojiPicker 
-                                //             onEmojiClick = {(emoji) => 
-                                //                 chatMessageRef.current.value += emoji.emoji 
-                                //             }
-                                //             theme = "dark"
-                                //             emojiStyle = "google"
-                                //             />
-                                //     </Row>
-                                //     <Row className = "chat-input-row">
-                                //         <Col className = "chat-input-col">
-                                //             <input 
-                                //                 name="chat-input"
-                                //                 ref = { chatMessageRef }
-                                //                 className = "chat-input"
-                                //             />
-                                //         </Col>
-                                //         <Col 
-                                //             className = "emoji-show-button"
-                                //             onClick = { emojiShowChange }
-                                //         >
-                                //             <img 
-                                //                 src="https://groupsiteimages.s3.amazonaws.com/icons/emoji-open-icon.png" 
-                                //                 alt="emoji-open-icon"
-                                //             />
-                                //         </Col>
-                                //         <Col className = "chat-send-button-col">
-                                //             <Button onClick = { sendToChat }>
-                                //                 <img 
-                                //                     src = "https://groupsiteimages.s3.amazonaws.com/icons/send-icon.png" 
-                                //                     alt = "send-button-icon"
-                                //                     className = "send-button-icon"
-                                //                 />
-                                //             </Button>
-                                //         </Col>
-                                //     </Row>
-                                // </>
                             }   
                             <EventModal 
                                 handleClose={ handleEventClose }

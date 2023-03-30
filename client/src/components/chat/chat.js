@@ -17,7 +17,7 @@ export default function Chat({
             <Row 
                 className = "messages-window-row"
                 ref = { chatWindowRef }
-                >
+            >
                 { messages }
             </Row>
             <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>

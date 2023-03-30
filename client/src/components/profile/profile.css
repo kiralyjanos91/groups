@@ -35,15 +35,12 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background-color: grey;
     max-width: fit-content !important;
-    border-radius: 5px;
-    padding: 5px;
-    margin-top: 5px !important;
+    color: #b8b8b8;
 }
 
 .change-photo-text-col:hover {
-    background-color: rgb(118, 118, 118);
+    color: #c8c8c8;
 }
 
 .photo-upload-input-row {

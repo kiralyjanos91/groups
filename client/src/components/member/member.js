@@ -88,13 +88,22 @@ export default function Member(){
                             <Col>
                                 <h1>{ username }</h1>
                             </Col>
-                            <Col>
-                                <p
-                                    className = "send-message-p"
-                                    onClick = {() => handleShow()}
-                                >
-                                    Send Message
-                                </p>
+                            <Col
+                                className = "send-message-col"
+                                onClick = {() => handleShow()}
+                            >
+                                <Col>
+                                    <p
+                                        className = "send-message-p"
+                                    >
+                                        Send Message
+                                    </p>
+                                </Col>
+                                <Col>
+                                    <img 
+                                        src = "https://groupsiteimages.s3.amazonaws.com/icons/message-icon.png" 
+                                    />
+                                </Col>
                             </Col>
                         </Row>
                         <hr />

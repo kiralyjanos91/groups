@@ -1,11 +1,11 @@
 import React , { useState , useRef , useEffect } from "react"
 import { useSelector } from "react-redux"
 import axios from "axios"
-import { Container , Row , Col } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import Modal from "react-bootstrap/Modal"
-import Button from "react-bootstrap/Button"
 import CloseButton from "react-bootstrap/CloseButton"
-import EmojiPicker from "emoji-picker-react"
+import Chat from "../chat/chat"
+import ChatMessageEl from "../chat/chat_message_el"
 
 export default function MessageModal( { handleClose , show , partnerName , partnerPhoto  }){
 
@@ -71,7 +71,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
     const messagesList = messages?.messages?.map((message , index) => {
         const date = message.date
         let showMessageDate = ""
-        const senderName = message.username
 
         if (date) {
             const messageDate = new Date(date)
@@ -82,33 +81,13 @@ export default function MessageModal( { handleClose , show , partnerName , partn
         const chatPhoto = messages?.partner_photo 
 
         return (
-            <Row 
-                key = { index } 
-                className = {`message-row ${ ownMessageClass }`}
-            >
-                <Col className="message-col">
-                    <Row>
-                        <img 
-                            src = { 
-                                message.sent ? user?.small_photo : chatPhoto
-                                || 
-                                "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
-                            } 
-                            alt = "chat-user" 
-                            className = "chat-img"
-                        />
-                    </Row>
-                    <Row>
-                        { showMessageDate }
-                    </Row>
-                    <Row>
-                        { message.sent? user?.username : message.partner }
-                    </Row>
-                    <Row>
-                        { message.message }
-                    </Row>
-                </Col>
-            </Row>
+            <ChatMessageEl 
+                index = { index }
+                ownMessageClass = { ownMessageClass }
+                chatPhoto = { message.sent ? user?.small_photo : chatPhoto }
+                showMessageDate = { showMessageDate }
+                message = { message }
+            />
         )
     })
 
@@ -124,7 +103,15 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                         />
                     </Modal.Header>
                     <Modal.Body>
-                    <>
+                        <Chat 
+                            emojiShow = { emojiShow }
+                            chatWindowRef = { chatWindowRef }
+                            chatMessageRef = { chatMessageRef }
+                            sendToChat = { sendMessage }
+                            messages = { messagesList }
+                            emojiShowChange = { emojiShowChange }
+                        />
+                    {/* <>
                         <Row 
                             className = "messages-window-row"
                             ref = { chatWindowRef }
@@ -167,7 +154,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                                 </Button>
                             </Col>
                         </Row>
-                    </>
+                    </> */}
                     </Modal.Body>
                 </Container>
             </Modal>

@@ -6,6 +6,24 @@
     background-repeat: no-repeat;
 }
 
-.send-message-p {
+.send-message-col {
     cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: fit-content;
+    column-gap: 5px;
+}
+
+.send-message-col > .col {
+    max-width: fit-content;
+}
+
+.send-message-col > .col > img {
+    max-width: 35px;
+}
+
+.send-message-p {
+    margin: 0px;
+    padding: 0px;
 }
