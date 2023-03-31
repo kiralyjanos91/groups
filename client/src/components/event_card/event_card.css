@@ -29,3 +29,38 @@
 .go-to-group-button {
     width: 100%
 }
+
+.events-event-photo-col {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.joined-badge {
+    max-width: fit-content;
+    height: fit-content;
+    padding-inline: 5px;
+    margin-top: 10px;
+    color: #ffffff;
+    font-weight: 600;
+    background: linear-gradient(#198754, #055160);
+    border-radius: 5px;
+}
+
+.event-member-counter-col {
+    margin-top: 10px;
+    height: fit-content;
+}
+
+.event-member-counter-col > .col {
+    max-width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #212529;
+    padding-inline: 5px;
+    border-radius: 5px;
+}
+
+.event-member-count-icon {
+    max-width: 20px;
+}

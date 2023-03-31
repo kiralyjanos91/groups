@@ -10,7 +10,9 @@ export default function EventCard({
     photo, 
     eventLocation, 
     showEvent = "", 
-    date 
+    date,
+    isMember = false, 
+    memberCount = ""
 }) {
     return (
         <Col
@@ -27,14 +29,38 @@ export default function EventCard({
                         className = "events-event-photo-col"
                         style = {{
                             backgroundImage: `url("${ photo }")`
-                        }}>
+                        }}
+                    >
+                        { memberCount !== "" &&
+                            <Col
+                                className = "event-member-counter-col"
+                            >
+                                <Col>
+                                    <img 
+                                        src = "https://groupsiteimages.s3.amazonaws.com/icons/user-icon.png"
+                                        alt = "event-member-count-icon"
+                                        className = "event-member-count-icon"
+                                    />
+                                    
+                                    { memberCount }
+                                </Col>
+                            </Col>
+                        }
+                        { isMember &&
+                            <Col
+                                className = "joined-badge"
+                            >
+                                Joined
+
+                            </Col>
+                        }
                     </Col>
                 </Row>
                 <Row>
                     <p
                         className = "event-title"
                     >
-                        {event.eventName}
+                        { event.eventName || event.title }
                     </p>
                 </Row>
                 <Row>

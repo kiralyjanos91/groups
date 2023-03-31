@@ -18,7 +18,6 @@ export default function Events(){
             />
         )
     })
-    console.log(user)
 
     return (
         <Container>

@@ -187,6 +187,8 @@ export default function Group(){
                 showEvent = { handleEventShow }
                 photo = { event.photo }
                 date = { event.date }
+                isMember = { isMember }
+                memberCount = { event.members.length }
             />
         )
     })

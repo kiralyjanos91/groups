@@ -107,7 +107,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
 
     return (
         <>
-            <Modal show={ show } onHide={ handleClose } fullscreen = { true } centered>
+            <Modal show = { show } onHide = { handleClose } fullscreen = { true } centered>
                 { deletePage ? 
                     <Container
                         className = "delete-event-container"
