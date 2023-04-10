@@ -1,3 +1,18 @@
+.home-main-text-col {
+    text-align: left;
+}
+
+.home-title {
+    text-transform: uppercase;
+}
+.home-img-col {
+    max-width: fit-content !important;
+}
+
+.home-img {
+    max-width: 300px;
+}
+
 .home-page-main-buttons-row > .col > .btn{
     width: 100%;
     margin-top: 50px;
@@ -17,12 +32,22 @@
 }
 
 .home-page-container > .row > .row , .home-page-container > .row {
-    margin-top: 100px;
+    margin-top: 50px;
     justify-content: center;
+    align-items: center;
+}
+
+.how-works-main-row {
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .bullet-points-row {
     margin-top: 50px;
+}
+
+.bullet-point-img {
+    max-width: 80px;
 }
 
 .popular-groups-row > h1 {
@@ -54,7 +79,7 @@
     padding: 0;
     padding-inline: 5px;
     color: rgb(255, 255, 255);
-    background-color: red;
+    background-color: #f14636;
     font-weight: 400;
     border-radius: 0 5px 0 5px;
 }

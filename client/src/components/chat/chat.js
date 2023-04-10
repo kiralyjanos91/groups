@@ -2,6 +2,7 @@ import React from "react"
 import { Col , Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import EmojiPicker from 'emoji-picker-react';
+import "./chat.css"
 
 export default function Chat({
     emojiShow,

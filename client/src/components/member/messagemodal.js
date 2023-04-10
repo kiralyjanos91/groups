@@ -87,6 +87,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                 chatPhoto = { message.sent ? user?.small_photo : chatPhoto }
                 showMessageDate = { showMessageDate }
                 message = { message }
+                username = { message.sent ? user?.username : partnerName }
             />
         )
     })

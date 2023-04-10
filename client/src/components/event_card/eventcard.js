@@ -57,11 +57,13 @@ export default function EventCard({
                     </Col>
                 </Row>
                 <Row>
-                    <p
-                        className = "event-title"
-                    >
-                        { event.eventName || event.title }
-                    </p>
+                    <Col>
+                        <p
+                            className = "event-title"
+                            >
+                            { event.eventName || event.title }
+                        </p>
+                    </Col>
                 </Row>
                 <Row>
                     <Col className = "event-list-details-icon-col">

@@ -143,9 +143,9 @@ export default function Group(){
                                 () => banMember(member.username) 
                             }
                             className = "ban-x"
-                            >
+                        >
                             ⨉
-                    </p>
+                        </p>
                     }
                     <Col                   
                         className = "primary-link member-photo-col" 
@@ -223,34 +223,6 @@ export default function Group(){
                 showMessageDate = { showMessageDate }
                 message = { message }
             />
-            
-            // <Row 
-            //     key = { index } 
-            //     className = {`message-row ${ ownMessageClass }`}
-            // >
-            //     <Col className="message-col">
-            //         <Row>
-            //             <img 
-            //                 src = { 
-            //                     chatPhoto 
-            //                     || 
-            //                     "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
-            //                 } 
-            //                 alt = "chat-user" 
-            //                 className = "chat-img"
-            //             />
-            //         </Row>
-            //         <Row>
-            //             { showMessageDate }
-            //         </Row>
-            //         <Row>
-            //             { message.username }
-            //         </Row>
-            //         <Row>
-            //             { message.message }
-            //         </Row>
-            //     </Col>
-            // </Row>
         )
     })
 
@@ -290,14 +262,14 @@ export default function Group(){
                                         <Col className = "join-button-col">
                                             { joined ?
                                                 <Button 
-                                                    variant="secondary" 
+                                                    variant = "secondary" 
                                                     onClick = { leaveGroup }
                                                 >
                                                     { buttonLoading ?
                                                         <Spinner 
-                                                            animation="border" 
-                                                            role="status" 
-                                                            className="loading-button"
+                                                            animation = "border" 
+                                                            role = "status" 
+                                                            className = "loading-button"
                                                         >
                                                             <span className="visually-hidden">Loading...</span>
                                                         </Spinner>
@@ -377,12 +349,16 @@ export default function Group(){
                         </Row>
                         <Row>
                             { membersList }
-                        </Row>   
-                        <Row>
-                            <p>Events:</p>
-                            {eventsList}                       
-                        </Row>
-                        <Row>
+                        </Row>  
+                        { joined || !notOwnGroup && eventsList.length > 0 &&
+                            <Row>
+                                <p>Events:</p>
+                                {eventsList}                       
+                            </Row>
+                        } 
+                        <Row
+                            className = "chat-title-row"
+                        >
                             <Col>
                                 <p>Chat:</p>
                             </Col>

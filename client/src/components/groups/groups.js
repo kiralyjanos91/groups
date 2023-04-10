@@ -86,12 +86,12 @@ export default function HomePage(){
 
     const groupsForSort = [...groups]
 
-    if (sortBy !== "newest"){
-        sortBy === "oldest" ?
+    if (sortBy !== "Newest"){
+        sortBy === "Oldest" ?
             void(0)
             :
             groupsForSort.sort((a , b) => {
-                if (sortBy === "name-ascending") {
+                if (sortBy === "Name A-Z") {
                     if (a.name > b.name) {
                         return 1
                     }
@@ -100,7 +100,7 @@ export default function HomePage(){
                     }           
                     return 0
                 }
-                else if (sortBy === "name-descending"){
+                else if (sortBy === "Name Z-A"){
                     if (a.name < b.name) {
                         return 1
                     }
@@ -109,7 +109,7 @@ export default function HomePage(){
                     }
                         return 0
                 }
-                else if (sortBy === "members-ascending"){
+                else if (sortBy === "Least Members"){
                     if (a.members.length > b.members.length) {
                         return 1
                     }
@@ -130,7 +130,7 @@ export default function HomePage(){
         })
     }
 
-    const isReversedGroups = sortBy === "oldest" ? [...groups].reverse() : groupsForSort
+    const isReversedGroups = sortBy === "Oldest" ? [...groups].reverse() : groupsForSort
 
     const groupsList = isReversedGroups.filter((group) => {
         if (selectedCategory === "all") {
@@ -195,12 +195,12 @@ export default function HomePage(){
         })
 
         const sortByValues = [
-            "newest",
-            "oldest",
-            "members-descending",
-            "members-ascending",
-            "name-descending",
-            "name-ascending"
+            "Newest",
+            "Oldest",
+            "Most Members",
+            "Least Members",
+            "Name A-Z",
+            "Name Z-A"
         ]
 
         const sortByOptions = sortByValues.map(( value , index ) => {

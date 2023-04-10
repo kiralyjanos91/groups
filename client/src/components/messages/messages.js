@@ -159,6 +159,7 @@ export default function Messages() {
             const ownMessageClass = message.sent ? "own-message" : ""
             const chatPhoto = currentPartner.partner_photo 
 
+            console.log(user)
             return (
                 <ChatMessageEl 
                     index = { index }
@@ -166,34 +167,8 @@ export default function Messages() {
                     chatPhoto = { message.sent ? user?.small_photo : chatPhoto }
                     showMessageDate = { showMessageDate }
                     message = { message }
+                    username = { message.sent ? user?.username : currentPartner?.username }
                 />
-                // <Row 
-                //     key = { index } 
-                //     className = {`message-row ${ ownMessageClass }`}
-                // >
-                //     <Col className="message-col">
-                //         <Row>
-                //             <img 
-                //                 src = { 
-                //                     message.sent ? user?.small_photo : chatPhoto
-                //                     || 
-                //                     "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
-                //                 } 
-                //                 alt = "chat-user" 
-                //                 className = "chat-img"
-                //             />
-                //         </Row>
-                //         <Row>
-                //             { showMessageDate }
-                //         </Row>
-                //         <Row>
-                //             { message.sent? user?.username : currentPartner.username }
-                //         </Row>
-                //         <Row>
-                //             { message.message }
-                //         </Row>
-                //     </Col>
-                // </Row>
             )
     })
 
@@ -260,7 +235,7 @@ export default function Messages() {
                             onChange = { (e) => setFindMember(e.target.value) }
                         />
                     </Row>
-                    {findMember &&
+                    { findMember &&
                         <Row
                             className = "find-member-list-row"
                         >

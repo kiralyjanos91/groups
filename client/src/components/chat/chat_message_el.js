@@ -1,13 +1,16 @@
 import React from "react"
 import { Row , Col } from "react-bootstrap"
+import "./chat_message_el.css"
 
 export default function ChatMessageEl({
     index,
     ownMessageClass,
     chatPhoto,
     showMessageDate,
-    message
+    message,
+    username = ""
 }) {
+
     return (
         <Row 
             key = { index } 
@@ -15,24 +18,34 @@ export default function ChatMessageEl({
         >
             <Col className="message-col">
                 <Row>
-                    <img 
-                        src = { 
-                            chatPhoto 
-                            || 
-                            "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
-                        } 
-                        alt = "chat-user" 
-                        className = "chat-img"
-                    />
+                        <img 
+                            src = { 
+                                chatPhoto 
+                                || 
+                                "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
+                            } 
+                            alt = "chat-user" 
+                            className = "chat-img"
+                        />          
+                    <Col
+                        className = "chat-username-col"
+                    >
+                        { message.username || username }
+                    </Col>
                 </Row>
-                <Row>
-                    { showMessageDate }
+                <Row
+                    className = "chat-message-content-row"
+                >
+                    <Col>
+                        { message.message }
+                    </Col>
                 </Row>
-                <Row>
-                    { message.username }
-                </Row>
-                <Row>
-                    { message.message }
+                <Row
+                    className = "chat-message-date-row"
+                >
+                    <Col>
+                        { showMessageDate }
+                    </Col>
                 </Row>
             </Col>
         </Row>

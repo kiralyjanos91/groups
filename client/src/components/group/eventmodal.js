@@ -150,8 +150,12 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                                 onClick = { () => handleClose() }
                             />
                         </Modal.Header>
-                        <Modal.Body>
-                            <Row>
+                        <Modal.Body
+                            className = "event-modal-body"
+                        >
+                            <Row
+                                className = "event-photo-row"
+                            >
                                 <Col 
                                     className = "event-photo-col"
                                     style = {{

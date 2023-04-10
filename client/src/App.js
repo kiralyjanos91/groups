@@ -78,10 +78,10 @@ export default function App(){
               </>
             }
             <Route path="/" element = { 
-              <Home 
-                accessChecked = { accessChecked } 
-              /> 
-            } 
+                <Home 
+                  accessChecked = { accessChecked } 
+                /> 
+              } 
             />
             <Route path="/login" element = { <Login /> } />
             <Route path="/registration" element = { <Register /> } />

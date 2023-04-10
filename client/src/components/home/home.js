@@ -70,10 +70,13 @@ export default function Home({ accessChecked } ) {
                     <Row>
                         <Col
                             md = "6"
+                            className = "home-main-text-col"
                         >
                             <Row>
-                                <h1>    
-                                    This is the home page
+                                <h1
+                                    className = "home-title"
+                                >    
+                                    Where friendships are born from shared interests
                                 </h1>
                             </Row>
                             <Row>
@@ -108,19 +111,23 @@ export default function Home({ accessChecked } ) {
                         </Col>
                         <Col
                             md = "6"
+                            className = "home-img-col"
                         >
                             <img 
-                                src = ""
+                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/home-img.png"
                                 alt = "main-img"
+                                className = "home-img"
                             />
                         </Col>
                     </Row>
-                    <Row>
+                    <Row
+                        className = "how-works-main-row"
+                    >
                         <Row
                             className = "how-works-row"
                         >
                             <h1>
-                                How Meetup works
+                                How groupyx works
                             </h1>
                             <p>
                                 Meet new people who share your interests through online and in-person events. It’s free to create an account.
@@ -132,6 +139,11 @@ export default function Home({ accessChecked } ) {
                             <Col
                                 md = "4"
                             >
+                                <img 
+                                    className = "bullet-point-img"
+                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet1.png" 
+                                    alt = "bullet-1" 
+                                />
                                 <h1>
                                     Join a group
                                 </h1>
@@ -142,6 +154,11 @@ export default function Home({ accessChecked } ) {
                             <Col
                                 md = "4"
                             >
+                                <img 
+                                    className = "bullet-point-img"
+                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet02.png" 
+                                    alt = "bullet-2" 
+                                />
                                 <h1>
                                     Find an event
                                 </h1>
@@ -152,6 +169,11 @@ export default function Home({ accessChecked } ) {
                             <Col
                                 md = "4"
                             >
+                                <img 
+                                    className = "bullet-point-img"
+                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet3.png" 
+                                    alt = "bullet-3" 
+                                />
                                 <h1>
                                     Start a group
                                 </h1>
@@ -168,7 +190,7 @@ export default function Home({ accessChecked } ) {
                                     variant = "primary"
                                     className = "home-join-button"
                                     >
-                                    Join GROUPYX
+                                    Join Now
                                 </Button>
                             </Col>
                         </Row>

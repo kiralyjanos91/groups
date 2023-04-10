@@ -9,11 +9,16 @@
 .group-header-row {
     border-bottom: 1px solid white;
     padding-bottom: 20px;
+    margin-bottom: 20px;
     align-items: flex-end;
 }
 
 .member-list-element-main-col {
     max-width: fit-content !important;
+}
+
+.chat-title-row {
+    margin-top: 30px !important;
 }
 
 .ban-x {
@@ -78,61 +83,3 @@
     justify-content: center;
 }
 
-.event-list-details-seperator {
-    height: 1px;
-    background-color: #616161;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-    margin-inline: 10px;
-}
-
-.event-col {
-    height: 100%;
-    padding: 5px;
-    padding-inline: 5px;
-    background-color: #2e3439;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.event-img {
-    max-width: 100%;
-}
-
-.event-img-col {
-    min-height: 300px;
-    display: flex;
-    align-items: flex-end;
-    flex-direction: column;
-    padding-inline: 5px;
-    background-size: cover;
-    background-position: center;
-}
-
-.joined-badge-col > p {
-    background-color: #141619;
-    padding: 5px;
-    border-radius: 5px;
-    margin-top: 5px;
-}
-
-.event-title {
-    font-size: 25px;
-    text-transform: uppercase;
-}
-
-.event-list-details-icon-col {
-    max-width: fit-content !important;
-}
-
-.event-list-details-icon {
-    max-width: 30px;
-}
-
-.event-details-row {
-    align-items: center;
-}
-
-.event-list-detals-text {
-    margin: 0 !important
-}

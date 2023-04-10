@@ -36,7 +36,7 @@ export default function BanMemberModal( { handleClose , show , groupId , usernam
                 <Modal.Body>{ `Woul you like to ban ${username}?` }</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={ ban }>
-                        ban
+                        Ban
                     </Button>
                     <Button variant="secondary" onClick={ handleClose }>
                         Close

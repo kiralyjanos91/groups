@@ -4,9 +4,26 @@
     min-height: 100vh;
 }
 
+.event-modal-body > .row {
+    border-bottom: 1px solid #212529;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.event-modal-body > .row > p {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.event-photo-row {
+    margin-bottom: 30px;
+}
+
 .event-photo-col {
-    height: 200px !important;
-    max-width: 200px !important;
+    height: 120px !important;
+    max-width: 120px !important;
+    border-radius: 10px;
     background-size: cover;
     background-position: center;
 }
