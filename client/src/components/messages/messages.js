@@ -58,7 +58,7 @@ export default function Messages() {
                 top: chatWindowRef.current.scrollHeight
             })
         }
-    }, [currentPartner,showMessage])
+    }, [ currentPartner , showMessage ])
 
     useLayoutEffect(() => {
         if (findMember) {
@@ -224,20 +224,25 @@ export default function Messages() {
         )
     })
 
-    console.log(isMobile)
-
     return (
         <Container
             className = "messages-page-container"
         >
-            <Row>
-                <Col>
-                    <h1>Messages Page</h1>
+            <Row
+                className = "title-and-find-row"
+            >
+                <Col
+                    md = "6"
+                >
+                    <h1>Messages</h1>
                 </Col>
                 <Col
+                    md = "6"
                     ref = { findMemberRef }
                 >
-                    <Row>
+                    <Row
+                        className = "find-member-input-row"
+                    >
                         <input 
                             placeholder = "Find Member"
                             name = "findMembers" 
@@ -273,19 +278,26 @@ export default function Messages() {
                     { (!isMobile || (isMobile && !showMessage)) &&
                         <Col 
                             className = "chat-partners-col"
+                            lg = "4"
                         >
                             Partners:
                             { chatPartners }
                         </Col>
                     }
                     { (!isMobile || (isMobile && showMessage)) &&
-                        <Col>
+                        <Col
+                            lg = "8"
+                        >
                             { isMobile &&
-                                <Row>
+                                <Row
+                                    className = "mobile-view-partner-name-row"
+                                >
                                     <Col>
                                         <h3>{ currentPartner.username }</h3>
                                     </Col>
-                                    <Col>
+                                    <Col
+                                        className = "partners-button-col"
+                                    >
                                         <Button 
                                             variant = "primary"
                                             onClick = {() => setShowMessage(false)}
@@ -302,7 +314,7 @@ export default function Messages() {
                                 sendToChat = { sendMessage }
                                 messages = { messagesList }
                                 emojiShowChange = { emojiShowChange }
-                                />
+                            />
                         </Col>
                     }
                 </Row>
