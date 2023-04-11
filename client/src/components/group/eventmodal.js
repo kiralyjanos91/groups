@@ -1,6 +1,6 @@
 import React , { useState , useEffect } from "react"
 import axios from "axios"
-import { useNavigate , Link } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Container , Row , Col } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
@@ -23,7 +23,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
     const joined = eventData?.members.find((member) => member.username === user.username) ? true : false
     const [buttonLoading , setButtonLoading] = useState(false)
     const [deletePage , setDeletePage] = useState(false)
-    const locationText = `${eventData?.location.country}, ${eventData?.location.state}, ${eventData?.location.city}`
+    const locationText = `${eventData?.location.country}, ${eventData?.location.state}, ${eventData?.location.city}, ${eventData?.location.address || "" }`
     const eventMembersList = eventData?.members?.map((member , index) => {
         return (
             <Col 
@@ -59,8 +59,9 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
             groupName: groupInfo.name,
             eventName,
             eventPhoto: eventData?.photo,
-            eventDate:eventData?.date,
-            eventLocation:eventData?.location,
+            eventDate: eventData?.date,
+            eventTime: eventData?.time,
+            eventLocation: eventData?.location,
             username: user.username,
             userPhoto: user.small_photo
         })
@@ -174,6 +175,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                             <Row>
                                 <p>When:</p>
                                 <p>{eventData?.date}</p>
+                                <p>{eventData?.time}</p>
                             </Row>
                             <Row>
                                 <p>Where:</p>

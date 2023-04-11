@@ -1,0 +1,4 @@
+.events-main-row {
+    display: flex;
+    row-gap: 25px;
+}

@@ -10,6 +10,7 @@ const createEventRoute = ({
             title,
             description,
             date,
+            time,
             photo,
             location
         } = req.body.formData
@@ -18,13 +19,13 @@ const createEventRoute = ({
             title,
             description,
             date,
+            time,
             photo,
             location,
             members: []
         }
 
         try {
-
             const thisGroup = await GroupModel.findOne({
                 _id: groupId
             })

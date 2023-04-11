@@ -1,5 +1,6 @@
 import React , { useState , useEffect , useLayoutEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
+import Button from "react-bootstrap/Button"
 import { Link , useNavigate } from "react-router-dom"
 import Spinner from "react-bootstrap/Spinner"
 import { useSelector } from "react-redux"
@@ -16,18 +17,17 @@ export default function Messages() {
     const [ findMember , setFindMember ] = useState("")
     const [ findMemberLoading , setFindMemberLoading ] = useState(false)
     const [ findMemberList , setFindMemberList ] = useState([])
+    const [ isMobile , setIsMobile ] = useState(window.innerWidth < 992)
+    const [ showMessage , setShowMessage ] = useState(false)
     const chatMessageRef = useRef(null)
     const chatWindowRef = useRef(null)
-    const emojiRef = useRef(null)
     const findMemberRef = useRef(null)
     const navigate = useNavigate()
 
     useEffect(() => {
-        document.addEventListener("click" , (e) => {
-            console.log(findMemberRef.current)
-            console.log(e.target)
-        })
-    }, [])
+        window.addEventListener( "resize" , windowWidthResize )
+        return () => window.removeEventListener( "resize" , windowWidthResize )
+    })
 
     useEffect(() => {
         if (user.username){
@@ -53,12 +53,12 @@ export default function Messages() {
     }, [allMessages])
 
     useEffect(() => {
-        if (currentPartner){
+        if ((!isMobile && currentPartner) || (isMobile && showMessage && currentPartner)){
             chatWindowRef.current.scrollTo({
                 top: chatWindowRef.current.scrollHeight
             })
         }
-    }, [currentPartner])
+    }, [currentPartner,showMessage])
 
     useLayoutEffect(() => {
         if (findMember) {
@@ -78,6 +78,16 @@ export default function Messages() {
             setFindMemberList([])
         }
     }, [findMember])
+
+    const windowWidthResize = () => {
+        if (isMobile && window.innerWidth >= 992) {
+            setIsMobile(false)
+        }
+        else if (!isMobile && window.innerWidth < 992)
+            {
+                setIsMobile(true)
+            }
+    }
 
     const sendMessage = () => {
         axios.post("/sendprivatemessage" , {
@@ -99,13 +109,16 @@ export default function Messages() {
         }
 
     const chatPartners = allMessages.map((message , index) => {
-        const currentStyle = message.partner === currentPartner.username ? "current" : ""
+        const currentStyle = ( message.partner === currentPartner.username && !isMobile ) ? "current" : ""
         return (
             <Row 
-                onClick = { () => setCurrentPartner({
-                    username: message.partner,
-                    partner_photo: message.partner_photo
-                }) }
+                onClick = { () => {
+                    setCurrentPartner({
+                        username: message.partner,
+                        partner_photo: message.partner_photo
+                    })
+                    setShowMessage(true)
+                }}
                 key = { index }
                 className = {`chat-partners-list-row ${currentStyle}`}
             >
@@ -159,7 +172,6 @@ export default function Messages() {
             const ownMessageClass = message.sent ? "own-message" : ""
             const chatPhoto = currentPartner.partner_photo 
 
-            console.log(user)
             return (
                 <ChatMessageEl 
                     index = { index }
@@ -212,6 +224,8 @@ export default function Messages() {
         )
     })
 
+    console.log(isMobile)
+
     return (
         <Container
             className = "messages-page-container"
@@ -224,12 +238,8 @@ export default function Messages() {
                     ref = { findMemberRef }
                 >
                     <Row>
-                        <label 
-                            htmlFor = "findMembers"
-                        >
-                            Find Member:
-                        </label>
                         <input 
+                            placeholder = "Find Member"
                             name = "findMembers" 
                             value = { findMember }
                             onChange = { (e) => setFindMember(e.target.value) }
@@ -260,20 +270,41 @@ export default function Messages() {
             </Row>
             { allMessages.length > 0 ?
                 <Row>
-                    <Col className = "chat-partners-col">
-                        Partners:
-                        { chatPartners }
-                    </Col>
-                    <Col>
-                        <Chat 
-                            emojiShow = { emojiShow }
-                            chatWindowRef = { chatWindowRef }
-                            chatMessageRef = { chatMessageRef }
-                            sendToChat = { sendMessage }
-                            messages = { messagesList }
-                            emojiShowChange = { emojiShowChange }
-                        />
-                    </Col>
+                    { (!isMobile || (isMobile && !showMessage)) &&
+                        <Col 
+                            className = "chat-partners-col"
+                        >
+                            Partners:
+                            { chatPartners }
+                        </Col>
+                    }
+                    { (!isMobile || (isMobile && showMessage)) &&
+                        <Col>
+                            { isMobile &&
+                                <Row>
+                                    <Col>
+                                        <h3>{ currentPartner.username }</h3>
+                                    </Col>
+                                    <Col>
+                                        <Button 
+                                            variant = "primary"
+                                            onClick = {() => setShowMessage(false)}
+                                        >
+                                            Partners
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            }
+                            <Chat 
+                                emojiShow = { emojiShow }
+                                chatWindowRef = { chatWindowRef }
+                                chatMessageRef = { chatMessageRef }
+                                sendToChat = { sendMessage }
+                                messages = { messagesList }
+                                emojiShowChange = { emojiShowChange }
+                                />
+                        </Col>
+                    }
                 </Row>
             :
                 <Row className="spinner-row">

@@ -15,6 +15,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
     const [ title , setTitle ] = useState("")
     const [ description , setDescription ] = useState("")
     const [ date , setDate ] = useState("")
+    const [ time , setTime ] = useState("")
     const [ errorMessage , setErrorMessage ] = useState("")
     const [ address , setAddress ] = useState("")
     const [locationSelector , setLocationSelector] = useState({
@@ -113,6 +114,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
             title,
             description,
             date,
+            time,
             photo: photoLocation,
             location: {
                 ...locationSelector,
@@ -147,6 +149,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
         setTitle("")
         setDescription("")
         setDate("")
+        setTime("")
         setErrorMessage("")
         setLocationSelector({
             country: "",
@@ -200,6 +203,12 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                             name="when" 
                             onChange = {(e) => setDate(e.target.value)}
                             value = { date }
+                        />
+                        <input 
+                            type = "time"
+                            name="when" 
+                            onChange = {(e) => setTime(e.target.value)}
+                            value = { time }
                         />
                         <labe htmlFor = "group_photo">*Photo:</labe>
                         <input 

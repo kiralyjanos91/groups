@@ -12,6 +12,7 @@ const joinToEvent = ({
             eventName,
             eventPhoto,
             eventDate,
+            eventTime,
             eventLocation,
             username,
             userPhoto
@@ -40,6 +41,7 @@ const joinToEvent = ({
                     eventName,
                     eventPhoto,
                     eventDate,
+                    eventTime,
                     eventLocation,
                     groupName,
                     groupId

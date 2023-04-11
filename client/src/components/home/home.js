@@ -191,6 +191,8 @@ export default function Home({ accessChecked } ) {
                         >
                             <Col>
                                 <Button 
+                                    as = { Link }
+                                    to = "/registration"
                                     variant = "primary"
                                     className = "home-join-button"
                                     >

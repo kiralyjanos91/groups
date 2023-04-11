@@ -11,12 +11,15 @@ export default function EventCard({
     eventLocation, 
     showEvent = "", 
     date,
+    time = "",
     isMember = false, 
     memberCount = ""
 }) {
     return (
         <Col
-            md = "3"
+            md = "6"
+            lg = "4"
+            xl = "3"
         >          
             <Col 
                 key = { i }
@@ -68,7 +71,7 @@ export default function EventCard({
                 <Row>
                     <Col className = "event-list-details-icon-col">
                         <img 
-                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/location-icon.png"
+                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/date-icon.png"
                             alt = "location-icon"
                             className = "event-list-details-icon"
                         />
@@ -76,6 +79,9 @@ export default function EventCard({
                     <Col>
                         <p>
                             { date }
+                        </p>
+                        <p>
+                            { time }
                         </p>
                     </Col>
                 </Row>
@@ -88,7 +94,7 @@ export default function EventCard({
                 <Row>
                     <Col className = "event-list-details-icon-col">
                         <img 
-                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/date-icon.png"
+                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/location-icon.png"
                             alt = "date-icon"
                             className = "event-list-details-icon"
                         />
@@ -120,7 +126,7 @@ export default function EventCard({
                                 className = "go-to-group-button"
                                 as = { Link }
                                 to = { `/group/${event.groupId}` }
-                                >
+                            >
                                 Go to Group
                             </Button>
                         }

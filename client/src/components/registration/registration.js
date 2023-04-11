@@ -10,6 +10,7 @@ export default function Register(){
     const { accessUpdate } = AccessUpdateHook()
     const [errorMessage , setErrorMessage] = useState("")
     const [password , setPassword] = useState("")
+    const [passwordCheck , setPasswordCheck] = useState("")
     const [passwordIsFine , setPasswordIsFine] = useState(false)
     const usernameRef = useRef()
 
@@ -18,6 +19,10 @@ export default function Register(){
         if (!usernameRef.current.value || !password) {
             return setErrorMessage("Please fill out all required fields")
         }
+        if (password !== passwordCheck)
+            {
+                return setErrorMessage("Passwords are not equal")
+            }
         if (usernameRef.current.value && passwordIsFine) {
             axios.post("/sendregistration" , {
                 username: usernameRef.current.value,
@@ -48,7 +53,7 @@ export default function Register(){
                 setPasswordIsFine(true)
             }
         }
-    }, [password])
+    }, [password,passwordCheck])
 
     console.log(password)
 
@@ -67,6 +72,13 @@ export default function Register(){
                         name = "password" 
                         onChange = {(e) => setPassword(e.target.value)}
                         value = { password }
+                    />
+                    <label htmlFor = "passrowd-check">Password again:</label>
+                    <input 
+                        type = "password" 
+                        name = "password-check" 
+                        onChange = {(e) => setPasswordCheck(e.target.value)}
+                        value = { passwordCheck }
                     />
                     <p>{ errorMessage }</p>
                     <button 
