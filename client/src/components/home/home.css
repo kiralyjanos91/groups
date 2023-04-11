@@ -27,6 +27,16 @@
     margin-top: 50px;
 }
 
+.home-sign-in-button-col > .btn {
+    background-color: #13ACE8 !important;
+    border: 1px solid #13ACE8 !important;
+}
+
+.home-sign-in-button > .btn:hover {
+    background-color: #12a2db !important;
+    border: 1px solid #12a2db !important;
+}
+
 .home-page-container {
     text-align: center;
 }

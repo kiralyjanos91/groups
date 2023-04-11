@@ -111,11 +111,12 @@ export default function Home({ accessChecked } ) {
                                         Sign Up
                                     </Button>
                                 </Col>
-                                <Col>
+                                <Col
+                                    className = "home-sign-in-button-col"
+                                >
                                     <Button 
                                         as = { Link }
                                         to = "/login"
-                                        variant = "secondary"
                                     >
                                         Sign in
                                     </Button>

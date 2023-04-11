@@ -33,7 +33,7 @@ code {
 }
 
 .primary-link:hover {
-  color: #df4031;
+  color: #f14636;
 }
 
 .modal-content {
@@ -117,7 +117,7 @@ input {
 }
 
 .login-reg-btn {
-  background-color: #dc3545;
+  background-color: #FF493A;
   border: none;
   border-radius: 5px;
   color: white;
