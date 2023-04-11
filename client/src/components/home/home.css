@@ -23,7 +23,7 @@
 }
 
 .home-join-button {
-    max-width: 300px;
+    width: 250px;
     margin-top: 50px;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .bullet-points-row {
-    margin-top: 50px;
+    margin-top: 50px !important;
 }
 
 .bullet-point-img {

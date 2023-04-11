@@ -29,7 +29,10 @@ export default function Home({ accessChecked } ) {
 
     const popularGroupsElements = popularGroups.map((group , i) => {
         return (
-            <Col>
+            <Col
+                md = "6"
+                lg = "3"
+            >
                 <Row>
                     <Col
                         className = "group-photo-member-count-col"
@@ -69,7 +72,17 @@ export default function Home({ accessChecked } ) {
                 <Row>
                     <Row>
                         <Col
-                            md = "6"
+                            md = {{span:"6" , order:"2"}}
+                            className = "home-img-col"
+                        >
+                            <img 
+                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/home-img.png"
+                                alt = "main-img"
+                                className = "home-img"
+                            />
+                        </Col>
+                        <Col
+                            md = {{span:"6" , order:"1"}}
                             className = "home-main-text-col"
                         >
                             <Row>
@@ -108,16 +121,6 @@ export default function Home({ accessChecked } ) {
                                     </Button>
                                 </Col>
                             </Row>
-                        </Col>
-                        <Col
-                            md = "6"
-                            className = "home-img-col"
-                        >
-                            <img 
-                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/home-img.png"
-                                alt = "main-img"
-                                className = "home-img"
-                            />
                         </Col>
                     </Row>
                     <Row
