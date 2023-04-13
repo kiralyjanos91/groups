@@ -352,10 +352,14 @@ export default function Group(){
                             { membersList }
                         </Row>  
                         { joined || !notOwnGroup && eventsList.length > 0 &&
-                            <Row>
+                            <>
                                 <p>Events:</p>
-                                {eventsList}                       
-                            </Row>
+                                <Row
+                                    className = "group-events-list-row"
+                                >
+                                    {eventsList}                       
+                                </Row>
+                            </>
                         } 
                         <Row
                             className = "chat-title-row"

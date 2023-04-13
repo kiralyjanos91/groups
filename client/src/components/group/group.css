@@ -83,3 +83,6 @@
     justify-content: center;
 }
 
+.group-events-list-row {
+    row-gap: 30px;
+}
