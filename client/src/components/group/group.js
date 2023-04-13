@@ -3,7 +3,6 @@ import { Container , Col , Row } from "react-bootstrap"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
-// import EmojiPicker from 'emoji-picker-react';
 import { useParams , useNavigate } from "react-router"
 import { Link } from "react-router-dom"
 import axios from "axios"
@@ -28,7 +27,8 @@ export default function Group(){
     const [emojiShow , setEmojiShow] = useState(false)
     const [eventName , setEventName] = useState("")
     const [eventShow, setEventShow] = useState(false);
-    const [banShow, setBanShow] = useState(false);
+    const [banShow , setBanShow] = useState(false);
+    const [showChat , setShowChat] = useState(false)
 
     const [banUsername , setBanUsername] = useState("")
     
@@ -232,185 +232,204 @@ export default function Group(){
     return (
         <>
             <Container>
-                { groupInfo ?
+                { showChat ? 
                     <>
-                        <Row className = "group-header-row">
-                            <Col className = "group-main-photo-col">
-                            <div 
-                                className = "group-main-photo-div"
-                                style = {{
-                                    backgroundImage: `url(${
-                                        groupInfo?.photo 
-                                        || 
-                                        "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png"
-                                    })`
-                                }}
-                            >
-                            </div>
-                            </Col>
-                            <Col>
-                                <h1 className="group-name">
-                                    { groupName }
-                                </h1>                       
-                                <p
-                                    className="primary-link"
-                                    onClick = { goToCategory }
-                                >                              
-                                    { groupInfo.category }
-                                </p>
-                                { notOwnGroup ?
-                                    <Row>
-                                        <Col className = "join-button-col">
-                                            { joined ?
-                                                <Button 
-                                                    variant = "secondary" 
-                                                    onClick = { leaveGroup }
-                                                >
-                                                    { buttonLoading ?
-                                                        <Spinner 
-                                                            animation = "border" 
-                                                            role = "status" 
-                                                            className = "loading-button"
-                                                        >
-                                                            <span className="visually-hidden">Loading...</span>
-                                                        </Spinner>
-                                                    :
-                                                        "Leave"
-                                                    }
-                                                </Button>
-                                            :
-                                                <Button 
-                                                    variant="primary" 
-                                                    onClick = { joinToGroup }
-                                                >
-                                                    { buttonLoading ?
-                                                        <Spinner 
-                                                            animation="border" 
-                                                            role="status"
-                                                            className="loading-button"
-                                                        >
-                                                            <span className="visually-hidden">Loading...</span>
-                                                        </Spinner>
-                                                    :
-                                                        "Join"
-                                                    }
-                                                </Button>
-                                            }
-                                        </Col>
-                                    </Row>
-                                    :
-                                    <Row>
-                                        <Col className = "own-group-badge-col">
-                                            <p 
-                                                className = "own-group-badge"
-                                                >
-                                                Own Group
-                                            </p>
-                                        </Col>
-                                        <Col className = "create-event-badge-col">
-                                            <p 
-                                                className = "create-event-badge"
-                                                onClick = {() => handleCreateEventShow()}
-                                            >
-                                                Create Event
-                                            </p>
-                                        </Col>
-                                    </Row>
-                                    
-                                }
-                            </Col>
-                        </Row>
-                        <Row>
-                            <p>Admin:</p>
-                            <Col 
-                                as = { Link } 
-                                to = {
-                                    admin.username === ownUsername ?
-                                        `/profile`
-                                    :
-                                        `/member/${admin.username}`
-                                }  
-                                className = "primary-link member-photo-col"
-                            >
-                                <img 
-                                    src = { 
-                                        admin.small_photo || 
-                                        "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
-                                    }
-                                    alt = "small-profile"
-                                    className="small-photo-round" 
-                                />
-                                <p className="members-list-username">
-                                    { admin.username }
-                                </p>
-                            </Col>
-                        </Row>
-                        <Row>      
-                            <p>Members:</p>
-                        </Row>
-                        <Row>
-                            { membersList }
-                        </Row>  
-                        { joined || !notOwnGroup && eventsList.length > 0 &&
-                            <>
-                                <p>Events:</p>
-                                <Row
-                                    className = "group-events-list-row"
-                                >
-                                    {eventsList}                       
-                                </Row>
-                            </>
-                        } 
-                        <Row
-                            className = "chat-title-row"
+                        <Button
+                            onClick = {() => setShowChat(false)}
                         >
-                            <Col>
-                                <p>Chat:</p>
-                            </Col>
-                        </Row>
-                        <Container className = "chat-container">
-                            { !joined && notOwnGroup ?
-                                <>
-                                    You have to be a member to see the messages
-                                </>
-                            :
-                                <Chat 
-                                    emojiShow = { emojiShow }
-                                    chatWindowRef = { chatWindowRef }
-                                    chatMessageRef = { chatMessageRef }
-                                    sendToChat = { sendToChat }
-                                    messages = { messages }
-                                    emojiShowChange = { emojiShowChange }
-                                />
-                            }   
-                            <EventModal 
-                                handleClose={ handleEventClose }
-                                show = { eventShow }
-                                groupInfo = { groupInfo }
-                                eventName = { eventName }
-                                groupId = { id }
-                            />
-
-                            <CreateEventModal 
-                                show = { createEventShow }
-                                groupId = { id }
-                                handleClose = { handleCreateEventClose }
-                            />
-
-                            <BanMemberModal 
-                                handleClose={ handleBanClose }
-                                show = { banShow }
-                                username = { banUsername }
-                                groupId = { id }
-                            />
-                        </Container>
+                            Close Chat
+                        </Button>
+                        <Chat 
+                            emojiShow = { emojiShow }
+                            chatWindowRef = { chatWindowRef }
+                            chatMessageRef = { chatMessageRef }
+                            sendToChat = { sendToChat }
+                            messages = { messages }
+                            emojiShowChange = { emojiShowChange }
+                        />
                     </>
                 :
-                    <Row className="spinner-row">
-                        <Spinner animation="border" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                    </Row>
+                
+                    <>
+                    { groupInfo ?
+                        <>
+                            <Row className = "group-header-row">
+                                <Col className = "group-main-photo-col">
+                                <div 
+                                    className = "group-main-photo-div"
+                                    style = {{
+                                        backgroundImage: `url(${
+                                            groupInfo?.photo 
+                                            || 
+                                            "https://groupsiteimages.s3.amazonaws.com/group_photos/no_group_photo.png"
+                                        })`
+                                    }}
+                                >
+                                </div>
+                                </Col>
+                                <Col>
+                                    <h1 className="group-name">
+                                        { groupName }
+                                    </h1>                       
+                                    <p
+                                        className="primary-link"
+                                        onClick = { goToCategory }
+                                    >                              
+                                        { groupInfo.category }
+                                    </p>
+                                    { notOwnGroup ?
+                                        <Row>
+                                            <Col className = "join-button-col">
+                                                { joined ?
+                                                    <Button 
+                                                        variant = "secondary" 
+                                                        onClick = { leaveGroup }
+                                                    >
+                                                        { buttonLoading ?
+                                                            <Spinner 
+                                                                animation = "border" 
+                                                                role = "status" 
+                                                                className = "loading-button"
+                                                            >
+                                                                <span className="visually-hidden">Loading...</span>
+                                                            </Spinner>
+                                                        :
+                                                            "Leave"
+                                                        }
+                                                    </Button>
+                                                :
+                                                    <Button 
+                                                        variant="primary" 
+                                                        onClick = { joinToGroup }
+                                                    >
+                                                        { buttonLoading ?
+                                                            <Spinner 
+                                                                animation="border" 
+                                                                role="status"
+                                                                className="loading-button"
+                                                            >
+                                                                <span className="visually-hidden">Loading...</span>
+                                                            </Spinner>
+                                                        :
+                                                            "Join"
+                                                        }
+                                                    </Button>
+                                                }
+                                            </Col>
+                                        </Row>
+                                        :
+                                        <Row>
+                                            <Col className = "own-group-badge-col">
+                                                <p 
+                                                    className = "own-group-badge"
+                                                    >
+                                                    Own Group
+                                                </p>
+                                            </Col>
+                                            <Col className = "create-event-badge-col">
+                                                <p 
+                                                    className = "create-event-badge"
+                                                    onClick = {() => handleCreateEventShow()}
+                                                >
+                                                    Create Event
+                                                </p>
+                                            </Col>
+                                        </Row>
+                                        
+                                    }
+                                </Col>
+                            </Row>
+                            <Row>
+                                <p>Admin:</p>
+                                <Col 
+                                    as = { Link } 
+                                    to = {
+                                        admin.username === ownUsername ?
+                                            `/profile`
+                                        :
+                                            `/member/${admin.username}`
+                                    }  
+                                    className = "primary-link member-photo-col"
+                                >
+                                    <img 
+                                        src = { 
+                                            admin.small_photo || 
+                                            "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
+                                        }
+                                        alt = "small-profile"
+                                        className="small-photo-round" 
+                                    />
+                                    <p className="members-list-username">
+                                        { admin.username }
+                                    </p>
+                                </Col>
+                            </Row>
+                            <Row>      
+                                <p>Members:</p>
+                            </Row>
+                            <Row>
+                                { membersList }
+                            </Row>  
+                            { joined || !notOwnGroup && eventsList.length > 0 &&
+                                <>
+                                    <p>Events:</p>
+                                    <Row
+                                        className = "group-events-list-row"
+                                    >
+                                        {eventsList}                       
+                                    </Row>
+                                </>
+                            } 
+                            <Row
+                                className = "chat-title-row"
+                            >
+                                <Col>
+                                    <p>Chat:</p>
+                                </Col>
+                            </Row>
+                            <Container className = "chat-container">
+                                { !joined && notOwnGroup ?
+                                    <>
+                                        You have to be a member to see the messages
+                                    </>
+                                :
+                                    <Button
+                                        onClick = {() => setShowChat(true)}
+                                    >
+                                        Show Chat
+                                    </Button>
+                                        
+                                }   
+                                <EventModal 
+                                    handleClose={ handleEventClose }
+                                    show = { eventShow }
+                                    groupInfo = { groupInfo }
+                                    eventName = { eventName }
+                                    groupId = { id }
+                                />
+
+                                <CreateEventModal 
+                                    show = { createEventShow }
+                                    groupId = { id }
+                                    handleClose = { handleCreateEventClose }
+                                />
+
+                                <BanMemberModal 
+                                    handleClose={ handleBanClose }
+                                    show = { banShow }
+                                    username = { banUsername }
+                                    groupId = { id }
+                                />
+                            </Container>
+                        </>
+                    :
+                        <Row className="spinner-row">
+                            <Spinner animation="border" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                        </Row>
+                    }
+                    </>
                 }
             </Container>
         </>

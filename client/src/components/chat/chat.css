@@ -9,7 +9,8 @@
   }
   
   .messages-window-row{
-    height: 400px;
+    /* height: 400px; */
+    height: calc( 100vh - 149px);
     padding-top: 15px;
     padding-right: 25px;
     padding-bottom: 15px;
