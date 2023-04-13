@@ -195,18 +195,21 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                             onChange = {(e) => setDescription(e.target.value)}
                             value = { description }
                         />
-                        <label htmlFor = "groupname">
-                            *When:
+                        <label htmlFor = "when">
+                            *Date:
                         </label>
                         <input 
                             type = "date"
-                            name="when" 
+                            name="date" 
                             onChange = {(e) => setDate(e.target.value)}
                             value = { date }
                         />
+                        <label htmlFor = "time">
+                            *Time:
+                        </label>
                         <input 
                             type = "time"
-                            name="when" 
+                            name = "time" 
                             onChange = {(e) => setTime(e.target.value)}
                             value = { time }
                         />
@@ -223,7 +226,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                         <p
                             className = "create-event-location-p"
                         >
-                            Location:
+                            *Location:
                         </p>
                         <label htmlFor="country">Country:</label>
                         <select 

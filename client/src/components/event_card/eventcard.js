@@ -71,7 +71,7 @@ export default function EventCard({
                 <Row>
                     <Col className = "event-list-details-icon-col">
                         <img 
-                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/date-icon.png"
+                            src = "https://groupsiteimages.s3.amazonaws.com/icons/date-icon-grey.png"
                             alt = "location-icon"
                             className = "event-list-details-icon"
                         />
@@ -94,7 +94,7 @@ export default function EventCard({
                 <Row>
                     <Col className = "event-list-details-icon-col">
                         <img 
-                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/location-icon.png"
+                            src = "https://groupsiteimages.s3.amazonaws.com/icons/location-icon-grey.png"
                             alt = "date-icon"
                             className = "event-list-details-icon"
                         />
