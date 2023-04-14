@@ -101,3 +101,16 @@
     max-width: 30px;
     filter: opacity(0.6);
 }
+
+.messages-chat-window {
+    height: calc( 100vh - 258px);
+}
+
+@media screen and ( width >= 992px) {
+    .chat-partners-col {
+        padding-right: 20px;
+    }
+    .messages-chat-window {
+        height: calc( 100vh - 200px);
+    }
+}

@@ -152,7 +152,10 @@ export default function Messages() {
     const dateFormat = new Intl.DateTimeFormat("en-US",{
         year: "numeric",
         month: "short",
-        day: "2-digit"
+        day: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric"
     })
 
     const emojiShowChange = () => {
@@ -275,22 +278,25 @@ export default function Messages() {
             </Row>
             { allMessages.length > 0 ?
                 <Row>
-                    { (!isMobile || (isMobile && !showMessage)) &&
-                        <Col 
+                    <Col
+                        lg = "4"
+                    >
+                        { (!isMobile || (isMobile && !showMessage)) &&
+                            <Col 
                             className = "chat-partners-col"
-                            lg = "4"
-                        >
-                            Partners:
-                            { chatPartners }
-                        </Col>
-                    }
+                            >
+                                Partners:
+                                { chatPartners }
+                            </Col>
+                        }
+                    </Col>
                     { (!isMobile || (isMobile && showMessage)) &&
                         <Col
-                            lg = "8"
+                        lg = "8"
                         >
                             { isMobile &&
                                 <Row
-                                    className = "mobile-view-partner-name-row"
+                                className = "mobile-view-partner-name-row"
                                 >
                                     <Col>
                                         <h3>{ currentPartner.username }</h3>
@@ -314,6 +320,7 @@ export default function Messages() {
                                 sendToChat = { sendMessage }
                                 messages = { messagesList }
                                 emojiShowChange = { emojiShowChange }
+                                plusClass = "messages-chat-window"
                             />
                         </Col>
                     }

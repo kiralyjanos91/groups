@@ -85,4 +85,18 @@
 
 .group-events-list-row {
     row-gap: 30px;
+    margin-bottom: 30px;
+}
+
+.group-close-chat {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.group-chat-window {
+    height: calc( 100vh - 178px) !important;
+}
+
+.show-chat-button {
+    margin-bottom: 30px;
 }

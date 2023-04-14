@@ -87,3 +87,25 @@
     width: 30px;
     height: 30px
   }
+
+  .chat-username-col {
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    font-weight: 600;
+}
+
+.title-and-find-row {
+  height: fit-content;
+  display: flex !important;
+  align-items: center;
+  margin-top: 10px !important;
+}
+
+.find-member-input-row {
+  padding-inline: 10px;
+}
+
+.mobile-view-partner-name-row {
+  margin-bottom: 20px;
+}

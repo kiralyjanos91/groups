@@ -197,7 +197,10 @@ export default function Group(){
     const dateFormat = new Intl.DateTimeFormat("en-US",{
         year: "numeric",
         month: "short",
-        day: "2-digit"
+        day: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric"
     })
 
     const messages = groupInfo?.messages?.map((message , index) => {
@@ -235,6 +238,7 @@ export default function Group(){
                 { showChat ? 
                     <>
                         <Button
+                            className = "group-close-chat"
                             onClick = {() => setShowChat(false)}
                         >
                             Close Chat
@@ -246,6 +250,7 @@ export default function Group(){
                             sendToChat = { sendToChat }
                             messages = { messages }
                             emojiShowChange = { emojiShowChange }
+                            plusClass = "group-chat-window"
                         />
                     </>
                 :
@@ -339,6 +344,18 @@ export default function Group(){
                                     }
                                 </Col>
                             </Row>
+                            { !joined && notOwnGroup ?
+                                <>
+                                    You have to be a member to see the messages
+                                </>
+                            :
+                                <Button
+                                    className = "show-chat-button"
+                                    onClick = {() => setShowChat(true)}
+                                >
+                                    Show Chat
+                                </Button>              
+                            }   
                             <Row>
                                 <p>Admin:</p>
                                 <Col 
@@ -380,26 +397,7 @@ export default function Group(){
                                     </Row>
                                 </>
                             } 
-                            <Row
-                                className = "chat-title-row"
-                            >
-                                <Col>
-                                    <p>Chat:</p>
-                                </Col>
-                            </Row>
-                            <Container className = "chat-container">
-                                { !joined && notOwnGroup ?
-                                    <>
-                                        You have to be a member to see the messages
-                                    </>
-                                :
-                                    <Button
-                                        onClick = {() => setShowChat(true)}
-                                    >
-                                        Show Chat
-                                    </Button>
-                                        
-                                }   
+                            <Container>
                                 <EventModal 
                                     handleClose={ handleEventClose }
                                     show = { eventShow }

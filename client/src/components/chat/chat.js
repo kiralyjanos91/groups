@@ -10,13 +10,14 @@ export default function Chat({
     chatMessageRef,
     sendToChat,
     messages,
-    emojiShowChange
+    emojiShowChange,
+    plusClass = ""
 }) {
 
     return (
         <>
             <Row 
-                className = "messages-window-row"
+                className = {`messages-window-row ${plusClass}`}
                 ref = { chatWindowRef }
             >
                 { messages }

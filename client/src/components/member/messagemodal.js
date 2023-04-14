@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal"
 import CloseButton from "react-bootstrap/CloseButton"
 import Chat from "../chat/chat"
 import ChatMessageEl from "../chat/chat_message_el"
+import "./messagemodal.css"
 
 export default function MessageModal( { handleClose , show , partnerName , partnerPhoto  }){
 
@@ -65,7 +66,10 @@ export default function MessageModal( { handleClose , show , partnerName , partn
     const dateFormat = new Intl.DateTimeFormat("en-US",{
         year: "numeric",
         month: "short",
-        day: "2-digit"
+        day: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric"
     })
 
     const messagesList = messages?.messages?.map((message , index) => {
@@ -94,7 +98,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
 
     return (
         <>
-            <Modal show={ show } onHide={ handleClose } centered>
+            <Modal show = { show } onHide = { handleClose } centered className = "message-modal">
                 <Container className = "message-modal-container">
                     <Modal.Header>
                         <Modal.Title>Send Message</Modal.Title>
@@ -111,6 +115,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                             sendToChat = { sendMessage }
                             messages = { messagesList }
                             emojiShowChange = { emojiShowChange }
+                            plusClass = "private-chat-window"
                         />
                     {/* <>
                         <Row 

@@ -81,17 +81,11 @@ export default function Profile(){
     }
 
     return (
-        <Container>
+        <Container
+            className = "profile-container"
+        >
             { profileData ?
                 <>
-                    <Row>
-                        <Col>
-                            <h1>
-                                Profile Page
-                            </h1>
-                        </Col>
-                    </Row>
-                    <hr />
                     <Row>
                         <Col>
                             <Col 

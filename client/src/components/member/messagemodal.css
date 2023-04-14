@@ -1,0 +1,7 @@
+.message-modal > .modal-dialog {
+    position: relative;
+    width: auto;
+    margin-top: 0px !important;
+    pointer-events: none;
+    height: 100vh !important;
+}

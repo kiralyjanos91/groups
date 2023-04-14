@@ -60,6 +60,10 @@
     max-width: 80px;
 }
 
+.popular-groups-row {
+    margin-bottom: 50px;
+}
+
 .popular-groups-row > h1 {
     margin-bottom: 50px;
 }
