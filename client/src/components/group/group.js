@@ -79,6 +79,15 @@ export default function Group(){
             })
     }, [user])
 
+    useEffect(() => {
+        if (chatWindowRef.current) {
+            chatWindowRef.current.scrollTo({
+                top: chatWindowRef.current.scrollHeight
+            })
+        }
+        window.scrollTo( 0 , 0 )
+    },[showChat])
+
     const joinToGroup = () => {
         setButtonLoading(true)
         axios.post("/joingroup" , { groupName , user , id })

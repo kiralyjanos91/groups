@@ -58,6 +58,7 @@ export default function Messages() {
                 top: chatWindowRef.current.scrollHeight
             })
         }
+        window.scrollTo( 0 , 0 )
     }, [ currentPartner , showMessage ])
 
     useLayoutEffect(() => {
