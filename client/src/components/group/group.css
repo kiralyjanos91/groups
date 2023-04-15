@@ -34,7 +34,7 @@
     padding: 0px !important;
 }
 
-.group-main-photo-div {
+.group-main-photo-inner-col {
     width: 150px;
     height: 150px;
     background-size: cover;
@@ -100,4 +100,16 @@
 .show-chat-button {
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+.in-group-member-count {
+    display: flex;
+    max-width: fit-content;
+    padding: 3px;
+    background-color: #dc3545;
+    border-radius: 0 0 5px 0;
+}
+
+.in-group-member-count > img{
+    max-width: 20px;
 }

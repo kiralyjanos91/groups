@@ -269,8 +269,8 @@ export default function Group(){
                         <>
                             <Row className = "group-header-row">
                                 <Col className = "group-main-photo-col">
-                                <div 
-                                    className = "group-main-photo-div"
+                                <Col 
+                                    className = "group-main-photo-inner-col"
                                     style = {{
                                         backgroundImage: `url(${
                                             groupInfo?.photo 
@@ -279,7 +279,16 @@ export default function Group(){
                                         })`
                                     }}
                                 >
-                                </div>
+                                    <Col
+                                        className = "in-group-member-count"
+                                    >
+                                        <img 
+                                            src = "https://groupsiteimages.s3.amazonaws.com/icons/user-icon.png"
+                                            alt = "member-count-icon"
+                                        />
+                                        { groupInfo?.members.length + 1 }
+                                    </Col>
+                                </Col>
                                 </Col>
                                 <Col>
                                     <h1 className="group-name">
