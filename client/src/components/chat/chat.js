@@ -10,16 +10,24 @@ export default function Chat({
     chatMessageRef,
     sendToChat,
     messages,
-    emojiShowChange
+    emojiShowChange,
+    plusClass = ""
 }) {
 
     return (
         <>
             <Row 
-                className = "messages-window-row"
+                className = {`messages-window-row ${plusClass}`}
                 ref = { chatWindowRef }
             >
-                { messages }
+                { ( messages && messages?.length > 0 ) || plusClass !== "group-chat-window" ? 
+                    messages 
+                : 
+                    <Col
+                        className = "start-conversation-col"
+                    >
+                        Start the conversation
+                    </Col> }
             </Row>
             <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
                 <EmojiPicker 

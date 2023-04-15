@@ -21,7 +21,7 @@ export default function HomePage(){
     const [groups , setGroups] = useState([])
     const [show , setShow] = useState(false)
     const [groupStatus , setGroupStatus] = useState("All")
-    const [ sortBy , setSortBy ] = useState("newest")
+    const [ sortBy , setSortBy ] = useState("Newest")
     
     const handleShow = () => {
         setShow(true)
@@ -215,7 +215,9 @@ export default function HomePage(){
         })
 
     return (
-        <Container>
+        <Container
+            className = "groups-container"
+        >
             { groups.length < 1 ? 
                 <Row className="spinner-row">
                     <Spinner animation="border" role="status">
@@ -233,7 +235,7 @@ export default function HomePage(){
                                 onClick = {handleShow}
                                 className = "create-group"
                             >
-                                Create group +
+                                Create+
                             </h3>
                         </Col>
                     </Row>

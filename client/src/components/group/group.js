@@ -79,6 +79,15 @@ export default function Group(){
             })
     }, [user])
 
+    useEffect(() => {
+        if (chatWindowRef.current) {
+            chatWindowRef.current.scrollTo({
+                top: chatWindowRef.current.scrollHeight
+            })
+        }
+        window.scrollTo( 0 , 0 )
+    },[showChat])
+
     const joinToGroup = () => {
         setButtonLoading(true)
         axios.post("/joingroup" , { groupName , user , id })
@@ -197,7 +206,10 @@ export default function Group(){
     const dateFormat = new Intl.DateTimeFormat("en-US",{
         year: "numeric",
         month: "short",
-        day: "2-digit"
+        day: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric"
     })
 
     const messages = groupInfo?.messages?.map((message , index) => {
@@ -235,6 +247,7 @@ export default function Group(){
                 { showChat ? 
                     <>
                         <Button
+                            className = "group-close-chat"
                             onClick = {() => setShowChat(false)}
                         >
                             Close Chat
@@ -246,6 +259,7 @@ export default function Group(){
                             sendToChat = { sendToChat }
                             messages = { messages }
                             emojiShowChange = { emojiShowChange }
+                            plusClass = "group-chat-window"
                         />
                     </>
                 :
@@ -255,8 +269,8 @@ export default function Group(){
                         <>
                             <Row className = "group-header-row">
                                 <Col className = "group-main-photo-col">
-                                <div 
-                                    className = "group-main-photo-div"
+                                <Col 
+                                    className = "group-main-photo-inner-col"
                                     style = {{
                                         backgroundImage: `url(${
                                             groupInfo?.photo 
@@ -265,7 +279,16 @@ export default function Group(){
                                         })`
                                     }}
                                 >
-                                </div>
+                                    <Col
+                                        className = "in-group-member-count"
+                                    >
+                                        <img 
+                                            src = "https://groupsiteimages.s3.amazonaws.com/icons/user-icon.png"
+                                            alt = "member-count-icon"
+                                        />
+                                        { groupInfo?.members.length + 1 }
+                                    </Col>
+                                </Col>
                                 </Col>
                                 <Col>
                                     <h1 className="group-name">
@@ -339,6 +362,25 @@ export default function Group(){
                                     }
                                 </Col>
                             </Row>
+                            <Row
+                                className = "description-row"
+                            >
+                                <Col>
+                                    { groupInfo?.description }
+                                </Col>
+                            </Row>
+                            { !joined && notOwnGroup ?
+                                <>
+                                    You have to be a member to see the messages
+                                </>
+                            :
+                                <Button
+                                    className = "show-chat-button"
+                                    onClick = {() => setShowChat(true)}
+                                >
+                                    Show Chat
+                                </Button>              
+                            }   
                             <Row>
                                 <p>Admin:</p>
                                 <Col 
@@ -370,7 +412,7 @@ export default function Group(){
                             <Row>
                                 { membersList }
                             </Row>  
-                            { joined || !notOwnGroup && eventsList.length > 0 &&
+                            { (joined || !notOwnGroup) && eventsList.length > 0 &&
                                 <>
                                     <p>Events:</p>
                                     <Row
@@ -380,26 +422,7 @@ export default function Group(){
                                     </Row>
                                 </>
                             } 
-                            <Row
-                                className = "chat-title-row"
-                            >
-                                <Col>
-                                    <p>Chat:</p>
-                                </Col>
-                            </Row>
-                            <Container className = "chat-container">
-                                { !joined && notOwnGroup ?
-                                    <>
-                                        You have to be a member to see the messages
-                                    </>
-                                :
-                                    <Button
-                                        onClick = {() => setShowChat(true)}
-                                    >
-                                        Show Chat
-                                    </Button>
-                                        
-                                }   
+                            <Container>
                                 <EventModal 
                                     handleClose={ handleEventClose }
                                     show = { eventShow }

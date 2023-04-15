@@ -32,6 +32,7 @@ export default function Home({ accessChecked } ) {
             <Col
                 md = "6"
                 lg = "3"
+                key = { i }
             >
                 <Row>
                     <Col

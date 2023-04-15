@@ -17,6 +17,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
     const [ photoLocation , setPhotoLocation ] = useState("")
     const [ imageUploading , setImageUploading ] = useState(false)
     const [ groupName , setGroupName ] = useState("")
+    const [ description , setDescription ] = useState("")
     const [ errorMessage , setErrorMessage] = useState("")
     const { userDataUpdate } = UserDataUpdateHook()
     const navigate = useNavigate()
@@ -29,6 +30,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
                 username,
                 small_photo
             },
+            description,
             category: categoryRef.current.value,
             photoLocation
         })
@@ -54,6 +56,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
         setPhotoLocation("")
         setImageUploading(false)
         setGroupName("")
+        setDescription("")
         setErrorMessage("")
     }
 
@@ -96,6 +99,18 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
                             }
                             }
                             value = { groupName }
+                        />
+                        <label htmlFor = "description">
+                            Description:
+                        </label>
+                        <textarea 
+                            className = "description-input"
+                            name="description" 
+                            onChange = {(e) => {
+                                setDescription(e.target.value)
+                            }
+                            }
+                            value = { description }
                         />
                         <label htmlFor="category">
                             Category:

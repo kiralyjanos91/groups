@@ -1,3 +1,8 @@
+.groups-container {
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+}
+
 .groups-and-newgroup-row {
     align-items: center;
 }
