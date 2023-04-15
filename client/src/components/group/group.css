@@ -104,9 +104,10 @@
 
 .in-group-member-count {
     display: flex;
+    align-items: center;
     max-width: fit-content;
     padding: 3px;
-    background-color: #dc3545;
+    background-color: #6c757d;
     border-radius: 0 0 5px 0;
 }
 
