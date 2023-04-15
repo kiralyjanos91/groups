@@ -72,7 +72,7 @@ select {
   padding: 3px;
 }
 
-input {
+input, textarea {
   background-color: #2e3439;
   color: #cacaca;
   padding: 3px;

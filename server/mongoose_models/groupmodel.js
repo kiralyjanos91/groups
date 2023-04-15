@@ -6,6 +6,9 @@ const groupSchema = new mongoose.Schema({
         required: true,
         unique: "This group name is taken!"
     },
+    description: {
+        type: String    
+    },
     location: {
         type: String
     },

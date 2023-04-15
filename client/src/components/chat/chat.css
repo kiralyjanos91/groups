@@ -97,7 +97,7 @@
 .title-and-find-row {
   height: fit-content;
   display: flex !important;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 10px !important;
 }
 
@@ -107,4 +107,12 @@
 
 .mobile-view-partner-name-row {
   margin-bottom: 20px;
+}
+
+.start-conversation-col {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 20px;
+  color: #b4b4b4;
 }

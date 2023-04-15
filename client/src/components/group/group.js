@@ -353,6 +353,13 @@ export default function Group(){
                                     }
                                 </Col>
                             </Row>
+                            <Row
+                                className = "description-row"
+                            >
+                                <Col>
+                                    { groupInfo?.description }
+                                </Col>
+                            </Row>
                             { !joined && notOwnGroup ?
                                 <>
                                     You have to be a member to see the messages
@@ -396,7 +403,7 @@ export default function Group(){
                             <Row>
                                 { membersList }
                             </Row>  
-                            { joined || !notOwnGroup && eventsList.length > 0 &&
+                            { (joined || !notOwnGroup) && eventsList.length > 0 &&
                                 <>
                                     <p>Events:</p>
                                     <Row
