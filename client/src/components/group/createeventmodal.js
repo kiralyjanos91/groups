@@ -213,7 +213,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
                             onChange = {(e) => setTime(e.target.value)}
                             value = { time }
                         />
-                        <labe htmlFor = "group_photo">*Photo:</labe>
+                        <label htmlFor = "group_photo">*Photo:</label>
                         <input 
                             type = "file" 
                             name = "group_photo"

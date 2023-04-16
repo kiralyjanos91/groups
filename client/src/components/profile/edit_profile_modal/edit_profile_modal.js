@@ -93,7 +93,7 @@ export default function EditProfileModal ({
         return (
             <div key = { index }>
                 <label htmlFor = { field[0] }> 
-                    { field[0] }
+                    { `${field[0]}:` }
                 </label>
                 <input 
                     name = { field[0] } 
@@ -158,7 +158,7 @@ export default function EditProfileModal ({
             <Modal.Body>
                 <form>
                     { fields }
-                    <p>Location:</p>
+                    <label>Location:</label>
                     <label htmlFor="country">Country:</label>
                     <select 
                         name="country"
