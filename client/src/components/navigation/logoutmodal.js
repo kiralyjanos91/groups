@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button"
 import CloseButton from "react-bootstrap/CloseButton"
 import AccessUpdateHook from "../../custom_hooks/accessupdate"
 
-export default function LogoutModal( { handleClose , show  }){
+export default function LogoutModal( { handleClose , show , setActive  }){
 
     const { accessUpdate } = AccessUpdateHook()
 
@@ -17,6 +17,7 @@ export default function LogoutModal( { handleClose , show  }){
             .then(() => {
                 accessUpdate(undefined)
                 handleClose()
+                setActive("login")
                 navigate("/login")
             }
                 )
