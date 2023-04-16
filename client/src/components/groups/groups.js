@@ -228,7 +228,11 @@ export default function HomePage(){
                 <>
                     <Row className="groups-and-newgroup-row">
                         <Col>
-                            <h1>Groups</h1>
+                            <h1
+                                className = "groups-h1"
+                            >
+                                Groups
+                            </h1>
                         </Col>
                         <Col className="create-new-group-col">
                             <h3 

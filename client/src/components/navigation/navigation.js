@@ -14,7 +14,7 @@ export default function Menu(){
 
     return(
         <>
-            <Navbar bg="dark" variant="dark" expand="lg">
+            <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
                 <Container>
                     <Navbar.Brand as = { Link } to = { accessToken ? "/groups/1" : "/" }>GROUPYX</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -22,11 +22,41 @@ export default function Menu(){
                     <Nav className="me-auto container-fluid">
                         { accessToken ? 
                             <>
-                                <Nav.Link as={ Link } to="/groups/1">Groups</Nav.Link>
-                                <Nav.Link as={ Link } to="/events">Events</Nav.Link>
-                                <Nav.Link as={ Link } to="/messages">Messages</Nav.Link>
-                                <Nav.Link as={ Link } to="/profile">Profile</Nav.Link>
-                                <Nav.Link className="ml-auto" onClick = { handleShow }>Logout</Nav.Link>
+                                <Nav.Link 
+                                    as = { Link } 
+                                    to = "/groups/1"
+                                    eventKey = "groups"
+                                >
+                                    Groups
+                                </Nav.Link>
+                                <Nav.Link 
+                                    as = { Link } 
+                                    to = "/events"
+                                    eventKey = "events"
+                                >
+                                    Events
+                                </Nav.Link>
+                                <Nav.Link 
+                                    as = { Link } 
+                                    to = "/messages"
+                                    eventKey = "messages"
+                                >
+                                    Messages
+                                </Nav.Link>
+                                <Nav.Link 
+                                    as = { Link } 
+                                    to = "/profile"
+                                    eventKey = "profile"
+                                >
+                                    Profile
+                                </Nav.Link>
+                                <Nav.Link 
+                                    className="ml-auto" 
+                                    onClick = { handleShow }
+                                    eventKey = "logout"
+                                >
+                                    Logout
+                                </Nav.Link>
                             </>
                             :
                             <>

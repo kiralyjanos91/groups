@@ -66,7 +66,9 @@ export default function Member(){
 
     return (
         <>
-            <Container>
+            <Container
+                className = "member-container"
+            >
                 { Object.keys(memberData).length > 0 ?
                     <>
                         <Row>
@@ -102,6 +104,7 @@ export default function Member(){
                                 <Col>
                                     <img 
                                         src = "https://groupsiteimages.s3.amazonaws.com/icons/message-icon.png" 
+                                        alt = "message-icon"
                                     />
                                 </Col>
                             </Col>

@@ -10,7 +10,11 @@
 }
 
 .messages-page-container > .row:nth-child(2) {
-    margin-top: 100px
+    margin-top: 130px;
+}
+
+.messages-h1 {
+    line-height: calc(1.375rem + 1.5vw);
 }
 
 .hide-chat {
@@ -103,7 +107,7 @@
 }
 
 .messages-chat-window {
-    height: calc( 100vh - 258px);
+    height: calc( 100vh - 288px);
 }
 
 @media screen and ( width >= 992px) {
@@ -111,6 +115,24 @@
         padding-right: 20px;
     }
     .messages-chat-window {
-        height: calc( 100vh - 200px);
+        height: calc( 100vh - 230px);
     }
+}
+
+.chat-username-col {
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    font-weight: 600;
+}
+  
+.title-and-find-row {
+    height: fit-content;
+    display: flex !important;
+    align-items: flex-start;
+    margin-top: 30px !important;
+}
+
+.find-member-input-row {
+    padding-inline: 10px;
 }

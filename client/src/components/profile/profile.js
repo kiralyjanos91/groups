@@ -114,7 +114,9 @@ export default function Profile(){
                         className = "change-photo-row"
                     >
                         { changePhoto ?
-                            <>
+                            <Col
+                                className = "change-photo-col"
+                            >
                                 <Row
                                     className = "photo-upload-input-row"
                                 >
@@ -148,7 +150,7 @@ export default function Profile(){
                                         </Button>
                                     </Col>
                                 </Row>
-                             </>
+                             </Col>
                         :
                             <Col
                                 className = "change-photo-text-col"
