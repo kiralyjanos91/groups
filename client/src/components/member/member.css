@@ -1,3 +1,7 @@
+.member-container {
+    padding-top: 30px;
+}
+
 .member-profile-photo-col {
     height: 100px;
     max-width: 100px !important;

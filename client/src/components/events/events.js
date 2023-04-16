@@ -1,5 +1,5 @@
 import React from "react"
-import { Row , Container } from "react-bootstrap"
+import { Col , Row , Container } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import EventCard from "../event_card/eventcard"
 import "./events.css"
@@ -25,6 +25,15 @@ export default function Events(){
 
     return (
         <Container>
+            <Row>
+                <Col>
+                    <h1
+                        className = "events-h1"
+                    >
+                        Events
+                    </h1>
+                </Col>
+            </Row>
             <Row
                 className = "events-main-row"
             >

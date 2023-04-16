@@ -114,3 +114,7 @@
 .filter-by-category {
     width: auto !important;
 }
+
+.groups-h1 {
+    line-height: calc(1.375rem + 1.5vw);
+}

@@ -145,7 +145,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                 :
                     <Container className = "event-modal-container">
                         <Modal.Header>
-                            <Modal.Title>Event</Modal.Title>
+                            <Modal.Title>{ eventData?.title }</Modal.Title>
                             <CloseButton 
                                 variant = "white" 
                                 onClick = { () => handleClose() }
@@ -164,26 +164,43 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                                     }}
                                     >
                                 </Col>
-                                <Col>
-                                    <p>{eventData?.title}</p>
-                                </Col>
                             </Row>
                             <Row>
-                                <p>Description:</p>
+                                <p
+                                    className = "event-label"
+                                >
+                                    Description:
+                                </p>
                                 <p>{eventData?.description}</p>
                             </Row>
                             <Row>
-                                <p>When:</p>
+                                <p
+                                        className = "event-label"
+                                >
+                                    When:
+                                </p>
                                 <p>{eventData?.date}</p>
                                 <p>{eventData?.time}</p>
                             </Row>
                             <Row>
-                                <p>Where:</p>
+                                <p
+                                    className = "event-label"
+                                >
+                                    Where:
+                                </p>
                                 <p>{locationText}</p>
                             </Row>
                             <Row>
-                                <p>Joined Members:</p> 
-                                { eventMembersList }
+                                <p
+                                    className = "event-label event-members-label"
+                                >
+                                    Joined Members:
+                                </p> 
+                                <Col
+                                    className = "event-members-list-col"
+                                >
+                                    { eventMembersList }
+                                </Col>
                             </Row>
                         </Modal.Body>
                         <Modal.Footer>

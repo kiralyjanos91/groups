@@ -77,7 +77,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
         <>
             <Modal show = { show } onHide = { handleClose } centered>
                 <Modal.Header>
-                    <Modal.Title>Create Group</Modal.Title>
+                    <Modal.Title>Create group</Modal.Title>
                     <CloseButton 
                         variant = "white" 
                         onClick = { () => {
@@ -122,7 +122,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
                         > 
                             { groupCategoryOptions }
                         </select>
-                        <labe htmlFor = "group_photo">Group Photo:</labe>
+                        <label htmlFor = "group_photo">Group Photo:</label>
                         <input 
                             type = "file" 
                             name = "group_photo"

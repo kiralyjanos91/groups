@@ -238,7 +238,11 @@ export default function Messages() {
                 <Col
                     md = "6"
                 >
-                    <h1>Messages</h1>
+                    <h1
+                        className = "messages-h1"
+                    >
+                        Messages
+                    </h1>
                 </Col>
                 <Col
                     md = "6"
