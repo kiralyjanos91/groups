@@ -68,21 +68,40 @@ export default function EventCard({
                         </p>
                     </Col>
                 </Row>
-                <Row>
+                <Row
+                    className = "event-list-detail-row"
+                >
                     <Col className = "event-list-details-icon-col">
                         <img 
-                            src = "https://groupsiteimages.s3.amazonaws.com/icons/date-icon-grey.png"
+                            src = "https://groupsiteimages.s3.amazonaws.com/icons/date-icon-01.png"
                             alt = "location-icon"
                             className = "event-list-details-icon"
                         />
                     </Col>
                     <Col>
-                        <p>
-                            { date }
-                        </p>
-                        <p>
-                            { time }
-                        </p>
+                        { date }
+                    </Col>
+                </Row>
+                <Row
+                    className = "event-list-detail-row"
+                >
+                    <Col
+                        className = "event-list-details-seperator"
+                    >
+                    </Col>
+                </Row>
+                <Row
+                    className = "event-list-detail-row"
+                >
+                    <Col className = "event-list-details-icon-col">
+                        <img 
+                            src = "https://groupsiteimages.s3.amazonaws.com/icons/time-icon-01.png"
+                            alt = "location-icon"
+                            className = "event-list-details-icon"
+                        />
+                    </Col>
+                    <Col>
+                        { time }
                     </Col>
                 </Row>
                 <Row>
@@ -91,18 +110,18 @@ export default function EventCard({
                     >
                     </Col>
                 </Row>
-                <Row>
+                <Row
+                    className = "event-list-detail-row"
+                >
                     <Col className = "event-list-details-icon-col">
                         <img 
-                            src = "https://groupsiteimages.s3.amazonaws.com/icons/location-icon-grey.png"
+                            src = "https://groupsiteimages.s3.amazonaws.com/icons/location-icon-01.png"
                             alt = "date-icon"
                             className = "event-list-details-icon"
                         />
                     </Col>
                     <Col>
-                        <p>
-                            { eventLocation }
-                        </p>
+                        { eventLocation }
                     </Col>
                 </Row>
                 <Row
