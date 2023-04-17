@@ -101,6 +101,8 @@
 .show-chat-button {
     margin-top: 30px;
     margin-bottom: 30px;
+    display: flex !important;
+    align-items: center;
 }
 
 .in-group-member-count {
@@ -113,5 +115,16 @@
 }
 
 .in-group-member-count > img{
+    max-width: 20px;
+}
+
+.not-member-warning-col {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.message-icon-in-group {
+    margin-left: 5px;
     max-width: 20px;
 }

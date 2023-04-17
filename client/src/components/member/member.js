@@ -127,7 +127,9 @@ export default function Member(){
                                 Gender: { gender || "-" }
                             </p>
                         </Row>
-                        <Row>
+                        <Row
+                            className = "member-groups-own-groups-row"
+                        >
                             <p>
                                 Groups: 
                             </p>

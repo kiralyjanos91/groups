@@ -1,6 +1,5 @@
 import React, { useState , useEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
-import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import { useParams , useNavigate } from "react-router"
@@ -370,15 +369,22 @@ export default function Group(){
                                 </Col>
                             </Row>
                             { !joined && notOwnGroup ?
-                                <>
-                                    You have to be a member to see the messages
-                                </>
+                                <Col
+                                    className = "not-member-warning-col"
+                                >
+                                    You have to be a member to see the messages!
+                                </Col>
                             :
                                 <Button
                                     className = "show-chat-button"
                                     onClick = {() => setShowChat(true)}
                                 >
                                     Show Chat
+                                    <img 
+                                        src = "https://groupsiteimages.s3.amazonaws.com/icons/message-icon.png" 
+                                        alt = "message-icon-in-group"
+                                        className = "message-icon-in-group"
+                                    />
                                 </Button>              
                             }   
                             <Row>
