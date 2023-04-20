@@ -28,6 +28,12 @@ export default function Menu(){
         else if (location.pathname === "/profile") {
             setActiveLink("Profile")
         }
+        else if (location.pathname === "/events") {
+            setActiveLink("Events")
+        }
+        else if (location.pathname === "/messages") {
+            setActiveLink("Messages")
+        }
     }, [location.pathname])
 
     return(
@@ -121,5 +127,5 @@ export default function Menu(){
                 setActive = { setActiveLink }
             />
         </>
-  )
+    )
 }

@@ -71,19 +71,21 @@ export default function Home({ accessChecked } ) {
         >
             { accessChecked ?
                 <Row>
-                    <Row>
+                    <Row
+                        className = "home-page-main-inner-row"
+                    >
                         <Col
-                            md = {{span:"6" , order:"2"}}
+                            lg = {{span:"6" , order:"2"}}
                             className = "home-img-col"
                         >
                             <img 
-                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/home-img.png"
+                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
                                 alt = "main-img"
                                 className = "home-img"
                             />
                         </Col>
                         <Col
-                            md = {{span:"6" , order:"1"}}
+                            lg = {{span:"6" , order:"1"}}
                             className = "home-main-text-col"
                         >
                             <Row>
@@ -146,7 +148,7 @@ export default function Home({ accessChecked } ) {
                             >
                                 <img 
                                     className = "bullet-point-img"
-                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet1.png" 
+                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet01.png" 
                                     alt = "bullet-1" 
                                 />
                                 <h1>
@@ -161,7 +163,7 @@ export default function Home({ accessChecked } ) {
                             >
                                 <img 
                                     className = "bullet-point-img"
-                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet02.png" 
+                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet0002.png" 
                                     alt = "bullet-2" 
                                 />
                                 <h1>
@@ -176,7 +178,7 @@ export default function Home({ accessChecked } ) {
                             >
                                 <img 
                                     className = "bullet-point-img"
-                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet3.png" 
+                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet003.png" 
                                     alt = "bullet-3" 
                                 />
                                 <h1>

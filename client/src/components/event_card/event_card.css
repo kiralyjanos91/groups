@@ -27,7 +27,8 @@
 }
 
 .go-to-group-button {
-    width: 100%
+    width: 100%;
+    margin-top: 20px;
 }
 
 .events-event-photo-col {
@@ -110,7 +111,7 @@
 }
 
 .event-list-details-icon {
-    max-width: 30px;
+    max-width: 25px;
 }
 
 .event-details-row {
@@ -120,3 +121,9 @@
 .event-list-detals-text {
     margin: 0 !important
 }
+
+.event-list-detail-row {
+    display: flex !important;
+    align-items: center;
+}
+

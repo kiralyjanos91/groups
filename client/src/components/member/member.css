@@ -24,7 +24,7 @@
 }
 
 .send-message-col > .col > img {
-    max-width: 35px;
+    max-width: 20px;
 }
 
 .send-message-p {
@@ -32,6 +32,6 @@
     padding: 0px;
 }
 
-.private-chat-window {
-    
+.member-groups-own-groups-row {
+    margin-bottom: 30px;
 }
