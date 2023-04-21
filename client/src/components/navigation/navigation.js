@@ -104,7 +104,7 @@ export default function Menu(){
                                     eventKey = "login"
                                     onClick = {() => setActiveLink("login")}
                                 >
-                                    Login
+                                    Log in
                                 </Nav.Link>
                                 <Nav.Link 
                                     as = { Link } 

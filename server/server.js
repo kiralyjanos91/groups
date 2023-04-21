@@ -5,6 +5,12 @@ const mongoose = require("mongoose")
 const cookieParser = require("cookie-parser")
 const jwt = require("jsonwebtoken")
 require('dotenv').config()
+const socketio = require("socket.io")
+const server = require('http').Server(app)
+const io = socketio(server, {cors: {
+    origin: "*"
+  }
+})
 
 const registrationRoute = require("./routes/registration")
 const loginRoute = require("./routes/login")
@@ -53,6 +59,19 @@ const serverCallback = () => console.log(`Server started at Port ${PORT}`)
 const MemberModel = require("./mongoose_models/membermodel")
 const RefreshTokenModel = require("./mongoose_models/refreshtokenmodel")
 const GroupModel = require("./mongoose_models/groupmodel")
+
+io.on("connection", (socket) => {
+    console.log(`Socket ${socket.id} connected`)
+  
+    socket.on("sendMessage", (message) => {
+      io.emit("message", message)
+    })
+  
+    socket.on("disconnect", () => {
+      console.log(`Socket ${socket.id} disconnected`)
+    })
+})
+
 
 app.post("/auth" , verifyRoute({
     express,
@@ -203,5 +222,5 @@ app.use("/populargroups" , popularGroupsRoute({
     GroupModel
 }))
 
-app.listen(PORT , serverCallback) 
+server.listen(PORT , serverCallback) 
 

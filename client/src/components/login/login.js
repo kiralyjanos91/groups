@@ -37,7 +37,7 @@ export default function Login(){
             <Row id="login-row">
                 <form onSubmit={ login } id="loginform">
                     <h1>
-                        Login
+                        Log in
                     </h1>
                     <label htmlFor = "username">Username:</label>
                     <input type="text" name = "username" ref={usernameRef} />
@@ -49,7 +49,7 @@ export default function Login(){
                         id = "login-btn"
                         className = "login-reg-btn"
                     >
-                        Login
+                        Log in
                     </button>
                 </form>
             </Row>

@@ -97,9 +97,7 @@ export default function Home({ accessChecked } ) {
                             </Row>
                             <Row>
                                 <p>
-                                    Lorem ipsum dolor sit ament. Lorem ipsum dolor sit ament.
-                                    Lorem ipsum dolor sit ament. Lorem ipsum dolor sit ament.
-                                    Lorem ipsum dolor sit ament. Lorem ipsum dolor sit ament.
+                                People on Groupyx have fostered community, learned new skills, started businesses, and made life-long friends.
                                 </p>
                             </Row>
                             <Row
@@ -111,7 +109,7 @@ export default function Home({ accessChecked } ) {
                                         to = "/registration"
                                         variant = "primary"
                                     >
-                                        Sign Up
+                                        Sign up
                                     </Button>
                                 </Col>
                                 <Col
@@ -121,7 +119,7 @@ export default function Home({ accessChecked } ) {
                                         as = { Link }
                                         to = "/login"
                                     >
-                                        Sign in
+                                        Log in
                                     </Button>
                                 </Col>
                             </Row>

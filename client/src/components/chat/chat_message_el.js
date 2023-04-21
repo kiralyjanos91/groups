@@ -18,15 +18,15 @@ export default function ChatMessageEl({
         >
             <Col className="message-col">
                 <Row>
-                        <img 
-                            src = { 
-                                chatPhoto 
-                                || 
-                                "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
-                            } 
-                            alt = "chat-user" 
-                            className = "chat-img"
-                        />          
+                    <img 
+                        src = { 
+                            chatPhoto 
+                            || 
+                            "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png"
+                        } 
+                        alt = "chat-user" 
+                        className = "chat-img"
+                    />          
                     <Col
                         className = "chat-username-col"
                     >
