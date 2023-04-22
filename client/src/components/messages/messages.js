@@ -55,7 +55,7 @@ export default function Messages() {
                 setAllMessages((prevMessages) => [ thisConversation, ...prevMessages.filter((prevMessage) => prevMessage.partner !== messagePartner) ])
             })       
         }
-    }, [ messagesLoaded ])
+    }, [messagesLoaded])
 
     useEffect(() => {
         window.addEventListener( "resize" , windowWidthResize )

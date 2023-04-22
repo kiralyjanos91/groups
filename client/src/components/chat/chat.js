@@ -14,6 +14,10 @@ export default function Chat({
     plusClass = ""
 }) {
 
+    const enterHandler = (e) => {
+        e.key === "Enter" && sendToChat()
+    }
+
     return (
         <>
             <Row 
@@ -44,6 +48,7 @@ export default function Chat({
                         name="chat-input"
                         ref = { chatMessageRef }
                         className = "chat-input"
+                        onKeyDown = {(e) => enterHandler(e)}
                     />
                 </Col>
                 <Col 
