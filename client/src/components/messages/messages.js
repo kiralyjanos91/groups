@@ -1,4 +1,4 @@
-import React , { useState , useEffect , useLayoutEffect , useRef } from "react"
+import React , { useState , useEffect , useContext , useLayoutEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import { Link , useNavigate } from "react-router-dom"
@@ -7,9 +7,8 @@ import { useSelector } from "react-redux"
 import axios from "axios"
 import Chat from "../chat/chat"
 import ChatMessageEl from "../chat/chat_message_el"
+import { socketContext } from "../../context/socketiocontext"
 import "./messages.css"
-import { io } from "socket.io-client"
-const socket = io("http://localhost:5000")
 
 export default function Messages() {
     const [ allMessages , setAllMessages ] = useState([])
@@ -26,6 +25,7 @@ export default function Messages() {
     const chatWindowRef = useRef(null)
     const findMemberRef = useRef(null)
     const navigate = useNavigate()
+    const socket = useContext(socketContext)
 
     useEffect(() => {
         if (messagesLoaded) {
@@ -68,8 +68,7 @@ export default function Messages() {
             .then(res => {
                 const dataForSort = res.data
                 dataForSort.sort((a,b) => {
-                    return new Date(b.messages.slice(-1)[0].date) - new Date(a.messages.slice(-1)[0].date)
-                    
+                    return new Date(b.messages.slice(-1)[0].date) - new Date(a.messages.slice(-1)[0].date)  
                 })
                 setAllMessages(dataForSort)
                 setMessagesLoaded(true)
