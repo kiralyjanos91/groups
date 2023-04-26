@@ -15,7 +15,7 @@ import BanMemberModal from "./banmembermodal"
 import EventCard from "../event_card/eventcard"
 import Chat from "../chat/chat"
 import ChatMessageEl from "../chat/chat_message_el"
-import { socketContext } from "../../context/socketiocontext"
+import { SocketContext } from "../../context/socketiocontext"
 
 
 export default function Group(){
@@ -32,7 +32,7 @@ export default function Group(){
     const [showChat , setShowChat] = useState(false)
     const [banUsername , setBanUsername] = useState("")
 
-    const socket = useContext(socketContext)
+    const socket = useContext(SocketContext)
     const groupName = groupInfo?.name
     const admin = groupInfo?.admin
 

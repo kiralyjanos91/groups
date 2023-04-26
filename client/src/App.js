@@ -15,7 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from "axios"
 import { useSelector } from "react-redux"
 import AccessUpdateHook from "./custom_hooks/accessupdate"
-import { socketContext , socket } from "./context/socketiocontext"
+import { ContextProvier } from "./context/socketiocontext"
 import "./App.css"
 
 export default function App(){
@@ -62,7 +62,7 @@ export default function App(){
 
   return(
     <>
-      <socketContext.Provider value = {socket}>
+      <ContextProvier>
         <Menu />
           <div className="app-body">
             <Routes>
@@ -90,7 +90,7 @@ export default function App(){
             </Routes>
           </div>
         <Footer />
-      </socketContext.Provider>
+      </ContextProvier>
     </>
   )
 }

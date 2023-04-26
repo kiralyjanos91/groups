@@ -7,7 +7,7 @@ import { useSelector } from "react-redux"
 import axios from "axios"
 import Chat from "../chat/chat"
 import ChatMessageEl from "../chat/chat_message_el"
-import { socketContext } from "../../context/socketiocontext"
+import { SocketContext } from "../../context/socketiocontext"
 import "./messages.css"
 
 export default function Messages() {
@@ -25,37 +25,37 @@ export default function Messages() {
     const chatWindowRef = useRef(null)
     const findMemberRef = useRef(null)
     const navigate = useNavigate()
-    const socket = useContext(socketContext)
+    const socket = useContext(SocketContext)
 
-    // useEffect(() => {
-    //     if (messagesLoaded) {
-    //         socket.on("message" , (message) => {
-    //             const sent = message.sender_username === user.username
-    //             const formattedMessage = {
-    //                 date: message.date,
-    //                 message: message.current_message,
-    //                 sent
-    //             }
-    //             const allMessagesCopy = [...allMessages]
-    //             const messagePartner = sent ? message.receiver_username : message.sender_username
-    //             const partnerPhoto = sent ? message.receiver_small_photo : message.sender_small_photo
-    //             let thisConversation = allMessagesCopy.find((msg) => msg.partner === messagePartner)
+    useEffect(() => {
+        if (messagesLoaded) {
+            socket.on("message" , (message) => {
+                const sent = message.sender_username === user.username
+                const formattedMessage = {
+                    date: message.date,
+                    message: message.current_message,
+                    sent
+                }
+                const allMessagesCopy = [...allMessages]
+                const messagePartner = sent ? message.receiver_username : message.sender_username
+                const partnerPhoto = sent ? message.receiver_small_photo : message.sender_small_photo
+                let thisConversation = allMessagesCopy.find((msg) => msg.partner === messagePartner)
                 
-    //             if (thisConversation) {
-    //                 thisConversation.messages.push(formattedMessage)
-    //             }
-    //             else {
-    //                 thisConversation = {
-    //                     partner: messagePartner,
-    //                     partner_photo: partnerPhoto,
-    //                     messages: [formattedMessage]
-    //                 }
-    //             }
+                if (thisConversation) {
+                    thisConversation.messages.push(formattedMessage)
+                }
+                else {
+                    thisConversation = {
+                        partner: messagePartner,
+                        partner_photo: partnerPhoto,
+                        messages: [formattedMessage]
+                    }
+                }
 
-    //             setAllMessages((prevMessages) => [ thisConversation, ...prevMessages.filter((prevMessage) => prevMessage.partner !== messagePartner) ])
-    //         })       
-    //     }
-    // }, [messagesLoaded])
+                setAllMessages((prevMessages) => [ thisConversation, ...prevMessages.filter((prevMessage) => prevMessage.partner !== messagePartner) ])
+            })       
+        }
+    }, [messagesLoaded])
 
     useEffect(() => {
         window.addEventListener( "resize" , windowWidthResize )

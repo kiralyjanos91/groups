@@ -1,10 +1,28 @@
+import React , { useEffect } from "react"
+import { useSelector } from "react-redux"
 import { createContext } from "react"
 import { io } from "socket.io-client"
 
+export const SocketContext = createContext()
 
-const socket = io("http://localhost:5000", {
-    autoConnect: false
-})
+export function ContextProvier ({ children }) {
+    const user = useSelector((state) => state.userData.data)
 
-export { socket }
-export const socketContext = createContext()
+    const socket = io("http://localhost:5000", {
+        autoConnect: false,
+    })
+
+    useEffect(() => {
+        if (user?.username) {
+            socket.connect()
+        }
+    }, [ user?.username ])
+
+    return (
+        <SocketContext.Provider 
+            value = { socket }
+        >
+            { children }
+        </SocketContext.Provider>
+    )
+}
