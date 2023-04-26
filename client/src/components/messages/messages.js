@@ -1,4 +1,4 @@
-import React , { useState , useEffect , useLayoutEffect , useRef } from "react"
+import React , { useState , useEffect , useContext , useLayoutEffect , useRef } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import { Link , useNavigate } from "react-router-dom"
@@ -7,10 +7,12 @@ import { useSelector } from "react-redux"
 import axios from "axios"
 import Chat from "../chat/chat"
 import ChatMessageEl from "../chat/chat_message_el"
+import { SocketContext } from "../../context/socketiocontext"
 import "./messages.css"
 
 export default function Messages() {
     const [ allMessages , setAllMessages ] = useState([])
+    const [ messagesLoaded , setMessagesLoaded ] = useState(false)
     const [ currentPartner , setCurrentPartner ] = useState("")
     const user = useSelector((state) => state.userData.data)
     const [ emojiShow , setEmojiShow ] = useState(false)
@@ -23,6 +25,37 @@ export default function Messages() {
     const chatWindowRef = useRef(null)
     const findMemberRef = useRef(null)
     const navigate = useNavigate()
+    const socket = useContext(SocketContext)
+
+    useEffect(() => {
+        if (messagesLoaded) {
+            socket.on("message" , (message) => {
+                const sent = message.sender_username === user.username
+                const formattedMessage = {
+                    date: message.date,
+                    message: message.current_message,
+                    sent
+                }
+                const allMessagesCopy = [...allMessages]
+                const messagePartner = sent ? message.receiver_username : message.sender_username
+                const partnerPhoto = sent ? message.receiver_small_photo : message.sender_small_photo
+                let thisConversation = allMessagesCopy.find((msg) => msg.partner === messagePartner)
+                
+                if (thisConversation) {
+                    thisConversation.messages.push(formattedMessage)
+                }
+                else {
+                    thisConversation = {
+                        partner: messagePartner,
+                        partner_photo: partnerPhoto,
+                        messages: [formattedMessage]
+                    }
+                }
+
+                setAllMessages((prevMessages) => [ thisConversation, ...prevMessages.filter((prevMessage) => prevMessage.partner !== messagePartner) ])
+            })       
+        }
+    }, [messagesLoaded])
 
     useEffect(() => {
         window.addEventListener( "resize" , windowWidthResize )
@@ -35,10 +68,10 @@ export default function Messages() {
             .then(res => {
                 const dataForSort = res.data
                 dataForSort.sort((a,b) => {
-                    return new Date(b.messages.slice(-1)[0].date) - new Date(a.messages.slice(-1)[0].date)
-                    
+                    return new Date(b.messages.slice(-1)[0].date) - new Date(a.messages.slice(-1)[0].date)  
                 })
                 setAllMessages(dataForSort)
+                setMessagesLoaded(true)
             })   
         }
     }, [user])
@@ -59,7 +92,7 @@ export default function Messages() {
             })
         }
         window.scrollTo( 0 , 0 )
-    }, [ currentPartner , showMessage ])
+    }, [ currentPartner , showMessage , allMessages ])
 
     useLayoutEffect(() => {
         if (findMember) {
@@ -91,14 +124,19 @@ export default function Messages() {
     }
 
     const sendMessage = () => {
-        axios.post("/sendprivatemessage" , {
+
+        const messageContent = {
             sender_username: user?.username,
             sender_small_photo: user?.small_photo,
             receiver_username: currentPartner.username,
             receiver_small_photo: currentPartner.partner_photo,
             current_message: chatMessageRef.current.value,
             date: new Date()
-        })
+        }
+
+        socket.emit("sendMessage" , messageContent)
+
+        axios.post("/sendprivatemessage" , messageContent)
             .then(
                 chatMessageRef.current.value = "",
                 setEmojiShow(false),
@@ -204,7 +242,8 @@ export default function Messages() {
     const findMemberListElements = findMemberList.map((member , i) => {
         return (
             <Row
-                onClick = { () => addMemberToPartners(member) }          
+                onClick = { () => addMemberToPartners(member) }       
+                key = { i }   
             >
                 <Col>
                     <img 
@@ -227,6 +266,8 @@ export default function Messages() {
             </Row>
         )
     })
+
+    console.log(allMessages)
 
     return (
         <Container

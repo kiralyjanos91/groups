@@ -4,6 +4,10 @@
     justify-content: center;
     align-items: center;
     margin-top: 0 !important;
+    background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/background-shape02-min.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
 .home-main-text-col {
@@ -67,17 +71,21 @@
 
 .bullet-points-row {
     margin-top: 50px !important;
+    row-gap: 30px;
 }
 
 .bullet-point-img {
     max-width: 80px;
+    margin-bottom: 20px;
 }
 
 .popular-groups-row {
     margin-bottom: 50px;
+    margin-top: 100px;
 }
 
 .popular-groups-row > h1 {
+    margin-top: 50px;
     margin-bottom: 50px;
 }
 

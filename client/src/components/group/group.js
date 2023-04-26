@@ -1,4 +1,4 @@
-import React, { useState , useEffect , useRef } from "react"
+import React, { useState , useEffect , useRef , useContext } from "react"
 import { Container , Col , Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
@@ -15,6 +15,8 @@ import BanMemberModal from "./banmembermodal"
 import EventCard from "../event_card/eventcard"
 import Chat from "../chat/chat"
 import ChatMessageEl from "../chat/chat_message_el"
+import { SocketContext } from "../../context/socketiocontext"
+
 
 export default function Group(){
 
@@ -28,9 +30,9 @@ export default function Group(){
     const [eventShow, setEventShow] = useState(false);
     const [banShow , setBanShow] = useState(false);
     const [showChat , setShowChat] = useState(false)
-
     const [banUsername , setBanUsername] = useState("")
-    
+
+    const socket = useContext(SocketContext)
     const groupName = groupInfo?.name
     const admin = groupInfo?.admin
 
@@ -86,6 +88,12 @@ export default function Group(){
         }
         window.scrollTo( 0 , 0 )
     },[showChat])
+
+    useEffect(() => {
+        socket.on("groupMessage" , (groupMessage) => {
+            
+        })
+    }, [])
 
     const joinToGroup = () => {
         setButtonLoading(true)

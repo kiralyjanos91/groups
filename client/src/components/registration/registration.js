@@ -62,7 +62,7 @@ export default function Register(){
             <Row id="registration-row">
                 <form onSubmit={ sendRegistration } id="regform">
                     <h1>
-                        Sign Up
+                        Sign up
                     </h1>
                     <label htmlFor="username">Username:</label>
                     <input type = "text" name = "username" ref = { usernameRef }/>
