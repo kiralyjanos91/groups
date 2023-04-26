@@ -27,35 +27,35 @@ export default function Messages() {
     const navigate = useNavigate()
     const socket = useContext(socketContext)
 
-    useEffect(() => {
-        if (messagesLoaded) {
-            socket.on("message" , (message) => {
-                const sent = message.sender_username === user.username
-                const formattedMessage = {
-                    date: message.date,
-                    message: message.current_message,
-                    sent
-                }
-                const allMessagesCopy = [...allMessages]
-                const messagePartner = sent ? message.receiver_username : message.sender_username
-                const partnerPhoto = sent ? message.receiver_small_photo : message.sender_small_photo
-                let thisConversation = allMessagesCopy.find((msg) => msg.partner === messagePartner)
+    // useEffect(() => {
+    //     if (messagesLoaded) {
+    //         socket.on("message" , (message) => {
+    //             const sent = message.sender_username === user.username
+    //             const formattedMessage = {
+    //                 date: message.date,
+    //                 message: message.current_message,
+    //                 sent
+    //             }
+    //             const allMessagesCopy = [...allMessages]
+    //             const messagePartner = sent ? message.receiver_username : message.sender_username
+    //             const partnerPhoto = sent ? message.receiver_small_photo : message.sender_small_photo
+    //             let thisConversation = allMessagesCopy.find((msg) => msg.partner === messagePartner)
                 
-                if (thisConversation) {
-                    thisConversation.messages.push(formattedMessage)
-                }
-                else {
-                    thisConversation = {
-                        partner: messagePartner,
-                        partner_photo: partnerPhoto,
-                        messages: [formattedMessage]
-                    }
-                }
+    //             if (thisConversation) {
+    //                 thisConversation.messages.push(formattedMessage)
+    //             }
+    //             else {
+    //                 thisConversation = {
+    //                     partner: messagePartner,
+    //                     partner_photo: partnerPhoto,
+    //                     messages: [formattedMessage]
+    //                 }
+    //             }
 
-                setAllMessages((prevMessages) => [ thisConversation, ...prevMessages.filter((prevMessage) => prevMessage.partner !== messagePartner) ])
-            })       
-        }
-    }, [messagesLoaded])
+    //             setAllMessages((prevMessages) => [ thisConversation, ...prevMessages.filter((prevMessage) => prevMessage.partner !== messagePartner) ])
+    //         })       
+    //     }
+    // }, [messagesLoaded])
 
     useEffect(() => {
         window.addEventListener( "resize" , windowWidthResize )

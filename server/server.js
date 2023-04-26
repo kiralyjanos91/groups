@@ -66,6 +66,10 @@ io.on("connection", (socket) => {
     socket.on("sendMessage", (message) => {
       io.emit("message", message)
     })
+
+    socket.on("sendGroupMessage" , (groupMessage) => {
+        io.emit("groupMessage" , groupMessage)
+    })
   
     socket.on("disconnect", () => {
       console.log(`Socket ${socket.id} disconnected`)
