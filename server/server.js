@@ -60,11 +60,29 @@ const MemberModel = require("./mongoose_models/membermodel")
 const RefreshTokenModel = require("./mongoose_models/refreshtokenmodel")
 const GroupModel = require("./mongoose_models/groupmodel")
 
+let loggedInUsers = []
 io.on("connection", (socket) => {
     console.log(`Socket ${socket.id} connected`)
+
+    socket.on("userLogin" , (username) => {
+        loggedInUsers.push({
+            username,
+            socketId: socket.id
+        })
+        console.log(loggedInUsers)
+    })
   
     socket.on("sendMessage", (message) => {
-      io.emit("message", message)
+        const partnerId = loggedInUsers.find((user) => user.username === message.receiver_username)?.socketId
+        const senderId = socket.id
+        if (partnerId) {
+            console.log(`Socket message: ${message}`)
+            io.to(partnerId).to(senderId).emit("message", message)
+        }
+        else {
+            console.log("Message partner is offline")
+        }
+        // console.log(partnerId)
     })
 
     socket.on("sendGroupMessage" , (groupMessage) => {
@@ -72,10 +90,10 @@ io.on("connection", (socket) => {
     })
   
     socket.on("disconnect", () => {
-      console.log(`Socket ${socket.id} disconnected`)
+        loggedInUsers = [...loggedInUsers.filter((user) => user.socketId !== socket.id)]
+        console.log(`Socket ${socket.id} disconnected`)
     })
 })
-
 
 app.post("/auth" , verifyRoute({
     express,
