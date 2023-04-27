@@ -24,7 +24,6 @@ export default function Member(){
             })
     }, [])
 
-    console.log(memberData)
     const {
         username,
         own_groups,
@@ -44,7 +43,7 @@ export default function Member(){
                 className = "group-col"
                 as = { Link }
                 to = {`/group/${group.group_Id}`}
-                >        
+            >        
                 { group.name } 
             </Col> 
         ) 

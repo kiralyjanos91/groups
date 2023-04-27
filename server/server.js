@@ -60,11 +60,47 @@ const MemberModel = require("./mongoose_models/membermodel")
 const RefreshTokenModel = require("./mongoose_models/refreshtokenmodel")
 const GroupModel = require("./mongoose_models/groupmodel")
 
+let loggedInUsers = []
 io.on("connection", (socket) => {
     console.log(`Socket ${socket.id} connected`)
+
+    socket.on("userLogin" , (username) => {
+        loggedInUsers.push({
+            username,
+            socketId: socket.id,
+            viewedMember: ""
+        })
+        console.log(loggedInUsers)
+    })
+
+    socket.on("viewMember" , (member) => {
+        const thisMember = loggedInUsers.find((user) => user.socketId === socket.id)
+        thisMember.viewedMember = member
+        console.log(loggedInUsers)
+    })
+
+    socket.on("notViewMembers" , () => {
+        const thisMember = loggedInUsers.find((user) => user.socketId === socket.id)
+        thisMember.viewedMember = ""
+        console.log(loggedInUsers)
+    })
   
     socket.on("sendMessage", (message) => {
-      io.emit("message", message)
+        const partner = loggedInUsers.find((user) => user.username === message.receiver_username)
+        const senderId = socket.id
+        const senderName = loggedInUsers.find((user) => user.socketId === socket.id).username
+        if (partner) {
+            io.to(partner.socketId).to(senderId).emit("message", message)
+            io.to(senderId).emit("memberMessage", message)
+            console.log(senderName)
+            if (partner.viewedMember === senderName) {
+                io.to(partner.socketId).emit("memberMessage", message)
+            }
+        }
+        else {
+            io.to(senderId).emit("message", message)
+            io.to(senderId).emit("memberMessage", message)
+        }
     })
 
     socket.on("sendGroupMessage" , (groupMessage) => {
@@ -72,10 +108,10 @@ io.on("connection", (socket) => {
     })
   
     socket.on("disconnect", () => {
-      console.log(`Socket ${socket.id} disconnected`)
+        loggedInUsers = [...loggedInUsers.filter((user) => user.socketId !== socket.id)]
+        console.log(`Socket ${socket.id} disconnected`)
     })
 })
-
 
 app.post("/auth" , verifyRoute({
     express,

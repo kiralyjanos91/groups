@@ -1,4 +1,4 @@
-import React , { useState , useRef , useEffect } from "react"
+import React , { useState , useRef , useEffect , useContext } from "react"
 import { useSelector } from "react-redux"
 import axios from "axios"
 import { Container } from "react-bootstrap"
@@ -6,6 +6,7 @@ import Modal from "react-bootstrap/Modal"
 import CloseButton from "react-bootstrap/CloseButton"
 import Chat from "../chat/chat"
 import ChatMessageEl from "../chat/chat_message_el"
+import { SocketContext } from "../../context/socketiocontext"
 import "./messagemodal.css"
 
 export default function MessageModal( { handleClose , show , partnerName , partnerPhoto  }){
@@ -13,8 +14,10 @@ export default function MessageModal( { handleClose , show , partnerName , partn
     const user = useSelector((state) => state.userData.data)
     const [emojiShow , setEmojiShow] = useState(false)
     const [messages , setMessages] = useState(null)
+    const [ messagesLoaded , setMessagesLoaded ] = useState(false)
     const chatMessageRef = useRef()
     const chatWindowRef = useRef()
+    const socket = useContext(SocketContext)
 
     useEffect(() => {
         if (user.username)
@@ -23,8 +26,10 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                     username: user.username,
                     partner_name: partnerName
                 })
-                .then(res => 
+                .then(res => {
                     setMessages(res.data)
+                    setMessagesLoaded(true)
+                }
                 )
             }
     } , [user])
@@ -34,19 +39,45 @@ export default function MessageModal( { handleClose , show , partnerName , partn
             chatWindowRef.current.scrollTo({
                 top: chatWindowRef.current.scrollHeight
             })
-    } , [show])
+    } , [show , messages])
+    
+    useEffect(() => {
+        if (messagesLoaded) {
+            console.log(messages)
+            socket.emit("viewMember" , partnerName)
+            socket.on("memberMessage" , (message) => {
+                const sent = message.sender_username === user.username
+                const formattedMessage = {
+                    date: message.date,
+                    message: message.current_message,
+                    sent
+                }
+                
+                const messagesCopy = {...messages}
+                messagesCopy.messages.push(formattedMessage)
 
-    console.log(messages)
+                setMessages(() => messagesCopy)
+            })       
+        }
+        return () => {
+            socket.emit("notViewMembers")
+        }
+    }, [messagesLoaded])
+
 
     const sendMessage = () => {
-        axios.post("/sendprivatemessage" , {
+        const messageContent = {
             sender_username: user?.username,
             sender_small_photo: user?.small_photo,
             receiver_username: partnerName,
             receiver_small_photo: partnerPhoto,
             current_message: chatMessageRef.current.value,
             date: new Date()
-        })
+        }
+
+        socket.emit("sendMessage" , messageContent)
+        
+        axios.post("/sendprivatemessage" , messageContent)
             .then(
                 chatMessageRef.current.value = "",
                 setEmojiShow(false),

@@ -64,7 +64,7 @@ const updatePrivateMessageRoute = ({
         await sender.save()
         await receiver.save()
 
-        console.log(messagesHistory)
+        // console.log(messagesHistory)
         res.status(200).json(req.body)
     })
 
