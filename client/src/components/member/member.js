@@ -24,7 +24,6 @@ export default function Member(){
             })
     }, [])
 
-    console.log(memberData)
     const {
         username,
         own_groups,
