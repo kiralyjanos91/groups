@@ -44,7 +44,8 @@ export default function MessageModal( { handleClose , show , partnerName , partn
     useEffect(() => {
         if (messagesLoaded) {
             console.log(messages)
-            socket.on("message" , (message) => {
+            socket.emit("viewMember" , partnerName)
+            socket.on("memberMessage" , (message) => {
                 const sent = message.sender_username === user.username
                 const formattedMessage = {
                     date: message.date,
@@ -57,6 +58,9 @@ export default function MessageModal( { handleClose , show , partnerName , partn
 
                 setMessages(() => messagesCopy)
             })       
+        }
+        return () => {
+            socket.emit("notViewMembers")
         }
     }, [messagesLoaded])
 

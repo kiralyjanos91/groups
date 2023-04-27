@@ -67,22 +67,40 @@ io.on("connection", (socket) => {
     socket.on("userLogin" , (username) => {
         loggedInUsers.push({
             username,
-            socketId: socket.id
+            socketId: socket.id,
+            viewedMember: ""
         })
+        console.log(loggedInUsers)
+    })
+
+    socket.on("viewMember" , (member) => {
+        const thisMember = loggedInUsers.find((user) => user.socketId === socket.id)
+        thisMember.viewedMember = member
+        console.log(loggedInUsers)
+    })
+
+    socket.on("notViewMembers" , () => {
+        const thisMember = loggedInUsers.find((user) => user.socketId === socket.id)
+        thisMember.viewedMember = ""
         console.log(loggedInUsers)
     })
   
     socket.on("sendMessage", (message) => {
-        const partnerId = loggedInUsers.find((user) => user.username === message.receiver_username)?.socketId
+        const partner = loggedInUsers.find((user) => user.username === message.receiver_username)
         const senderId = socket.id
-        if (partnerId) {
-            console.log(`Socket message: ${message}`)
-            io.to(partnerId).to(senderId).emit("message", message)
+        const senderName = loggedInUsers.find((user) => user.socketId === socket.id).username
+        if (partner) {
+            io.to(partner.socketId).to(senderId).emit("message", message)
+            io.to(senderId).emit("memberMessage", message)
+            console.log(senderName)
+            if (partner.viewedMember === senderName) {
+                io.to(partner.socketId).emit("memberMessage", message)
+            }
         }
         else {
-            console.log("Message partner is offline")
+            io.to(senderId).emit("message", message)
+            io.to(senderId).emit("memberMessage", message)
         }
-        // console.log(partnerId)
     })
 
     socket.on("sendGroupMessage" , (groupMessage) => {

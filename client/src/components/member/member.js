@@ -43,7 +43,7 @@ export default function Member(){
                 className = "group-col"
                 as = { Link }
                 to = {`/group/${group.group_Id}`}
-                >        
+            >        
                 { group.name } 
             </Col> 
         ) 
