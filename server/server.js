@@ -73,6 +73,22 @@ io.on("connection", (socket) => {
         console.log(loggedInUsers)
     })
 
+    socket.on("joinToRoom" , (roomId) => {
+        socket.join(roomId)
+        console.log(`${socket.id} joined to ${roomId}`)
+    })
+    
+    socket.on("leaveRoom" , (roomId) => {
+        socket.leave(roomId)
+        console.log(`${socket.id} leaved ${roomId}`)
+    })
+
+    socket.on("groupMessage" , (groupMessage) => {
+        const groupId = groupMessage.groupId
+        socket.in(groupId).emit("groupMessage" , groupMessage)
+        console.log(`Message emitted to room ${groupId}`)
+    })
+
     socket.on("viewMember" , (member) => {
         const thisMember = loggedInUsers.find((user) => user.socketId === socket.id)
         if (thisMember) {
