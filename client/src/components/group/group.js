@@ -31,6 +31,7 @@ export default function Group(){
     const [banShow , setBanShow] = useState(false);
     const [showChat , setShowChat] = useState(false)
     const [banUsername , setBanUsername] = useState("")
+    const [messagesState , setMessagesState] = useState([])
 
     const socket = useContext(SocketContext)
     const groupName = groupInfo?.name
@@ -65,8 +66,10 @@ export default function Group(){
 
     useEffect(() => {
         axios.post("/groupdata" , { id })
-            .then((groupdata) => 
+            .then((groupdata) => {
                 setGroupInfo(() => groupdata.data)
+                setMessagesState(groupdata.data.messages)
+            }
             )
             .then(() => { 
                 if (buttonLoading) {
@@ -81,6 +84,16 @@ export default function Group(){
     }, [user])
 
     useEffect(() => {
+        if (groupInfo?._id) {
+            socket.emit("joinToRoom" , groupInfo?._id)
+            
+            return () => {
+                socket.emit("leaveRoom" , groupInfo?._id)
+            }
+        } 
+    }, [groupInfo?._id])
+
+    useEffect(() => {
         if (chatWindowRef.current) {
             chatWindowRef.current.scrollTo({
                 top: chatWindowRef.current.scrollHeight
@@ -91,8 +104,9 @@ export default function Group(){
 
     useEffect(() => {
         socket.on("groupMessage" , (groupMessage) => {
-            
-        })
+            console.log("group message arrived")
+        //    setMessagesState((prevMessages) => [...prevMessages , groupMessage]) 
+        }) 
     }, [])
 
     const joinToGroup = () => {
@@ -120,6 +134,13 @@ export default function Group(){
 
     const sendToChat = () => {
         if (chatMessageRef.current.value) {
+                socket.emit("groupMessage" , {
+                    username: ownUsername,
+                    message: chatMessageRef.current.value,
+                    groupName,
+                    groupId: groupInfo?._id,
+                    date: new Date()
+                })
                 axios.post("/sendtochat" , {
                     username: ownUsername,
                     message: chatMessageRef.current.value,
@@ -219,7 +240,7 @@ export default function Group(){
         second: "numeric"
     })
 
-    const messages = groupInfo?.messages?.map((message , index) => {
+    const messages = messagesState.map((message , index) => {
         const date = message.date
         let showMessageDate = ""
         const senderName = message.username
@@ -246,7 +267,7 @@ export default function Group(){
         )
     })
 
-    console.log(groupInfo)
+    console.log(messagesState)
 
     return (
         <>
