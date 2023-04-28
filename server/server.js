@@ -75,32 +75,71 @@ io.on("connection", (socket) => {
 
     socket.on("viewMember" , (member) => {
         const thisMember = loggedInUsers.find((user) => user.socketId === socket.id)
-        thisMember.viewedMember = member
+        if (thisMember) {
+            thisMember.viewedMember = member
+        }
         console.log(loggedInUsers)
     })
 
     socket.on("notViewMembers" , () => {
         const thisMember = loggedInUsers.find((user) => user.socketId === socket.id)
-        thisMember.viewedMember = ""
-        console.log(loggedInUsers)
+        if (thisMember) {
+            thisMember.viewedMember = ""
+        }
+        // console.log(loggedInUsers)
     })
   
     socket.on("sendMessage", (message) => {
-        const partner = loggedInUsers.find((user) => user.username === message.receiver_username)
         const senderId = socket.id
-        const senderName = loggedInUsers.find((user) => user.socketId === socket.id).username
-        if (partner) {
-            io.to(partner.socketId).to(senderId).emit("message", message)
-            io.to(senderId).emit("memberMessage", message)
-            console.log(senderName)
-            if (partner.viewedMember === senderName) {
-                io.to(partner.socketId).emit("memberMessage", message)
+        const senderName = message.sender_username
+        const partnerName = message.receiver_username
+        const partnerTabs = loggedInUsers.filter((user) => user.username === partnerName)
+        const senderTabs = loggedInUsers.filter((user) => user.username === senderName)
+        const partnerTabsList = []
+        if (partnerTabs.length > 0) {
+            partnerTabs.map((tab) => {
+                partnerTabsList.push(tab.socketId)
+            })
+        }
+        const senderTabsList = []
+        if (senderTabs.length > 0) {
+            senderTabs.map((tab) => {
+                senderTabsList.push(tab.socketId)
+            })
+        }
+        const viewsPartnerList = []
+        const viewsPartnerTabs = senderTabs.filter((tab) => tab.viewedMember === partnerName)
+        if (viewsPartnerTabs.length > 0) {
+            viewsPartnerTabs.map((tab) => {
+                viewsPartnerList.push(tab.socketId)
+            })
+        }
+        const viewsSenderTabs = partnerTabs.filter((tab) => tab.viewedMember === senderName)
+        const viewsSenderList = []
+        if (viewsSenderTabs.length > 0) {
+            viewsSenderTabs.map((tab) => {
+                viewsSenderList.push(tab.socketId)
+            })
+        }
+
+        if (partnerTabs.length > 0) {
+            io.sockets.to(partnerTabsList).emit("message", message)
+            io.sockets.to(senderTabsList).emit("message", message) 
+            if (viewsPartnerList.length > 0) {
+                io.sockets.to(viewsPartnerList).emit("memberMessage", message)
+            }
+            if (viewsSenderTabs.length > 0) {
+                io.sockets.to(viewsSenderList).emit("memberMessage", message)
             }
         }
         else {
-            io.to(senderId).emit("message", message)
-            io.to(senderId).emit("memberMessage", message)
+            io.sockets.to(senderTabsList).emit("message", message)
+            if (viewsPartnerList.length > 0) {
+                io.sockets.to(viewsPartnerList).emit("memberMessage", message)
+            }
         }
+
+        console.log(viewsPartnerList)
     })
 
     socket.on("sendGroupMessage" , (groupMessage) => {
