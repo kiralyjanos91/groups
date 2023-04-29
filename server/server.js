@@ -85,8 +85,7 @@ io.on("connection", (socket) => {
 
     socket.on("groupMessage" , (groupMessage) => {
         const groupId = groupMessage.groupId
-        socket.in(groupId).emit("groupMessage" , groupMessage)
-        console.log(`Message emitted to room ${groupId}`)
+        io.sockets.in(groupId).emit("groupMessage" , groupMessage)
     })
 
     socket.on("viewMember" , (member) => {

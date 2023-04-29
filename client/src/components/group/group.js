@@ -100,12 +100,11 @@ export default function Group(){
             })
         }
         window.scrollTo( 0 , 0 )
-    },[showChat])
+    },[showChat , messagesState])
 
     useEffect(() => {
         socket.on("groupMessage" , (groupMessage) => {
-            console.log("group message arrived")
-        //    setMessagesState((prevMessages) => [...prevMessages , groupMessage]) 
+           setMessagesState((prevMessages) => [...prevMessages , groupMessage]) 
         }) 
     }, [])
 
