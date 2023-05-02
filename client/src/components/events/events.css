@@ -9,3 +9,11 @@
     margin-top: 30px !important;
     line-height: calc(1.375rem + 1.5vw);
 }
+
+.no-events-text {
+    height: calc( 100vh - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

@@ -20,6 +20,13 @@
   flex-direction: row-reverse;
 }
 
+.messages-window-col {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  justify-content: flex-end;
+}
+
 .chat-img {
   width: 40px !important;
   height: 40px !important;

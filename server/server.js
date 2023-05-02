@@ -101,7 +101,6 @@ io.on("connection", (socket) => {
         if (thisMember) {
             thisMember.viewedMember = ""
         }
-        // console.log(loggedInUsers)
     })
   
     socket.on("sendMessage", (message) => {
@@ -142,15 +141,18 @@ io.on("connection", (socket) => {
             io.sockets.to(senderTabsList).emit("message", message) 
             if (viewsPartnerList.length > 0) {
                 io.sockets.to(viewsPartnerList).emit("memberMessage", message)
+                console.log("viewsPartnerList.length > 0")
             }
             if (viewsSenderTabs.length > 0) {
                 io.sockets.to(viewsSenderList).emit("memberMessage", message)
+                console.log("viewsSenderTabs.length > 0")
             }
         }
         else {
             io.sockets.to(senderTabsList).emit("message", message)
             if (viewsPartnerList.length > 0) {
                 io.sockets.to(viewsPartnerList).emit("memberMessage", message)
+                console.log("else + viewsPartnerList.length > 0")
             }
         }
 

@@ -136,3 +136,11 @@
 .find-member-input-row {
     padding-inline: 10px;
 }
+
+.no-messages-text {
+    height: calc( 100vh - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
