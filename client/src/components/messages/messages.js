@@ -29,6 +29,7 @@ export default function Messages() {
 
     useEffect(() => {
         if (messagesLoaded) {
+            socket.off("message")
             socket.on("message" , (message) => {
                 const sent = message.sender_username === user.username
                 const formattedMessage = {
@@ -55,7 +56,7 @@ export default function Messages() {
                 setAllMessages((prevMessages) => [ thisConversation, ...prevMessages.filter((prevMessage) => prevMessage.partner !== messagePartner) ])
             })       
         }
-    }, [messagesLoaded])
+    }, [messagesLoaded , currentPartner])
 
     useEffect(() => {
         window.addEventListener( "resize" , windowWidthResize )
@@ -322,55 +323,64 @@ export default function Messages() {
                     }
                 </Col>
             </Row>
-            { allMessages.length > 0 ?
-                <Row>
-                    <Col
-                        lg = "4"
-                    >
-                        { (!isMobile || (isMobile && !showMessage)) &&
-                            <Col 
-                            className = "chat-partners-col"
+            { messagesLoaded ?
+                allMessages.length > 0 ?
+                    <Row>
+                        <Col
+                            lg = "4"
+                        >
+                            { (!isMobile || (isMobile && !showMessage)) &&
+                                <Col 
+                                className = "chat-partners-col"
+                                >
+                                    Partners:
+                                    { chatPartners }
+                                </Col>
+                            }
+                        </Col>
+                        { (!isMobile || (isMobile && showMessage)) &&
+                            <Col
+                            lg = "8"
                             >
-                                Partners:
-                                { chatPartners }
+                                { isMobile &&
+                                    <Row
+                                    className = "mobile-view-partner-name-row"
+                                    >
+                                        <Col>
+                                            <h3>{ currentPartner.username }</h3>
+                                        </Col>
+                                        <Col
+                                            className = "partners-button-col"
+                                        >
+                                            <Button 
+                                                variant = "primary"
+                                                onClick = {() => setShowMessage(false)}
+                                            >
+                                                Partners
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                }
+                                <Chat 
+                                    emojiShow = { emojiShow }
+                                    chatWindowRef = { chatWindowRef }
+                                    chatMessageRef = { chatMessageRef }
+                                    sendToChat = { sendMessage }
+                                    messages = { messagesList }
+                                    emojiShowChange = { emojiShowChange }
+                                    plusClass = "messages-chat-window"
+                                />
                             </Col>
                         }
-                    </Col>
-                    { (!isMobile || (isMobile && showMessage)) &&
-                        <Col
-                        lg = "8"
+                    </Row> 
+                :
+                    <Row>
+                        <h2
+                            className = "no-messages-text"
                         >
-                            { isMobile &&
-                                <Row
-                                className = "mobile-view-partner-name-row"
-                                >
-                                    <Col>
-                                        <h3>{ currentPartner.username }</h3>
-                                    </Col>
-                                    <Col
-                                        className = "partners-button-col"
-                                    >
-                                        <Button 
-                                            variant = "primary"
-                                            onClick = {() => setShowMessage(false)}
-                                        >
-                                            Partners
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            }
-                            <Chat 
-                                emojiShow = { emojiShow }
-                                chatWindowRef = { chatWindowRef }
-                                chatMessageRef = { chatMessageRef }
-                                sendToChat = { sendMessage }
-                                messages = { messagesList }
-                                emojiShowChange = { emojiShowChange }
-                                plusClass = "messages-chat-window"
-                            />
-                        </Col>
-                    }
-                </Row>
+                            No Messages Yet
+                        </h2>
+                    </Row>
             :
                 <Row className="spinner-row">
                     <Spinner animation="border" role="status">

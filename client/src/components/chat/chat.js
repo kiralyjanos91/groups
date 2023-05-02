@@ -24,14 +24,18 @@ export default function Chat({
                 className = {`messages-window-row ${plusClass}`}
                 ref = { chatWindowRef }
             >
-                { ( messages && messages?.length > 0 ) || plusClass !== "group-chat-window" ? 
-                    messages 
-                : 
-                    <Col
+                <Col
+                    className = "messages-window-col"
+                >
+                    { ( messages && messages?.length > 0 ) || plusClass !== "group-chat-window" ? 
+                        messages 
+                        : 
+                        <Col
                         className = "start-conversation-col"
-                    >
-                        Start the conversation
-                    </Col> }
+                        >
+                            Start the conversation
+                        </Col> }
+                </Col>
             </Row>
             <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
                 <EmojiPicker 

@@ -27,10 +27,27 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                     partner_name: partnerName
                 })
                 .then(res => {
-                    setMessages(res.data)
-                    setMessagesLoaded(true)
+                    if (res.status === 202) {
+                        console.log("status 202")
+                        const newMessages = {
+                            partner: partnerName,
+                            partner_photo: partnerPhoto,
+                            messages: []
+                        }
+                        setMessages(newMessages)
+                        setMessagesLoaded(true) 
+                    }
+                    else {
+                        console.log(res.data)
+                        setMessages(res.data)
+                        setMessagesLoaded(true)
+                    }
                 }
                 )
+                .catch(err => {
+                    console.log(err)
+                    setMessagesLoaded(true)
+                })
             }
     } , [user])
 
@@ -43,7 +60,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
     
     useEffect(() => {
         if (messagesLoaded) {
-            console.log(messages)
             socket.emit("viewMember" , partnerName)
             socket.on("memberMessage" , (message) => {
                 const sent = message.sender_username === user.username
@@ -52,10 +68,9 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                     message: message.current_message,
                     sent
                 }
-                
+
                 const messagesCopy = {...messages}
                 messagesCopy.messages.push(formattedMessage)
-
                 setMessages(() => messagesCopy)
             })       
         }
@@ -64,7 +79,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
         }
     }, [messagesLoaded])
 
-
+    console.log(messages)
     const sendMessage = () => {
         const messageContent = {
             sender_username: user?.username,
@@ -148,50 +163,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                             emojiShowChange = { emojiShowChange }
                             plusClass = "private-chat-window"
                         />
-                    {/* <>
-                        <Row 
-                            className = "messages-window-row"
-                            ref = { chatWindowRef }
-                        >
-                            { messagesList }
-                        </Row>
-                        <Row className = {`emoji-picker-row ${emojiShow ? "" : "emojihide"}`}>
-                            <EmojiPicker 
-                                onEmojiClick = {(emoji) => 
-                                    chatMessageRef.current.value += emoji.emoji 
-                                }
-                                theme = "dark"
-                                emojiStyle = "google"
-                                />
-                        </Row>
-                        <Row className = "chat-input-row">
-                            <Col className = "chat-input-col">
-                                <input 
-                                    name="chat-input"
-                                    ref = { chatMessageRef }
-                                    className = "chat-input"
-                                />
-                            </Col>
-                            <Col 
-                                className = "emoji-show-button"
-                                onClick = { emojiShowChange }
-                            >
-                                <img 
-                                    src="https://groupsiteimages.s3.amazonaws.com/icons/emoji-open-icon.png" 
-                                    alt="emoji-open-icon"
-                                />
-                            </Col>
-                            <Col className = "chat-send-button-col">
-                                <Button onClick = {() => sendMessage()}>
-                                    <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/icons/send-icon.png" 
-                                        alt = "send-button-icon"
-                                        className = "send-button-icon"
-                                    />
-                                </Button>
-                            </Col>
-                        </Row>
-                    </> */}
                     </Modal.Body>
                 </Container>
             </Modal>

@@ -33,10 +33,10 @@ export default function HomePage(){
 
     const groupStatusTypes = ["All"]
 
-    if (user.groups.length > 0) {
+    if (user.groups?.length > 0) {
         groupStatusTypes.push("Joined")
     }
-    if (user.own_groups.length > 0) {
+    if (user.own_groups?.length > 0) {
         groupStatusTypes.push("Own")
     }
 

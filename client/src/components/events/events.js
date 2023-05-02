@@ -9,7 +9,7 @@ export default function Events(){
     
     const user = useSelector((state) => state.userData.data)
     console.log(user.events)
-    const eventsList = user.events.map((event , i) => {
+    const eventsList = user.events?.map((event , i) => {
         const eventLocation = `${event?.eventLocation.country}, ${event?.eventLocation.state}, ${event?.eventLocation.city}, ${event?.eventLocation.address || ""}`
         return (
             <EventCard 
@@ -37,10 +37,14 @@ export default function Events(){
             <Row
                 className = "events-main-row"
             >
-                { eventsList.length > 0 ?
+                { eventsList?.length > 0 ?
                     eventsList
                     :
-                    <h1>You haven't joined any events yet</h1>
+                    <h2
+                        className = "no-events-text"
+                    >
+                        You haven't joined any events yet
+                    </h2>
                 }
             </Row>
         </Container>
