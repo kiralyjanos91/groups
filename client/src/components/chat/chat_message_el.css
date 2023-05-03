@@ -22,6 +22,7 @@
     border-radius: 5px;
     height: fit-content;
     word-break: break-all;
+    min-width: 50%;
     max-width: fit-content !important;
   }
   

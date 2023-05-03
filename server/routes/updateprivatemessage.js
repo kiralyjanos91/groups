@@ -17,8 +17,10 @@ const updatePrivateMessageRoute = ({
         } = req.body
 
         
-        const sender = await MemberModel.findOne({username:sender_username})
-        const receiver = await MemberModel.findOne({username:receiver_username})
+        let sender = await MemberModel.findOne({username:sender_username})
+        let receiver = await MemberModel.findOne({username:receiver_username})
+
+        console.log(sender)
 
         const messagesHistory = sender.private_messages.find((message) => message.partner === receiver_username)
         if (messagesHistory) {
