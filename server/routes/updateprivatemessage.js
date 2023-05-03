@@ -63,8 +63,10 @@ const updatePrivateMessageRoute = ({
             })
         }
 
-        await sender.update()
-        await receiver.update()
+        await MemberModel.findOneAndUpdate({_id: sender._id } , {$set: sender})
+        await MemberModel.findOneAndUpdate({_id: receiver._id } , {$set: receiver})
+        // await sender.update("private_messages")
+        // await receiver.update("private_messages")
 
         // console.log(messagesHistory)
         res.status(200).json(req.body)

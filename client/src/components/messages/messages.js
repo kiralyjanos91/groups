@@ -128,11 +128,11 @@ export default function Messages() {
         if (chatMessageRef.current.value) {
             const messageContent = {
                 sender_username: user?.username,
-            sender_small_photo: user?.small_photo,
-            receiver_username: currentPartner.username,
-            receiver_small_photo: currentPartner.partner_photo,
-            current_message: chatMessageRef.current.value,
-            date: new Date()
+                sender_small_photo: user?.small_photo,
+                receiver_username: currentPartner.username,
+                receiver_small_photo: currentPartner.partner_photo,
+                current_message: chatMessageRef.current.value,
+                date: new Date()
             }
 
             socket.emit("sendMessage" , messageContent)
