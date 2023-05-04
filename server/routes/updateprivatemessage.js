@@ -62,9 +62,17 @@ const updatePrivateMessageRoute = ({
                 ]
             })
         }
+        
+        // await MemberModel.findOneAndUpdate({_id: sender._id } , {$set: {
+        //     private_messages: sender.private_messages
+        // }})
 
-        await MemberModel.findOneAndUpdate({_id: sender._id } , {$set: sender})
-        await MemberModel.findOneAndUpdate({_id: receiver._id } , {$set: receiver})
+        await MemberModel.findOneAndUpdate({_id: sender._id } , {$set: {
+            private_messages: sender.private_messages
+        }})
+        await MemberModel.findOneAndUpdate({_id: receiver._id } , {$set: {
+            private_messages: receiver.private_messages
+        }})
         // await sender.update("private_messages")
         // await receiver.update("private_messages")
 

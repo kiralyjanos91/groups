@@ -463,6 +463,7 @@ export default function Group(){
                                     groupInfo = { groupInfo }
                                     eventName = { eventName }
                                     groupId = { id }
+                                    admin = { admin.username }
                                 />
 
                                 <CreateEventModal 

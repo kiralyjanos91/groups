@@ -145,7 +145,7 @@ export default function Messages() {
                         top: chatWindowRef.current.scrollHeight,
                         behavior: "smooth"
                     })
-                    )    
+                )    
             }
         }
 
