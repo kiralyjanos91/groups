@@ -44,12 +44,19 @@ export default function Messages() {
                 
                 if (thisConversation) {
                     thisConversation.messages.push(formattedMessage)
+                    if (!sent) {
+                        thisConversation.unseen += 1
+                    }
                 }
                 else {
                     thisConversation = {
                         partner: messagePartner,
                         partner_photo: partnerPhoto,
+                        unseen: 0,
                         messages: [formattedMessage]
+                    }
+                    if (!sent) {
+                        thisConversation.unseen += 1
                     }
                 }
 
@@ -125,27 +132,28 @@ export default function Messages() {
     }
 
     const sendMessage = () => {
+        if (chatMessageRef.current.value) {
+            const messageContent = {
+                sender_username: user?.username,
+                sender_small_photo: user?.small_photo,
+                receiver_username: currentPartner.username,
+                receiver_small_photo: currentPartner.partner_photo,
+                current_message: chatMessageRef.current.value,
+                date: new Date()
+            }
 
-        const messageContent = {
-            sender_username: user?.username,
-            sender_small_photo: user?.small_photo,
-            receiver_username: currentPartner.username,
-            receiver_small_photo: currentPartner.partner_photo,
-            current_message: chatMessageRef.current.value,
-            date: new Date()
-        }
+            socket.emit("sendMessage" , messageContent)
 
-        socket.emit("sendMessage" , messageContent)
-
-        axios.post("/sendprivatemessage" , messageContent)
-            .then(
-                chatMessageRef.current.value = "",
-                setEmojiShow(false),
-                chatWindowRef.current.scrollTo({
-                    top: chatWindowRef.current.scrollHeight,
-                    behavior: "smooth"
-                })
-            )    
+            axios.post("/sendprivatemessage" , messageContent)
+                .then(
+                    chatMessageRef.current.value = "",
+                    setEmojiShow(false),
+                    chatWindowRef.current.scrollTo({
+                        top: chatWindowRef.current.scrollHeight,
+                        behavior: "smooth"
+                    })
+                )    
+            }
         }
 
     const chatPartners = allMessages.map((message , index) => {
@@ -176,6 +184,13 @@ export default function Messages() {
                 >
                     <p>{ message.partner }</p>
                 </Col>
+                {message.unseen > 0 &&
+                    <Col 
+                        className = "unseen-messages-count-col"
+                    >
+                        <p>{ message.unseen }</p>
+                    </Col>
+                }
                 <Col
                     onClick = { () => navigate(`/member/${message.partner}`) }
                     className = "go-profile-icon-col"

@@ -10,16 +10,18 @@ import Spinner from "react-bootstrap/Spinner"
 import CloseButton from "react-bootstrap/CloseButton"
 import "./eventmodal.css"
 
-export default function EventModal({ handleClose , show , eventName , groupInfo }){
+export default function EventModal({ handleClose , show , eventName , groupInfo , admin }){
 
     const user = useSelector((state) => state.userData.data)
     const ownUsername = user.username
     const { userDataUpdate } = UserDataUpdateHook()
-
+    
+    
     const eventData = groupInfo.events.find((event,i) => {
         return event.title === eventName
     })
 
+    const isAdmin = admin === ownUsername
     const joined = eventData?.members.find((member) => member.username === user.username) ? true : false
     const [buttonLoading , setButtonLoading] = useState(false)
     const [deletePage , setDeletePage] = useState(false)
@@ -242,9 +244,11 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
                             <Button variant="secondary" onClick = { handleClose }>
                                 Close
                             </Button>
-                            <Button variant="dark" onClick = { () => setDeletePage(true) }>
-                                Delete Event
-                            </Button>
+                            { isAdmin &&
+                                <Button variant="dark" onClick = { () => setDeletePage(true) }>
+                                    Delete Event
+                                </Button>
+                            }
                         </Modal.Footer>
                     </Container>
                 }
