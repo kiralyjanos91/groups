@@ -177,6 +177,13 @@ export default function Messages() {
                 >
                     <p>{ message.partner }</p>
                 </Col>
+                {message.unseen > 0 &&
+                    <Col 
+                        className = "unseen-messages-count-col"
+                    >
+                        <p>{ message.unseen }</p>
+                    </Col>
+                }
                 <Col
                     onClick = { () => navigate(`/member/${message.partner}`) }
                     className = "go-profile-icon-col"

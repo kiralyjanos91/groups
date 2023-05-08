@@ -47,7 +47,7 @@
 }
 
 .messages-chat-img-col {
-    max-width: fit-content;
+    max-width: fit-content !important;
 }
 
 .chat-partner-name-col {
@@ -56,6 +56,24 @@
 }
 
 .chat-partner-name-col > p {
+    margin: 0px !important;
+}
+
+.unseen-messages-count-col {
+    max-width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.unseen-messages-count-col > p {
+    background-color: #FF493A;
+    font-weight: 600;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    border-radius: 25px;
     margin: 0px !important;
 }
 

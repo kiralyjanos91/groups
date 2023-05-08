@@ -22,20 +22,20 @@ const updatePrivateMessageRoute = ({
 
         console.log(sender)
 
-        const messagesHistory = sender.private_messages.find((message) => message.partner === receiver_username)
+        const messagesHistory = sender.private_messages.find((message) => message.partner === receiver_username) 
+        const receiverHistory = receiver.private_messages.find((message) => message.partner === sender_username)
         if (messagesHistory) {
             messagesHistory.messages.push({
                 sent: true,
-                seen: true,
                 date: date,
                 message: current_message
             })
-            receiver.private_messages.find((message) => message.partner === sender_username).messages.push({
+            receiverHistory.messages.push({
                 sent: false,
-                seen: false,
                 date: date,
                 message: current_message
             })
+            receiverHistory.unseen += 1
 
             sender.markModified("private_messages")
             receiver.markModified("private_messages")
@@ -44,10 +44,10 @@ const updatePrivateMessageRoute = ({
             sender.private_messages.push({
                 partner: receiver_username,
                 partner_photo: receiver_small_photo,
+                unseen:0,
                 messages: [
                     {
                         sent: true,
-                        seen: true,
                         date: date,
                         message: current_message
                     }
@@ -56,10 +56,10 @@ const updatePrivateMessageRoute = ({
             receiver.private_messages.push({
                 partner: sender_username,
                 partner_photo: sender_small_photo,
+                unseen: 1,
                 messages: [
                     {
                         sent: false,
-                        seen: false,
                         date: date,
                         message: current_message
                     }
