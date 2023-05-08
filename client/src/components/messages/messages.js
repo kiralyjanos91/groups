@@ -44,12 +44,19 @@ export default function Messages() {
                 
                 if (thisConversation) {
                     thisConversation.messages.push(formattedMessage)
+                    if (!sent) {
+                        thisConversation.unseen += 1
+                    }
                 }
                 else {
                     thisConversation = {
                         partner: messagePartner,
                         partner_photo: partnerPhoto,
+                        unseen: 0,
                         messages: [formattedMessage]
+                    }
+                    if (!sent) {
+                        thisConversation.unseen += 1
                     }
                 }
 
