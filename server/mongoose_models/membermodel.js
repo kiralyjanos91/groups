@@ -43,6 +43,7 @@ const memberSchema = new mongoose.Schema({
     about: {
         type: String
     }
-})
+}
+)
 
 module.exports = mongoose.model("member" , memberSchema)

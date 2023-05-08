@@ -26,11 +26,13 @@ const updatePrivateMessageRoute = ({
         if (messagesHistory) {
             messagesHistory.messages.push({
                 sent: true,
+                seen: true,
                 date: date,
                 message: current_message
             })
             receiver.private_messages.find((message) => message.partner === sender_username).messages.push({
                 sent: false,
+                seen: false,
                 date: date,
                 message: current_message
             })
@@ -45,6 +47,7 @@ const updatePrivateMessageRoute = ({
                 messages: [
                     {
                         sent: true,
+                        seen: true,
                         date: date,
                         message: current_message
                     }
@@ -56,25 +59,112 @@ const updatePrivateMessageRoute = ({
                 messages: [
                     {
                         sent: false,
+                        seen: false,
                         date: date,
                         message: current_message
                     }
                 ]
             })
         }
-        
-        // await MemberModel.findOneAndUpdate({_id: sender._id } , {$set: {
-        //     private_messages: sender.private_messages
-        // }})
 
-        await MemberModel.findOneAndUpdate({_id: sender._id } , {$set: {
-            private_messages: sender.private_messages
-        }})
-        await MemberModel.findOneAndUpdate({_id: receiver._id } , {$set: {
-            private_messages: receiver.private_messages
-        }})
-        // await sender.update("private_messages")
-        // await receiver.update("private_messages")
+        await sender.save()
+        await receiver.save()
+
+        console.log(sender_username)
+        console.log(receiver_username)
+
+        // await MemberModel.updateOne({username: receiver_username , "private_messages.partner": sender_username} , {
+        //     $push: {
+        //         messages
+        //     } 
+        // })
+
+        // MemberModel.find({})
+
+        // MemberModel.find({ username: receiver_username, "books.type": { $nin: ["fantasy"] } })
+        //     .updateOne({ $push: { "books": { "type": "fantasy" } } });
+
+    //     try {
+    //         await MemberModel.findOneAndUpdate({username: sender_username} , (error , result) => {
+    //             const messagesHistory = result.private_messages.find((message) => message.partner === receiver_username)
+            
+    //             if (messagesHistory) {
+    //                 messagesHistory.messages.push({
+    //                     sent: true,
+    //                     date: date,
+    //                     message: current_message
+    //                 })
+        
+    //                 result.markModified("private_messages")
+    //             }
+    //             else {
+    //                 result.private_messages.push({
+    //                     partner: receiver_username,
+    //                     partner_photo: receiver_small_photo,
+    //                     messages: [
+    //                         {
+    //                             sent: true,
+    //                             date: date,
+    //                             message: current_message
+    //                         }
+    //                     ]
+    //                 })
+    //             }
+    //             result.update()
+    //         })
+    //     }
+    //     catch(err) {
+    //         console.log(err)
+    //     }
+
+    //     try {
+    //         await MemberModel.update({username: receiver_username , "private_messages.partner": sender_username} ,  (error , result) => {
+    //             const messagesHistory = result.private_messages.find((message) => message.partner === sender_username)
+            
+    //             if (messagesHistory) {
+    //                 messagesHistory.messages.push({
+    //                     sent: false,
+    //                     date: date,
+    //                     message: current_message
+    //                 })
+        
+    //                 result.markModified("private_messages")
+    //             }
+    //             else {
+    //                 result.private_messages.push({
+    //                     partner: sender_username,
+    //                     partner_photo: sender_small_photo,
+    //                     messages: [
+    //                         {
+    //                             sent: false,
+    //                             date: date,
+    //                             message: current_message
+    //                         }
+    //                     ]
+    //                 })
+    //             }
+    //             result.update()
+    //         })
+    //     }
+    // catch(err) {
+    //     console.log(err)
+    // }
+
+
+        // await MemberModel.findOneAndUpdate({username: receiver_username,
+        //     private_messages: {
+        //         $elemMatch: {
+        //             partner: sender_username,
+        //             partner_photo: sender_small_photo
+        //         }
+        //     } } , {$push: {
+        //         "private_messages[0].messages": {
+        //                 sent: false,
+        //                 date: date,
+        //                 message: current_message
+        //             }
+        //     }, upsert: true})
+         
 
         // console.log(messagesHistory)
         res.status(200).json(req.body)
