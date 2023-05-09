@@ -27,6 +27,7 @@ const leaveGroupRoute = require("./routes/leavegroup")
 const profileDataChangeRoute = require("./routes/profiledatachange")
 const sendToChatRoute = require("./routes/sendtochat")
 const updatePrivateMessageRoute = require("./routes/updateprivatemessage")
+const messagesSeenRoute = require("./routes/messagesseen")
 const findPrivateMessageRoute = require("./routes/findprivatemessage")
 const profilePohotoUploadRoute = require("./routes/profilephotoupload")
 const groupPhotoUploadRoute = require("./routes/groupphotoupload")
@@ -270,7 +271,12 @@ app.use("/sendprivatemessage" , updatePrivateMessageRoute({
     MemberModel
 }))
 
-app.use("/findprivatemessage" , findPrivateMessageRoute({
+app.use("/sendprivatemessage" , updatePrivateMessageRoute({
+    express,
+    MemberModel
+}))
+
+app.use("/messageseen" , messagesSeenRoute({
     express,
     MemberModel
 }))

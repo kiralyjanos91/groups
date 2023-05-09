@@ -102,6 +102,18 @@ export default function Messages() {
         window.scrollTo( 0 , 0 )
     }, [ currentPartner , showMessage , allMessages ])
 
+    useEffect(() => {
+        if (currentPartner) {
+            const userAndPartner = {
+                userName: user.username, 
+                partnerName: currentPartner.username 
+            }
+            axios.post("/messageseen" , userAndPartner)
+            socket.emit("seen" , userAndPartner)
+        }
+
+    }, [currentPartner , allMessages])
+
     useLayoutEffect(() => {
         if (findMember) {
             const currentPartners = allMessages.map((message) => message.partner)
