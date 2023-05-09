@@ -14,6 +14,7 @@ export default function Messages() {
     const [ allMessages , setAllMessages ] = useState([])
     const [ messagesLoaded , setMessagesLoaded ] = useState(false)
     const [ currentPartner , setCurrentPartner ] = useState("")
+    const [ gotSocketMessage , setGotSocketMessage ] = useState(false)
     const user = useSelector((state) => state.userData.data)
     const [ emojiShow , setEmojiShow ] = useState(false)
     const [ findMember , setFindMember ] = useState("")
@@ -61,6 +62,7 @@ export default function Messages() {
                 }
 
                 setAllMessages((prevMessages) => [ thisConversation, ...prevMessages.filter((prevMessage) => prevMessage.partner !== messagePartner) ])
+                setGotSocketMessage((prevState) => !prevState)
             })       
         }
     }, [messagesLoaded , currentPartner])
@@ -101,6 +103,22 @@ export default function Messages() {
         }
         window.scrollTo( 0 , 0 )
     }, [ currentPartner , showMessage , allMessages ])
+
+    useEffect(() => {
+        if (currentPartner) {
+            const userAndPartner = {
+                userName: user.username, 
+                partnerName: currentPartner.username 
+            }
+            axios.post("/messageseen" , userAndPartner)
+            const allMessagesCopy = [...allMessages]
+            const thisConversation = allMessagesCopy.find((message) => message.partner === currentPartner.username )
+            thisConversation.unseen = 0
+            setAllMessages(allMessagesCopy)
+
+        }
+
+    }, [currentPartner , gotSocketMessage])
 
     useLayoutEffect(() => {
         if (findMember) {
