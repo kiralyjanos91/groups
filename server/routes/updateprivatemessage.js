@@ -39,6 +39,7 @@ const updatePrivateMessageRoute = ({
 
             sender.markModified("private_messages")
             receiver.markModified("private_messages")
+            console.log("updateeeeeeeeeed")
         }
         else {
             sender.private_messages.push({

@@ -115,10 +115,10 @@ export default function Messages() {
             const thisConversation = allMessagesCopy.find((message) => message.partner === currentPartner.username )
             thisConversation.unseen = 0
             setAllMessages(allMessagesCopy)
-
         }
 
     }, [currentPartner , gotSocketMessage])
+
 
     useLayoutEffect(() => {
         if (findMember) {
