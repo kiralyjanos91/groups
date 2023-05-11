@@ -14,7 +14,6 @@ export default function Messages() {
     const [ allMessages , setAllMessages ] = useState([])
     const [ messagesLoaded , setMessagesLoaded ] = useState(false)
     const [ currentPartner , setCurrentPartner ] = useState("")
-    const [ gotSocketMessage , setGotSocketMessage ] = useState(false)
     const user = useSelector((state) => state.userData.data)
     const [ emojiShow , setEmojiShow ] = useState(false)
     const [ findMember , setFindMember ] = useState("")
@@ -27,7 +26,9 @@ export default function Messages() {
     const findMemberRef = useRef(null)
     const navigate = useNavigate()
     const socket = useContext(SocketContext)
+    const messagesWithPartner = allMessages.find((message)=> message.partner === currentPartner.username)?.messages
 
+    console.log(messagesWithPartner)
     useEffect(() => {
         if (messagesLoaded) {
             socket.off("message")
@@ -62,7 +63,6 @@ export default function Messages() {
                 }
 
                 setAllMessages((prevMessages) => [ thisConversation, ...prevMessages.filter((prevMessage) => prevMessage.partner !== messagePartner) ])
-                setGotSocketMessage((prevState) => !prevState)
             })       
         }
     }, [messagesLoaded , currentPartner])
@@ -102,7 +102,9 @@ export default function Messages() {
             })
         }
         window.scrollTo( 0 , 0 )
-    }, [ currentPartner , showMessage , allMessages ])
+    }, [ currentPartner , showMessage , messagesWithPartner?.length ])
+
+    console.log(allMessages)
 
     useEffect(() => {
         if (currentPartner) {
@@ -117,7 +119,7 @@ export default function Messages() {
             setAllMessages(allMessagesCopy)
         }
 
-    }, [currentPartner , gotSocketMessage])
+    }, [currentPartner , messagesWithPartner?.length])
 
 
     useLayoutEffect(() => {
