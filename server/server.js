@@ -271,7 +271,7 @@ app.use("/sendprivatemessage" , updatePrivateMessageRoute({
     MemberModel
 }))
 
-app.use("/sendprivatemessage" , updatePrivateMessageRoute({
+app.use("/findprivatemessage" , findPrivateMessageRoute({
     express,
     MemberModel
 }))

@@ -52,10 +52,16 @@ export default function MessageModal( { handleClose , show , partnerName , partn
     } , [user])
 
     useEffect(() => {
-        if (show)
+        if (show) {
             chatWindowRef.current.scrollTo({
                 top: chatWindowRef.current.scrollHeight
             })
+            const userAndPartner = {
+                userName: user.username, 
+                partnerName: partnerName 
+            }
+            axios.post("/messageseen" , userAndPartner)
+        }
     } , [show , messages])
     
     useEffect(() => {
