@@ -112,15 +112,16 @@ export default function Messages() {
                 userName: user.username, 
                 partnerName: currentPartner.username 
             }
+
             axios.post("/messageseen" , userAndPartner)
+            console.log("seen runned")
             const allMessagesCopy = [...allMessages]
             const thisConversation = allMessagesCopy.find((message) => message.partner === currentPartner.username )
             thisConversation.unseen = 0
             setAllMessages(allMessagesCopy)
         }
 
-    }, [currentPartner , messagesWithPartner?.length])
-
+    }, [currentPartner , messagesWithPartner?.length , messagesLoaded])
 
     useLayoutEffect(() => {
         if (findMember) {

@@ -11,13 +11,13 @@ const messagesSeenRoute = ({
         console.log(`Trigger by message: ${userName} , ${partnerName}`)
 
         try {
-            setTimeout(async () => {
+            setTimeout(async() => {
                 const user = await MemberModel.findOneAndUpdate({ username: userName , "private_messages.partner": partnerName} , {
                     $set: { "private_messages.$.unseen": 0 }
                 })
-                res.status(200).json("seen")
-                console.log("Seeeeeeen")
-            }, "1000")
+            }, "2000")
+            res.status(200).json("seen")
+            console.log("Seeeeeeen")
         }
         catch(err) {
             res.status(400).json(err)
