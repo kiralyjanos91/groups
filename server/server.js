@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken")
 require('dotenv').config()
 const socketio = require("socket.io")
 const server = require('http').Server(app)
-const io = socketio(server, {cors: {
+const io = socketio(server, { cors: {
     origin: "*"
   }
 })
