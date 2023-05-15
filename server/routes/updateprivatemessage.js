@@ -23,7 +23,7 @@ const updatePrivateMessageRoute = ({
                         console.log(err)
                     }
                 if (user) {
-                    await MemberModel.update(
+                    await MemberModel.update (
                         {username:sender_username , "private_messages.partner": receiver_username},
                         {
                             $push: {
@@ -36,9 +36,25 @@ const updatePrivateMessageRoute = ({
                             }
                         }   
                     )
+                    await MemberModel.update (
+                        {username:receiver_username , "private_messages.partner": sender_username},
+                        {
+                            $push: {
+                                "private_messages.$.messages": 
+                                {
+                                    sent: false,
+                                    date: date,
+                                    message: current_message
+                                }
+                            },
+                            $inc: {
+                                "private_messages.$.unseen" : 1
+                            }
+                        }   
+                    )
                 }
                 else {
-                    await MemberModel.update(
+                    await MemberModel.update (
                         {username:sender_username},
                         {
                             $push: {
@@ -58,35 +74,7 @@ const updatePrivateMessageRoute = ({
                             }
                         }    
                     )
-                }
-            })
-
-        await MemberModel.findOne({username:receiver_username , "private_messages.partner": sender_username})
-            .exec( async function (err , user) {
-                if (err) 
-                    {
-                        console.log(err)
-                    }
-                if (user) {
-                    await MemberModel.update(
-                        {username:receiver_username , "private_messages.partner": sender_username},
-                        {
-                            $push: {
-                                "private_messages.$.messages": 
-                                {
-                                    sent: false,
-                                    date: date,
-                                    message: current_message
-                                }
-                            },
-                            $inc: {
-                                "private_messages.$.unseen" : 1
-                            }
-                        }   
-                    )
-                }
-                else {
-                    await MemberModel.update(
+                    await MemberModel.update (
                         {username:receiver_username},
                         {
                             $push: {
@@ -108,6 +96,54 @@ const updatePrivateMessageRoute = ({
                     )
                 }
             })
+
+        // await MemberModel.findOne({username:receiver_username , "private_messages.partner": sender_username})
+        //     .exec( async function (err , user) {
+        //         if (err) 
+        //             {
+        //                 console.log(err)
+        //             }
+        //         if (user) {
+        //             await MemberModel.update(
+        //                 {username:receiver_username , "private_messages.partner": sender_username},
+        //                 {
+        //                     $push: {
+        //                         "private_messages.$.messages": 
+        //                         {
+        //                             sent: false,
+        //                             date: date,
+        //                             message: current_message
+        //                         }
+        //                     },
+        //                     $inc: {
+        //                         "private_messages.$.unseen" : 1
+        //                     }
+        //                 }   
+        //             )
+        //         }
+        //         else {
+        //             await MemberModel.update(
+        //                 {username:receiver_username},
+        //                 {
+        //                     $push: {
+        //                         "private_messages": 
+        //                         {
+        //                             partner: sender_username,
+        //                             partner_photo: sender_small_photo,
+        //                             unseen:1,
+        //                             messages: [
+        //                                 {
+        //                                     sent: false,
+        //                                     date: date,
+        //                                     message: current_message
+        //                                 }
+        //                             ]
+        //                         }
+        //                     }
+        //                 }    
+        //             )
+        //         }
+        //     })
 
         
         // let sender = await MemberModel.findOne({username:sender_username})
