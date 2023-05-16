@@ -1,3 +1,10 @@
+.home-page-header {
+    background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
+    height: calc( 100vh - 55px );
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 .home-page-main-inner-row {
     min-height: calc(100vh - 55px);
     display: flex;
@@ -49,16 +56,16 @@
     border: 1px solid #12a2db !important;
 }
 
-.home-page-container {
+.home-page-body-container {
     text-align: center;
 }
 
-.home-page-container > .row {
+.home-page-body-container > .row {
     justify-content: center;
     align-items: center;
 }
 
-.home-page-container > .row > .row {
+.home-page-body-container > .row > .row {
     margin-top: 50px;
     justify-content: center;
     align-items: center;
@@ -130,7 +137,7 @@
 }
 
 @media screen and (width < 992px) {
-    .home-page-container > .row {
+    .home-page-body-container > .row {
         margin-top: 50px
     }
     
