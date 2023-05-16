@@ -41,7 +41,7 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
             >
                 <img 
                     src = { 
-                        member.small_photo || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
+                        member.userPhoto || "https://groupsiteimages.s3.amazonaws.com/site-photos/no-profile-photo-small.png" 
                     }
                     alt = "small-profile"
                     className="small-photo-round" 
@@ -52,6 +52,8 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
             </Col>
         )
     })
+
+    console.log(eventData?.members)
 
     const joinToEvent = () => {
         eventData &&

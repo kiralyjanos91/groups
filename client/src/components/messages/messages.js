@@ -104,9 +104,7 @@ export default function Messages() {
         window.scrollTo( 0 , 0 )
     }, [ currentPartner , showMessage , messagesWithPartner?.length ])
 
-    console.log(allMessages)
-
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (currentPartner) {
             const userAndPartner = {
                 userName: user.username, 
@@ -114,14 +112,14 @@ export default function Messages() {
             }
 
             axios.post("/messageseen" , userAndPartner)
-            console.log("seen runned")
             const allMessagesCopy = [...allMessages]
             const thisConversation = allMessagesCopy.find((message) => message.partner === currentPartner.username )
             thisConversation.unseen = 0
             setAllMessages(allMessagesCopy)
+            console.log("seen runned")
         }
 
-    }, [currentPartner , messagesWithPartner?.length , messagesLoaded])
+    }, [currentPartner , messagesWithPartner?.length , messagesWithPartner])
 
     useLayoutEffect(() => {
         if (findMember) {
@@ -303,8 +301,6 @@ export default function Messages() {
             </Row>
         )
     })
-
-    console.log(allMessages)
 
     return (
         <Container

@@ -66,153 +66,164 @@ export default function Home({ accessChecked } ) {
     })
 
     return (
-        <Container
-            className = "home-page-container"
-        >
+        <>
             { accessChecked ?
-                <Row>
-                    <Row
-                        className = "home-page-main-inner-row"
+                <>
+                    <Container 
+                        className = "home-page-header"
+                        fluid
                     >
-                        <Col
-                            lg = {{span:"6" , order:"2"}}
-                            className = "home-img-col"
-                        >
-                            <img 
-                                src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
-                                alt = "main-img"
-                                className = "home-img"
-                            />
-                        </Col>
-                        <Col
-                            lg = {{span:"6" , order:"1"}}
-                            className = "home-main-text-col"
-                        >
-                            <Row>
-                                <h1
-                                    className = "home-title"
-                                >    
-                                    Where friendships are born from shared interests
-                                </h1>
-                            </Row>
-                            <Row>
-                                <p>
-                                People on Groupyx have fostered community, learned new skills, started businesses, and made life-long friends.
-                                </p>
-                            </Row>
+                        <Container>
                             <Row
-                                className = "home-page-main-buttons-row"
+                                className = "home-page-main-inner-row"
                             >
-                                <Col>
-                                    <Button 
-                                        as = { Link }
-                                        to = "/registration"
-                                        variant = "primary"
-                                    >
-                                        Sign up
-                                    </Button>
+                                <Col
+                                    lg = {{span:"6" , order:"2"}}
+                                    className = "home-img-col"
+                                >
+                                    <img 
+                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
+                                        alt = "main-img"
+                                        className = "home-img"
+                                    />
                                 </Col>
                                 <Col
-                                    className = "home-sign-in-button-col"
+                                    lg = {{span:"6" , order:"1"}}
+                                    className = "home-main-text-col"
                                 >
-                                    <Button 
-                                        as = { Link }
-                                        to = "/login"
+                                    <Row>
+                                        <h1
+                                            className = "home-title"
+                                        >    
+                                            Where friendships are born from shared interests
+                                        </h1>
+                                    </Row>
+                                    <Row>
+                                        <p>
+                                        People on Groupyx have fostered community, learned new skills, started businesses, and made life-long friends.
+                                        </p>
+                                    </Row>
+                                    <Row
+                                        className = "home-page-main-buttons-row"
                                     >
-                                        Log in
-                                    </Button>
+                                        <Col>
+                                            <Button 
+                                                as = { Link }
+                                                to = "/registration"
+                                                variant = "primary"
+                                            >
+                                                Sign up
+                                            </Button>
+                                        </Col>
+                                        <Col
+                                            className = "home-sign-in-button-col"
+                                        >
+                                            <Button 
+                                                as = { Link }
+                                                to = "/login"
+                                            >
+                                                Log in
+                                            </Button>
+                                        </Col>
+                                    </Row>
                                 </Col>
                             </Row>
-                        </Col>
-                    </Row>
-                    <Row
-                        className = "how-works-main-row"
+                        </Container>
+                    </Container>
+                    <Container
+                        className = "home-page-body-container"
                     >
-                        <Row
-                            className = "how-works-row"
-                        >
-                            <h1>
-                                How groupyx works
-                            </h1>
-                            <p>
-                                Meet new people who share your interests through online and in-person events. It’s free to create an account.
-                            </p>
-                        </Row>
-                        <Row
-                            className = "bullet-points-row"
-                        >
-                            <Col
-                                md = "4"
+                        <Row>
+                            <Row
+                                className = "how-works-main-row"
                             >
-                                <img 
-                                    className = "bullet-point-img"
-                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet01.png" 
-                                    alt = "bullet-1" 
-                                />
-                                <h1>
-                                    Join a group
-                                </h1>
-                                <p>
-                                    Do what you love, meet others who love it, find your community. The rest is history!
-                                </p>
-                            </Col>
-                            <Col
-                                md = "4"
-                            >
-                                <img 
-                                    className = "bullet-point-img"
-                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet0002.png" 
-                                    alt = "bullet-2" 
-                                />
-                                <h1>
-                                    Find an event
-                                </h1>
-                                <p>
-                                    Events are happening on just about any topic you can think of, from online gaming and photography to yoga and hiking.
-                                </p>
-                            </Col>
-                            <Col
-                                md = "4"
-                            >
-                                <img 
-                                    className = "bullet-point-img"
-                                    src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet003.png" 
-                                    alt = "bullet-3" 
-                                />
-                                <h1>
-                                    Start a group
-                                </h1>
-                                <p>
-                                    You don’t have to be an expert to gather people together and explore shared interests.
-                                </p>
-                            </Col>
-                        </Row>
-                        <Row
-                            className = "home-join-button-row"
-                        >
-                            <Col>
-                                <Button 
-                                    as = { Link }
-                                    to = "/registration"
-                                    variant = "primary"
-                                    className = "home-join-button"
+                                <Row
+                                    className = "how-works-row"
+                                >
+                                    <h1>
+                                        How groupyx works
+                                    </h1>
+                                    <p>
+                                        Meet new people who share your interests through online and in-person events. It’s free to create an account.
+                                    </p>
+                                </Row>
+                                <Row
+                                    className = "bullet-points-row"
+                                >
+                                    <Col
+                                        md = "4"
                                     >
-                                    Join Now
-                                </Button>
-                            </Col>
+                                        <img 
+                                            className = "bullet-point-img"
+                                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet01.png" 
+                                            alt = "bullet-1" 
+                                        />
+                                        <h1>
+                                            Join a group
+                                        </h1>
+                                        <p>
+                                            Do what you love, meet others who love it, find your community. The rest is history!
+                                        </p>
+                                    </Col>
+                                    <Col
+                                        md = "4"
+                                    >
+                                        <img 
+                                            className = "bullet-point-img"
+                                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet0002.png" 
+                                            alt = "bullet-2" 
+                                        />
+                                        <h1>
+                                            Find an event
+                                        </h1>
+                                        <p>
+                                            Events are happening on just about any topic you can think of, from online gaming and photography to yoga and hiking.
+                                        </p>
+                                    </Col>
+                                    <Col
+                                        md = "4"
+                                    >
+                                        <img 
+                                            className = "bullet-point-img"
+                                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet003.png" 
+                                            alt = "bullet-3" 
+                                        />
+                                        <h1>
+                                            Start a group
+                                        </h1>
+                                        <p>
+                                            You don’t have to be an expert to gather people together and explore shared interests.
+                                        </p>
+                                    </Col>
+                                </Row>
+                                <Row
+                                    className = "home-join-button-row"
+                                >
+                                    <Col>
+                                        <Button 
+                                            as = { Link }
+                                            to = "/registration"
+                                            variant = "primary"
+                                            className = "home-join-button"
+                                            >
+                                            Join Now
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Row>
+                            { popularGroups.length > 0 &&
+                                <Row
+                                className = "popular-groups-row"
+                                >
+                                    <h1>
+                                        Most Popular Groups:
+                                    </h1>
+                                    { popularGroupsElements }
+                                </Row>
+                            }
                         </Row>
-                    </Row>
-                    { popularGroups.length > 0 &&
-                        <Row
-                        className = "popular-groups-row"
-                        >
-                            <h1>
-                                Most Popular Groups:
-                            </h1>
-                            { popularGroupsElements }
-                        </Row>
-                    }
-                </Row>
+                    </Container>
+                </>
                 :
                 <Row className="spinner-row">
                     <Spinner animation="border" role="status">
@@ -220,6 +231,6 @@ export default function Home({ accessChecked } ) {
                     </Spinner>
                 </Row>
             }
-        </Container>
+        </>
     )
 }
