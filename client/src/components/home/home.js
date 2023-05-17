@@ -70,10 +70,12 @@ export default function Home({ accessChecked } ) {
             { accessChecked ?
                 <>
                     <Container 
-                        className = "home-page-header"
+                        className = "home-page-outer-header"
                         fluid
                     >
-                        <Container>
+                        <Container
+                            className = "home-page-inner-header"
+                        >
                             <Row
                                 className = "home-page-main-inner-row"
                             >
@@ -81,11 +83,30 @@ export default function Home({ accessChecked } ) {
                                     lg = {{span:"6" , order:"2"}}
                                     className = "home-img-col"
                                 >
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    {/* <img 
+                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
+                                        alt = "main-img"
+                                        className = "home-img"
+                                    />
                                     <img 
                                         src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
                                         alt = "main-img"
                                         className = "home-img"
                                     />
+                                    <img 
+                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
+                                        alt = "main-img"
+                                        className = "home-img"
+                                    />
+                                    <img 
+                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
+                                        alt = "main-img"
+                                        className = "home-img"
+                                    /> */}
                                 </Col>
                                 <Col
                                     lg = {{span:"6" , order:"1"}}
