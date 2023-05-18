@@ -25,8 +25,6 @@ export default function Home({ accessChecked } ) {
             .then((res) => setPopularGroups(res.data))
     },[])
 
-    console.log(popularGroups)
-
     const popularGroupsElements = popularGroups.map((group , i) => {
         return (
             <Col
@@ -87,26 +85,6 @@ export default function Home({ accessChecked } ) {
                                     <div></div>
                                     <div></div>
                                     <div></div>
-                                    {/* <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
-                                        alt = "main-img"
-                                        className = "home-img"
-                                    />
-                                    <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
-                                        alt = "main-img"
-                                        className = "home-img"
-                                    />
-                                    <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
-                                        alt = "main-img"
-                                        className = "home-img"
-                                    />
-                                    <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
-                                        alt = "main-img"
-                                        className = "home-img"
-                                    /> */}
                                 </Col>
                                 <Col
                                     lg = {{span:"6" , order:"1"}}

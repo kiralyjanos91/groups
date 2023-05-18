@@ -1,6 +1,5 @@
 import React from "react"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import CloseButton from "react-bootstrap/CloseButton"
@@ -9,7 +8,6 @@ import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 export default function BanMemberModal( { handleClose , show , groupId , username }){
 
     const { userDataUpdate } = UserDataUpdateHook()
-    const navigate = useNavigate()
 
     const ban = () => {
         axios.post("/banMember" , {

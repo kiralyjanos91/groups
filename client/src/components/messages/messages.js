@@ -28,7 +28,6 @@ export default function Messages() {
     const socket = useContext(SocketContext)
     const messagesWithPartner = allMessages.find((message)=> message.partner === currentPartner.username)?.messages
 
-    console.log(messagesWithPartner)
     useEffect(() => {
         if (messagesLoaded) {
             socket.off("message")
@@ -116,7 +115,6 @@ export default function Messages() {
             const thisConversation = allMessagesCopy.find((message) => message.partner === currentPartner.username )
             thisConversation.unseen = 0
             setAllMessages(allMessagesCopy)
-            console.log("seen runned")
         }
 
     }, [currentPartner , messagesWithPartner?.length , messagesWithPartner])
@@ -251,6 +249,7 @@ export default function Messages() {
 
             return (
                 <ChatMessageEl 
+                    key = { index }
                     index = { index }
                     ownMessageClass = { ownMessageClass }
                     chatPhoto = { message.sent ? user?.small_photo : chatPhoto }

@@ -1,7 +1,7 @@
 import React, { useRef , useState } from "react"
 import { useNavigate } from "react-router"
 import axios from "axios"
-import { Container , Row , Col } from "react-bootstrap"
+import { Container , Row } from "react-bootstrap"
 import "./login.css"
 import AccessUpdateHook from "../../custom_hooks/accessupdate"
 

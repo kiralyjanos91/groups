@@ -24,8 +24,6 @@ export default function App(){
   const location = useLocation()
   const navigate = useNavigate()
   const accessToken = useSelector((state) => state.accessupdate.token)
-  const userData = useSelector((state) => state.userData.data)
-
   const [accessChecked , setAccessChecked] = useState(false)
 
   useEffect(() => {
@@ -40,15 +38,10 @@ export default function App(){
       axios.post("/auth" , {accessToken} , {withCredentials: true})
       .then(response => {
         if (response.status === 200) {
-          console.log("New token generated")
           accessUpdate(response)
-        }
-        if (response.status === 202) {
-          console.log("Token is still valid")
         }
       })
       .catch((e) => {
-        console.log(`Invalid authorization key`)
         setAccessChecked((prev) => true)
         accessUpdate(undefined)
         if (location.pathname !== "/") {
@@ -57,8 +50,6 @@ export default function App(){
       })
     }
   }, [location])
-
-  console.log(userData)
 
   return(
     <>

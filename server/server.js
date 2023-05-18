@@ -63,25 +63,20 @@ const GroupModel = require("./mongoose_models/groupmodel")
 
 let loggedInUsers = []
 io.on("connection", (socket) => {
-    console.log(`Socket ${socket.id} connected`)
-
     socket.on("userLogin" , (username) => {
         loggedInUsers.push({
             username,
             socketId: socket.id,
             viewedMember: ""
         })
-        console.log(loggedInUsers)
     })
 
     socket.on("joinToRoom" , (roomId) => {
         socket.join(roomId)
-        console.log(`${socket.id} joined to ${roomId}`)
     })
     
     socket.on("leaveRoom" , (roomId) => {
         socket.leave(roomId)
-        console.log(`${socket.id} leaved ${roomId}`)
     })
 
     socket.on("groupMessage" , (groupMessage) => {
@@ -94,7 +89,6 @@ io.on("connection", (socket) => {
         if (thisMember) {
             thisMember.viewedMember = member
         }
-        console.log(loggedInUsers)
     })
 
     socket.on("notViewMembers" , () => {
@@ -142,22 +136,17 @@ io.on("connection", (socket) => {
             io.sockets.to(senderTabsList).emit("message", message) 
             if (viewsPartnerList.length > 0) {
                 io.sockets.to(viewsPartnerList).emit("memberMessage", message)
-                console.log("viewsPartnerList.length > 0")
             }
             if (viewsSenderTabs.length > 0) {
                 io.sockets.to(viewsSenderList).emit("memberMessage", message)
-                console.log("viewsSenderTabs.length > 0")
             }
         }
         else {
             io.sockets.to(senderTabsList).emit("message", message)
             if (viewsPartnerList.length > 0) {
                 io.sockets.to(viewsPartnerList).emit("memberMessage", message)
-                console.log("else + viewsPartnerList.length > 0")
             }
         }
-
-        console.log(viewsPartnerList)
     })
 
     socket.on("sendGroupMessage" , (groupMessage) => {
@@ -166,7 +155,6 @@ io.on("connection", (socket) => {
   
     socket.on("disconnect", () => {
         loggedInUsers = [...loggedInUsers.filter((user) => user.socketId !== socket.id)]
-        console.log(`Socket ${socket.id} disconnected`)
     })
 })
 

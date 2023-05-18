@@ -53,8 +53,6 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
         )
     })
 
-    console.log(eventData?.members)
-
     const joinToEvent = () => {
         eventData &&
         setButtonLoading(true)
@@ -70,7 +68,6 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
             userPhoto: user.small_photo
         })
             .then(res => {
-                console.log(res)
                 userDataUpdate()
             })
     }
@@ -83,7 +80,6 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
             userName: user.username,
         })
             .then((res) => {
-                console.log(res)
                 userDataUpdate()
             })
     }
@@ -98,7 +94,6 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
             }
         })
             .then((res) => {
-                console.log(res)
                 userDataUpdate()
             })
             .catch(err => console.log(err))

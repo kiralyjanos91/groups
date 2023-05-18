@@ -8,12 +8,12 @@ export default function Events(){
 
     
     const user = useSelector((state) => state.userData.data)
-    console.log(user.events)
     const eventsList = user.events?.map((event , i) => {
         const eventLocation = `${event?.eventLocation.country}, ${event?.eventLocation.state}, ${event?.eventLocation.city}, ${event?.eventLocation.address || ""}`
         return (
             <EventCard 
                 i = { i }
+                key = { i }
                 event = { event }
                 eventLocation = { eventLocation }
                 photo = { event.eventPhoto }

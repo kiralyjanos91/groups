@@ -1,5 +1,4 @@
 .home-page-outer-header {
-    /* background: linear-gradient(110deg, #91AA9D 60%, #D1DBBD 60%); */
     background: -webkit-linear-gradient(70deg, #395144 30%, rgba(0,0,0,0) 30%), -webkit-linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
     background: -o-linear-gradient(70deg, #395144  30%, rgba(0,0,0,0) 30%), -o-linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
     background: -moz-linear-gradient(70deg, #395144  30%, rgba(0,0,0,0) 30%), -moz-linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
@@ -15,10 +14,6 @@
     justify-content: center;
     align-items: center;
     margin-top: 0 !important;
-    /* background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/background-shape02-min.png); */
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
 }
 
 .home-main-text-col {

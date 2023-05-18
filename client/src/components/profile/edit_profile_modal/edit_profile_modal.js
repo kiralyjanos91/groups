@@ -81,7 +81,6 @@ export default function EditProfileModal ({
             formData, 
             locationSelector
         })
-            .then(response => console.log(response))
             .then(
                 handleClose(),
                 userDataUpdate()
@@ -141,8 +140,6 @@ export default function EditProfileModal ({
             </option>
         )
     })
-
-    console.log(profileData)
 
     return (    
         <Modal show={ show } onHide={ handleClose } centered>

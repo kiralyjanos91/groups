@@ -157,6 +157,7 @@ export default function HomePage(){
         ).map((group , index) => {
             return (
                 <GroupCard 
+                    key = { index }
                     index = { index }
                     group = { group }
                     groupStatus = { groupStatus }

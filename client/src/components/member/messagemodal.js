@@ -28,7 +28,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                 })
                 .then(res => {
                     if (res.status === 202) {
-                        console.log("status 202")
                         const newMessages = {
                             partner: partnerName,
                             partner_photo: partnerPhoto,
@@ -38,7 +37,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                         setMessagesLoaded(true) 
                     }
                     else {
-                        console.log(res.data)
                         setMessages(res.data)
                         setMessagesLoaded(true)
                     }
@@ -85,7 +83,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
         }
     }, [messagesLoaded])
 
-    console.log(messages)
     const sendMessage = () => {
         const messageContent = {
             sender_username: user?.username,
@@ -108,8 +105,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                 })
             )    
         }
-
-    console.log(user)
 
     const emojiShowChange = () => {
         setEmojiShow(prev => !prev)

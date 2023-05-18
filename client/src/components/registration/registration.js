@@ -1,6 +1,6 @@
 import React , { useRef , useState , useEffect } from "react"
 import { useNavigate } from "react-router"
-import { Container , Row , Col } from "react-bootstrap"
+import { Container , Row } from "react-bootstrap"
 import axios from "axios"
 import "./registration.css"
 import AccessUpdateHook from "../../custom_hooks/accessupdate"
@@ -54,8 +54,6 @@ export default function Register(){
             }
         }
     }, [password,passwordCheck])
-
-    console.log(password)
 
     return (
         <Container>

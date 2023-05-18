@@ -112,7 +112,6 @@ export default function Group(){
         setButtonLoading(true)
         axios.post("/joingroup" , { groupName , user , id })
             .then((response) => {
-                console.log(response)
                 userDataUpdate()
             })
     }
@@ -121,7 +120,6 @@ export default function Group(){
         setButtonLoading(true)
         axios.post("/leavegroup" , { groupName , user })
             .then((response) => {
-                console.log(response)
                 userDataUpdate()
             })
     }
@@ -217,6 +215,7 @@ export default function Group(){
         const locationText = `${event?.location.country}, ${event?.location.state}, ${event?.location.city}, ${event?.location.address || ""}`
         return (
             <EventCard 
+                key = { i }
                 i = { i }
                 event = { event }
                 eventLocation = { locationText }
@@ -257,6 +256,7 @@ export default function Group(){
 
         return (
             <ChatMessageEl 
+                key = { index } 
                 index = { index }
                 ownMessageClass = { ownMessageClass }
                 chatPhoto = { chatPhoto }
@@ -265,8 +265,6 @@ export default function Group(){
             />
         )
     })
-
-    console.log(messagesState)
 
     return (
         <>
