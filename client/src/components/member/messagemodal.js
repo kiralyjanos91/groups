@@ -139,6 +139,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                 showMessageDate = { showMessageDate }
                 message = { message }
                 username = { message.sent ? user?.username : partnerName }
+                modalClass = "modalClass"
             />
         )
     })

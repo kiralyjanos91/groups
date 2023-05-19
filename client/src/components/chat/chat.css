@@ -12,12 +12,17 @@
   height: calc( 100vh - 149px);
   padding-top: 15px;
   padding-right: 25px;
+  padding-left: 25px;
   padding-bottom: 15px;
   overflow-y: scroll;
   overflow-x: hidden;
   row-gap: 15px;
   display: flex;
   flex-direction: row-reverse;
+}
+
+.private-chat-window {
+  padding-left: 10px;
 }
 
 .messages-window-col {
