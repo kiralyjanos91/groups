@@ -40,7 +40,7 @@
 }
 
 .home-img-col > div:nth-child(1) {
-    background-image: url(https://teamdays.com.au/assets/Team-Days/Food-Drink-Nightlife/83c6dbaca7/group-cooking-class__FocusFillWzc2OCw0NzQsInkiLDMxXQ.jpg);
+    background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/grid-img-1.jpg);
     background-size: cover;
     background-position: center;
     max-width: 100%;
@@ -52,7 +52,7 @@
 }
 
 .home-img-col > div:nth-child(2) {
-    background-image: url(https://media.istockphoto.com/id/1182646267/photo/womens-basketball.jpg?s=612x612&w=0&k=20&c=xqQO69xjISRDfrSO5Y8IG4AhvEfI7tbhwTSggSF_wsc=);
+    background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/grid-img-2.jpg);
     background-size: cover;
     background-position: center;
     max-width: 100%;
@@ -63,7 +63,7 @@
 }
 
 .home-img-col > div:nth-child(3) {
-    background-image: url(https://i0.wp.com/www.invoiceberry.com/blog/wp-content/uploads/2016/05/dog-care-business-loyalty.jpg);
+    background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/gir-img-3.jpg);
     background-size: cover;
     background-position: center;
     max-width: 100%;
@@ -74,7 +74,7 @@
 }
 
 .home-img-col > div:nth-child(4) {
-    background-image: url(https://media.istockphoto.com/id/169950382/photo/group-of-teenage-friends-gardening.jpg?s=612x612&w=0&k=20&c=tmQaK5CcKMFMsg60uW0RDxw55alUyRLZf-D1XydQfoE=);
+    background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/grid-img-4.jpg);
     background-size: cover;
     background-position: center;
     max-width: 100%;
@@ -103,13 +103,13 @@
 }
 
 .home-sign-in-button-col > .btn {
-    background-color: #466EB6 !important;
-    border: 1px solid #466EB6 !important;
+    background-color: #009ecd !important;
+    border: 1px solid #009ecd !important;
 }
 
-.home-sign-in-button > .btn:hover {
-    background-color: #12a2db !important;
-    border: 1px solid #12a2db !important;
+.home-sign-in-button-col > .btn:hover {
+    background-color: #0098c7 !important;
+    border: 1px solid #0098c7 !important;
 }
 
 .home-page-body-container {
