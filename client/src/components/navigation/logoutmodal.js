@@ -28,7 +28,7 @@ export default function LogoutModal( { handleClose , show , setActive  }){
         <>
             <Modal show={ show } onHide={ handleClose } centered>
                 <Modal.Header>
-                    <Modal.Title>Log Out Box</Modal.Title>
+                    <Modal.Title>Log Out</Modal.Title>
                     <CloseButton 
                         variant = "white" 
                         onClick = { () => handleClose() }
@@ -37,7 +37,7 @@ export default function LogoutModal( { handleClose , show , setActive  }){
                 <Modal.Body>Would you like to log out?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={ logoutHandler }>
-                        Logout
+                        Log out
                     </Button>
                     <Button variant="secondary" onClick={ handleClose }>
                         Close

@@ -101,7 +101,7 @@ export default function Profile(){
                                 className="edit-button"
                                 onClick = { handleShow }
                             >
-                                Edit profile data
+                                Edit
                                 <img 
                                     src = "https://groupsiteimages.s3.amazonaws.com/icons/edit-icon.png" 
                                     alt = "edit-icon" 
