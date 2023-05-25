@@ -2,7 +2,7 @@ import React, { useState , useEffect } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import CloseButton from "react-bootstrap/CloseButton"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
 import { Country, State, City }  from 'country-state-city';
 import "./createeventmodal.css"
@@ -33,7 +33,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
             setPhotoLocation("")
             const photoForm = new FormData()
             photoForm.append("image" , eventPhoto , eventPhoto.name )
-            axios.put("/eventphotoupload" , photoForm)
+            axiosConf.put("/eventphotoupload" , photoForm)
                 .then( (res) => 
                     setPhotoLocation(() => res.data)       
                 )
@@ -123,7 +123,7 @@ export default function CreateEventModal({ show , handleClose , groupId }){
             address
         }
 
-        axios.post("/createevent" , {
+        axiosConf.post("/createevent" , {
             formData
         })
             .then(() => {   

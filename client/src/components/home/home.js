@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import Spinner from "react-bootstrap/Spinner"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import "./home.css"
 
 export default function Home({ accessChecked } ) {
@@ -21,11 +21,9 @@ export default function Home({ accessChecked } ) {
     })
 
     useEffect(() => {
-        axios.get("/populargroups")
+        axiosConf.get("/populargroups")
             .then((res) => setPopularGroups(res.data))
     },[])
-
-    console.log(popularGroups)
 
     const popularGroupsElements = popularGroups.map((group , i) => {
         return (
@@ -87,26 +85,6 @@ export default function Home({ accessChecked } ) {
                                     <div></div>
                                     <div></div>
                                     <div></div>
-                                    {/* <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
-                                        alt = "main-img"
-                                        className = "home-img"
-                                    />
-                                    <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
-                                        alt = "main-img"
-                                        className = "home-img"
-                                    />
-                                    <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
-                                        alt = "main-img"
-                                        className = "home-img"
-                                    />
-                                    <img 
-                                        src = "https://groupsiteimages.s3.amazonaws.com/site-photos/groupyx+main+photo01-min.png"
-                                        alt = "main-img"
-                                        className = "home-img"
-                                    /> */}
                                 </Col>
                                 <Col
                                     lg = {{span:"6" , order:"1"}}

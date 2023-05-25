@@ -1,12 +1,11 @@
 .home-page-outer-header {
-    background: linear-gradient(110deg, #91AA9D 60%, #D1DBBD 60%);
+    background: -webkit-linear-gradient(70deg, #395144 30%, rgba(0,0,0,0) 30%), -webkit-linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
+    background: -o-linear-gradient(70deg, #395144  30%, rgba(0,0,0,0) 30%), -o-linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
+    background: -moz-linear-gradient(70deg, #395144  30%, rgba(0,0,0,0) 30%), -moz-linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
+    background: linear-gradient(70deg, #395144  30%, rgba(0,0,0,0) 30%), linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
     height: calc( 100vh - 55px );
     margin: 0 !important;
     padding: 0 !important;
-}
-
-.home-page-inner-header {
-    
 }
 
 .home-page-main-inner-row {
@@ -15,10 +14,6 @@
     justify-content: center;
     align-items: center;
     margin-top: 0 !important;
-    /* background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/background-shape02-min.png); */
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
 }
 
 .home-main-text-col {
@@ -45,7 +40,9 @@
 }
 
 .home-img-col > div:nth-child(1) {
-    background-color: red;
+    background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/grid-img-1.jpg);
+    background-size: cover;
+    background-position: center;
     max-width: 100%;
     min-height: 200px;
     grid-row-start: 1;
@@ -55,7 +52,9 @@
 }
 
 .home-img-col > div:nth-child(2) {
-    background-color: yellow;
+    background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/grid-img-2.jpg);
+    background-size: cover;
+    background-position: center;
     max-width: 100%;
     grid-row-start: 1;
     grid-row-end: 2;
@@ -64,7 +63,9 @@
 }
 
 .home-img-col > div:nth-child(3) {
-    background-color: green;
+    background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/gir-img-3.jpg);
+    background-size: cover;
+    background-position: center;
     max-width: 100%;
     grid-row-start: 2;
     grid-row-end: 3;
@@ -73,7 +74,9 @@
 }
 
 .home-img-col > div:nth-child(4) {
-    background-color: purple;
+    background-image: url(https://groupsiteimages.s3.amazonaws.com/site-photos/grid-img-4.jpg);
+    background-size: cover;
+    background-position: center;
     max-width: 100%;
     grid-row-start: 2;
     grid-row-end: 3;
@@ -100,13 +103,13 @@
 }
 
 .home-sign-in-button-col > .btn {
-    background-color: #466EB6 !important;
-    border: 1px solid #466EB6 !important;
+    background-color: #009ecd !important;
+    border: 1px solid #009ecd !important;
 }
 
-.home-sign-in-button > .btn:hover {
-    background-color: #12a2db !important;
-    border: 1px solid #12a2db !important;
+.home-sign-in-button-col > .btn:hover {
+    background-color: #0098c7 !important;
+    border: 1px solid #0098c7 !important;
 }
 
 .home-page-body-container {

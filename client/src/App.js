@@ -12,7 +12,7 @@ import Register from "./components/registration/registration"
 import Member from "./components/member/member"
 import Footer from "./components/footer/footer"
 import 'bootstrap/dist/css/bootstrap.min.css'
-import axios from "axios"
+import { axiosConf } from "./config"
 import { useSelector } from "react-redux"
 import AccessUpdateHook from "./custom_hooks/accessupdate"
 import { ContextProvier } from "./context/socketiocontext"
@@ -24,8 +24,6 @@ export default function App(){
   const location = useLocation()
   const navigate = useNavigate()
   const accessToken = useSelector((state) => state.accessupdate.token)
-  const userData = useSelector((state) => state.userData.data)
-
   const [accessChecked , setAccessChecked] = useState(false)
 
   useEffect(() => {
@@ -37,18 +35,13 @@ export default function App(){
         location.pathname !== "/login" 
         && location.pathname !== "/registration"
       ) {
-      axios.post("/auth" , {accessToken} , {withCredentials: true})
-      .then(response => {
-        if (response.status === 200) {
-          console.log("New token generated")
-          accessUpdate(response)
-        }
-        if (response.status === 202) {
-          console.log("Token is still valid")
-        }
-      })
+        axiosConf.post("/auth" , {accessToken})
+          .then(response => {
+            if (response.status === 200) {
+              accessUpdate(response)
+            }
+          })
       .catch((e) => {
-        console.log(`Invalid authorization key`)
         setAccessChecked((prev) => true)
         accessUpdate(undefined)
         if (location.pathname !== "/") {
@@ -57,8 +50,6 @@ export default function App(){
       })
     }
   }, [location])
-
-  console.log(userData)
 
   return(
     <>

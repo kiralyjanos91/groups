@@ -3,7 +3,7 @@ import { Container , Col , Row } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import { Link } from "react-router-dom"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import { useSelector } from "react-redux"
 import EditProfileModal from "./edit_profile_modal/edit_profile_modal"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
@@ -28,7 +28,7 @@ export default function Profile(){
     }
 
     useEffect(() => {
-        axios.get("/profiledata")
+        axiosConf.get("/profiledata")
             .then( memberdata => { setProfileData ( prevState => memberdata.data ) } )
     }, [user])
 
@@ -75,7 +75,7 @@ export default function Profile(){
         formData.append("ownGroups" , JSON.stringify(profileData?.own_groups))
         formData.append("groups" , JSON.stringify(profileData?.groups))
 
-        axios.put("/photoupload" , formData)
+        axiosConf.put("/photoupload" , formData)
             .then(() => userDataUpdate())
             .then(() => setChangePhoto(false))
     }
@@ -101,7 +101,7 @@ export default function Profile(){
                                 className="edit-button"
                                 onClick = { handleShow }
                             >
-                                Edit profile data
+                                Edit
                                 <img 
                                     src = "https://groupsiteimages.s3.amazonaws.com/icons/edit-icon.png" 
                                     alt = "edit-icon" 

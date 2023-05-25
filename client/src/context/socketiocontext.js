@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import { createContext } from "react"
 import { io } from "socket.io-client"
 
-const socket = io("http://localhost:5000" , {autoConnect: false})
+const socket = io("http://localhost:8080/" , {autoConnect: false})
 export const SocketContext = createContext()
 
 export function ContextProvier ({ children }) {

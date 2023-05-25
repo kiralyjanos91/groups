@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button"
 import { Link , useNavigate } from "react-router-dom"
 import Spinner from "react-bootstrap/Spinner"
 import { useSelector } from "react-redux"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import Chat from "../chat/chat"
 import ChatMessageEl from "../chat/chat_message_el"
 import { SocketContext } from "../../context/socketiocontext"
@@ -28,7 +28,6 @@ export default function Messages() {
     const socket = useContext(SocketContext)
     const messagesWithPartner = allMessages.find((message)=> message.partner === currentPartner.username)?.messages
 
-    console.log(messagesWithPartner)
     useEffect(() => {
         if (messagesLoaded) {
             socket.off("message")
@@ -74,7 +73,7 @@ export default function Messages() {
 
     useEffect(() => {
         if (user.username){
-            axios.post("/getallmessages" , { username: user.username})
+            axiosConf.post("/getallmessages" , { username: user.username})
             .then(res => {
                 const dataForSort = res.data
                 dataForSort.sort((a,b) => {
@@ -111,12 +110,11 @@ export default function Messages() {
                 partnerName: currentPartner.username 
             }
 
-            axios.post("/messageseen" , userAndPartner)
+            axiosConf.post("/messageseen" , userAndPartner)
             const allMessagesCopy = [...allMessages]
             const thisConversation = allMessagesCopy.find((message) => message.partner === currentPartner.username )
             thisConversation.unseen = 0
             setAllMessages(allMessagesCopy)
-            console.log("seen runned")
         }
 
     }, [currentPartner , messagesWithPartner?.length , messagesWithPartner])
@@ -125,7 +123,7 @@ export default function Messages() {
         if (findMember) {
             const currentPartners = allMessages.map((message) => message.partner)
             setFindMemberLoading(true)
-            axios.get(`/findmember` , {
+            axiosConf.get(`/findmember` , {
                 params: {
                     memberletters: findMember,
                     currentPartners: [ ...currentPartners , user.username ]
@@ -163,7 +161,7 @@ export default function Messages() {
 
             socket.emit("sendMessage" , messageContent)
 
-            axios.post("/sendprivatemessage" , messageContent)
+            axiosConf.post("/sendprivatemessage" , messageContent)
                 .then(
                     chatMessageRef.current.value = "",
                     setEmojiShow(false),
@@ -251,6 +249,7 @@ export default function Messages() {
 
             return (
                 <ChatMessageEl 
+                    key = { index }
                     index = { index }
                     ownMessageClass = { ownMessageClass }
                     chatPhoto = { message.sent ? user?.small_photo : chatPhoto }

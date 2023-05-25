@@ -1,5 +1,5 @@
 import React , { useState , useEffect } from "react"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import { Link } from "react-router-dom"
 import { Container , Row , Col } from "react-bootstrap"
 import { useSelector } from "react-redux"
@@ -53,12 +53,10 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
         )
     })
 
-    console.log(eventData?.members)
-
     const joinToEvent = () => {
         eventData &&
         setButtonLoading(true)
-        axios.post("/jointoevent" , {
+        axiosConf.post("/jointoevent" , {
             groupId: groupInfo._id,
             groupName: groupInfo.name,
             eventName,
@@ -70,20 +68,18 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
             userPhoto: user.small_photo
         })
             .then(res => {
-                console.log(res)
                 userDataUpdate()
             })
     }
 
     const leaveEvent = () => {
         setButtonLoading(true)
-        axios.post("/leaveevent" , {
+        axiosConf.post("/leaveevent" , {
             groupId: groupInfo._id,
             eventName,
             userName: user.username,
         })
             .then((res) => {
-                console.log(res)
                 userDataUpdate()
             })
     }
@@ -91,14 +87,13 @@ export default function EventModal({ handleClose , show , eventName , groupInfo 
     const deleteEvent = () => {
         setDeletePage(false)
         handleClose()
-        axios.delete("/deleteevent" , {
+        axiosConf.delete("/deleteevent" , {
             data: {
                 groupId: groupInfo._id,
                 eventName 
             }
         })
             .then((res) => {
-                console.log(res)
                 userDataUpdate()
             })
             .catch(err => console.log(err))

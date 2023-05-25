@@ -59,18 +59,6 @@ const groupPhotoUploadRoute = ({
 
 
     router.put("/", uploadImage.single("image"), async (req, res, next) => {
-            // await GroupModel.updateOne({"name": groupName},
-            //     {     
-            //         $set: {
-            //             "photo": req.file.location
-            //         } 
-            //     }
-            // )
-            // const file = await req.file
-            // const filelocation = await req.file.location
-
-            // console.log(req.file.location)
-
             res.status(200).json(req.file.location)
         }
     )

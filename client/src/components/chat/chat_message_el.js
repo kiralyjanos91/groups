@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import { Row , Col } from "react-bootstrap"
 import "./chat_message_el.css"
 
@@ -8,7 +9,8 @@ export default function ChatMessageEl({
     chatPhoto,
     showMessageDate,
     message,
-    username = ""
+    username = "",
+    modalClass = "",
 }) {
 
     return (
@@ -16,7 +18,7 @@ export default function ChatMessageEl({
             key = { index } 
             className = {`message-row ${ ownMessageClass }`}
         >
-            <Col className="message-col">
+            <Col className = {`message-col ${modalClass}`}>
                 <Row>
                     <img 
                         src = { 
@@ -29,6 +31,10 @@ export default function ChatMessageEl({
                     />          
                     <Col
                         className = "chat-username-col"
+                        as = { Link }
+                        to = { ownMessageClass ? `/profile`
+                        :
+                        `/member/${message.username || username}` }
                     >
                         { message.username || username }
                     </Col>

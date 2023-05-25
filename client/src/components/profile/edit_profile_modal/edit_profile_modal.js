@@ -1,10 +1,10 @@
-import React , { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import React , { useState } from "react"
+import Button from "react-bootstrap/Button"
+import Modal from "react-bootstrap/Modal"
 import CloseButton from "react-bootstrap/CloseButton"
-import axios from "axios";
-import UserDataUpdateHook from "../../../custom_hooks/userdataupdate";
-import { Country, State, City }  from 'country-state-city';
+import { axiosConf } from "../../../config"
+import UserDataUpdateHook from "../../../custom_hooks/userdataupdate"
+import { Country, State, City }  from 'country-state-city'
 
 export default function EditProfileModal ({
     show, 
@@ -77,11 +77,10 @@ export default function EditProfileModal ({
     }
 
     const save = () => {
-        axios.post("/profiledatachange" , {
+        axiosConf.post("/profiledatachange" , {
             formData, 
             locationSelector
         })
-            .then(response => console.log(response))
             .then(
                 handleClose(),
                 userDataUpdate()
@@ -141,8 +140,6 @@ export default function EditProfileModal ({
             </option>
         )
     })
-
-    console.log(profileData)
 
     return (    
         <Modal show={ show } onHide={ handleClose } centered>

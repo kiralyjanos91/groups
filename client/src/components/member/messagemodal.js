@@ -1,6 +1,6 @@
 import React , { useState , useRef , useEffect , useContext } from "react"
 import { useSelector } from "react-redux"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import { Container } from "react-bootstrap"
 import Modal from "react-bootstrap/Modal"
 import CloseButton from "react-bootstrap/CloseButton"
@@ -22,13 +22,12 @@ export default function MessageModal( { handleClose , show , partnerName , partn
     useEffect(() => {
         if (user.username)
             {
-                axios.post("/findprivatemessage" , {
+                axiosConf.post("/findprivatemessage" , {
                     username: user.username,
                     partner_name: partnerName
                 })
                 .then(res => {
                     if (res.status === 202) {
-                        console.log("status 202")
                         const newMessages = {
                             partner: partnerName,
                             partner_photo: partnerPhoto,
@@ -38,7 +37,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                         setMessagesLoaded(true) 
                     }
                     else {
-                        console.log(res.data)
                         setMessages(res.data)
                         setMessagesLoaded(true)
                     }
@@ -60,7 +58,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                 userName: user.username, 
                 partnerName: partnerName 
             }
-            axios.post("/messageseen" , userAndPartner)
+            axiosConf.post("/messageseen" , userAndPartner)
         }
     } , [show , messages])
     
@@ -85,7 +83,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
         }
     }, [messagesLoaded])
 
-    console.log(messages)
     const sendMessage = () => {
         const messageContent = {
             sender_username: user?.username,
@@ -98,7 +95,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
 
         socket.emit("sendMessage" , messageContent)
         
-        axios.post("/sendprivatemessage" , messageContent)
+        axiosConf.post("/sendprivatemessage" , messageContent)
             .then(
                 chatMessageRef.current.value = "",
                 setEmojiShow(false),
@@ -108,8 +105,6 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                 })
             )    
         }
-
-    console.log(user)
 
     const emojiShowChange = () => {
         setEmojiShow(prev => !prev)
@@ -144,6 +139,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
                 showMessageDate = { showMessageDate }
                 message = { message }
                 username = { message.sent ? user?.username : partnerName }
+                modalClass = "modalClass"
             />
         )
     })
