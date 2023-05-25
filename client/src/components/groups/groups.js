@@ -1,9 +1,9 @@
-import axios from "axios"
 import React , { useState , useEffect } from "react"
 import { Container , Row , Col } from "react-bootstrap"
 import PagePagination from "../pagination/pagination"
 import Spinner from "react-bootstrap/Spinner"
 import { useNavigate , useLocation , useParams } from "react-router"
+import { axiosConf } from "../../config"
 import "./groups.css"
 import AddGroupModal from "./addgroupmodal"
 import { groupCategoryOptions } from "./groupcategories"
@@ -78,7 +78,7 @@ export default function HomePage(){
     })
 
     useEffect(() => {
-        axios.get("/getgroups")
+        axiosConf.get("/getgroups")
             .then((groupsData) => {
                 setGroups(prev => groupsData.data)
             })

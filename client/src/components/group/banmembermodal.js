@@ -1,5 +1,5 @@
 import React from "react"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import CloseButton from "react-bootstrap/CloseButton"
@@ -10,7 +10,7 @@ export default function BanMemberModal( { handleClose , show , groupId , usernam
     const { userDataUpdate } = UserDataUpdateHook()
 
     const ban = () => {
-        axios.post("/banMember" , {
+        axiosConf.post("/banMember" , {
             groupId , username
         })
             .then(() => {

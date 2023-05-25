@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import Spinner from "react-bootstrap/Spinner"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import "./home.css"
 
 export default function Home({ accessChecked } ) {
@@ -21,7 +21,7 @@ export default function Home({ accessChecked } ) {
     })
 
     useEffect(() => {
-        axios.get("/populargroups")
+        axiosConf.get("/populargroups")
             .then((res) => setPopularGroups(res.data))
     },[])
 

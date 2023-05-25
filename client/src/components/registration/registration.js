@@ -1,7 +1,7 @@
 import React , { useRef , useState , useEffect } from "react"
 import { useNavigate } from "react-router"
 import { Container , Row } from "react-bootstrap"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import "./registration.css"
 import AccessUpdateHook from "../../custom_hooks/accessupdate"
 
@@ -24,7 +24,7 @@ export default function Register(){
                 return setErrorMessage("Passwords are not equal")
             }
         if (usernameRef.current.value && passwordIsFine) {
-            axios.post("/sendregistration" , {
+            axiosConf.post("/sendregistration" , {
                 username: usernameRef.current.value,
                 password: password
             })

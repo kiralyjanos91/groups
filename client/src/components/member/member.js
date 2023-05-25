@@ -3,7 +3,7 @@ import { Container , Col , Row } from "react-bootstrap"
 import Spinner from "react-bootstrap/Spinner"
 import { useParams } from "react-router"
 import { Link } from "react-router-dom"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import "./member.css"
 import MessageModal from "./messagemodal"
 
@@ -18,7 +18,7 @@ export default function Member(){
     }
 
     useEffect(()=>{
-        axios.post("/memberdata" , { membername })
+        axiosConf.post("/memberdata" , { membername })
             .then(response => {
                 setMemberData(prevState => response.data)
             })

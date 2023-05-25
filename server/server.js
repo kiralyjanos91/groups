@@ -8,7 +8,9 @@ require('dotenv').config()
 const socketio = require("socket.io")
 const server = require('http').Server(app)
 const io = socketio(server, { cors: {
-    origin: "*"
+    origin: "*",
+    methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS"],
+    credentials: true
   }
 })
 
@@ -51,7 +53,10 @@ mongoose.connect( CONNECTION_STRING , mongoOptions, connectionCallback )
 
 app.use( express.urlencoded({ extended : true }) )
 app.use( express.json() )
-app.use( cors() )
+app.use( cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}) )
 app.use( cookieParser() )
 
 const PORT = process.env.PORT || 8080

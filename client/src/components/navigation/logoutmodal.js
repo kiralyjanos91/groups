@@ -1,5 +1,5 @@
 import React from "react"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import { useNavigate } from "react-router-dom"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
@@ -13,7 +13,7 @@ export default function LogoutModal( { handleClose , show , setActive  }){
     const navigate = useNavigate()
 
     const logoutHandler = () => {
-        axios.post("/sendlogout" , {} , { withCredentials: true })
+        axiosConf.post("/sendlogout" , {} , { withCredentials: true })
             .then(() => {
                 accessUpdate(undefined)
                 handleClose()

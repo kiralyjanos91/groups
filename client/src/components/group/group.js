@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button"
 import Spinner from "react-bootstrap/Spinner"
 import { useParams , useNavigate } from "react-router"
 import { Link } from "react-router-dom"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import { useSelector , useDispatch } from "react-redux"
 import { changeCategory } from "../../redux_slices/categoryslice"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
@@ -65,7 +65,7 @@ export default function Group(){
     }
 
     useEffect(() => {
-        axios.post("/groupdata" , { id })
+        axiosConf.post("/groupdata" , { id })
             .then((groupdata) => {
                 setGroupInfo(() => groupdata.data)
                 setMessagesState(groupdata.data.messages)
@@ -110,7 +110,7 @@ export default function Group(){
 
     const joinToGroup = () => {
         setButtonLoading(true)
-        axios.post("/joingroup" , { groupName , user , id })
+        axiosConf.post("/joingroup" , { groupName , user , id })
             .then((response) => {
                 userDataUpdate()
             })
@@ -118,7 +118,7 @@ export default function Group(){
 
     const leaveGroup = () => {
         setButtonLoading(true)
-        axios.post("/leavegroup" , { groupName , user })
+        axiosConf.post("/leavegroup" , { groupName , user })
             .then((response) => {
                 userDataUpdate()
             })
@@ -138,7 +138,7 @@ export default function Group(){
                     groupId: groupInfo?._id,
                     date: new Date()
                 })
-                axios.post("/sendtochat" , {
+                axiosConf.post("/sendtochat" , {
                     username: ownUsername,
                     message: chatMessageRef.current.value,
                     groupName,

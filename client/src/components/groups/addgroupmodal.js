@@ -2,7 +2,7 @@ import React, { useRef , useState , useEffect } from "react"
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
 import CloseButton from "react-bootstrap/CloseButton"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
 import UserDataUpdateHook from "../../custom_hooks/userdataupdate"
@@ -24,7 +24,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
 
     const sendNewGroup = (e) => {
         e.preventDefault()
-        axios.post("/addgroup" , {
+        axiosConf.post("/addgroup" , {
             name: groupName,
             user: {
                 username,
@@ -65,7 +65,7 @@ export default function AddGroupModal({ show , handleClose , groupCategoryOption
             setPhotoLocation("")
             const photoForm = new FormData()
             photoForm.append("image" , groupPhoto , groupPhoto.name )
-            axios.put("/groupphotoupload" , photoForm)
+            axiosConf.put("/groupphotoupload" , photoForm)
                 .then( (res) => 
                     setPhotoLocation(() => res.data)       
                 )

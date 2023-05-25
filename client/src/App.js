@@ -12,7 +12,7 @@ import Register from "./components/registration/registration"
 import Member from "./components/member/member"
 import Footer from "./components/footer/footer"
 import 'bootstrap/dist/css/bootstrap.min.css'
-import axios from "axios"
+import { axiosConf } from "./config"
 import { useSelector } from "react-redux"
 import AccessUpdateHook from "./custom_hooks/accessupdate"
 import { ContextProvier } from "./context/socketiocontext"
@@ -35,12 +35,12 @@ export default function App(){
         location.pathname !== "/login" 
         && location.pathname !== "/registration"
       ) {
-      axios.post("/auth" , {accessToken} , {withCredentials: true})
-      .then(response => {
-        if (response.status === 200) {
-          accessUpdate(response)
-        }
-      })
+        axiosConf.post("/auth" , {accessToken})
+          .then(response => {
+            if (response.status === 200) {
+              accessUpdate(response)
+            }
+          })
       .catch((e) => {
         setAccessChecked((prev) => true)
         accessUpdate(undefined)

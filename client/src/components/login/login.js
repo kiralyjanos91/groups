@@ -1,6 +1,6 @@
 import React, { useRef , useState } from "react"
 import { useNavigate } from "react-router"
-import axios from "axios"
+import { axiosConf } from "../../config"
 import { Container , Row } from "react-bootstrap"
 import "./login.css"
 import AccessUpdateHook from "../../custom_hooks/accessupdate"
@@ -18,7 +18,7 @@ export default function Login(){
         if (!usernameRef.current.value || !passwordRef.current.value) {
             return setLoginError("Please fill out all required fields")
         }
-        axios.post("/sendlogin" , { 
+        axiosConf.post("/sendlogin" , { 
             username: usernameRef.current.value, 
             password: passwordRef.current.value
         })
