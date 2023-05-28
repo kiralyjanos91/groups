@@ -5,7 +5,7 @@ const logoutRoute = ({
     const router = express.Router()
 
     router.post("/" , async (req , res) =>{
-        const username = req.cookies["localhost300user"]
+        const username = req.cookies["groupyxuser"]
         try {
             await RefreshTokenModel.deleteMany({username:username})
         }

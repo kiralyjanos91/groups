@@ -32,10 +32,14 @@ const registrationRouter = ({
         const user = { username }
 
         res.cookie("token" , refreshToken , {
-            httpOnly:true
+            httpOnly: true, 
+            sameSite: 'none', 
+            secure: true
         })
-        res.cookie("localhost300user" , username , {
-            httpOnly:true
+        res.cookie("groupyxuser" , username , {
+            httpOnly: true, 
+            sameSite: 'none', 
+            secure: true
         })
         res.status(200).json({ newToken , user })
     }
