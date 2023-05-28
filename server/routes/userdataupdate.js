@@ -7,7 +7,7 @@ const userDataUpdateRoute = ({
     const router = express.Router()
     
     router.get("/" , async (req , res) => {
-        const username = req.cookies["localhost300user"]
+        const username = req.cookies["groupyxuser"]
 
         const member = await MemberModel.findOne({ username })
         const userData = {

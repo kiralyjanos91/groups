@@ -54,7 +54,7 @@ mongoose.connect( CONNECTION_STRING , mongoOptions, connectionCallback )
 app.use( express.urlencoded({ extended : true }) )
 app.use( express.json() )
 app.use( cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://6471c5ff58899557c9239dc1--lovely-fenglisu-590ad0.netlify.app',
     credentials: true
 }) )
 app.use( cookieParser() )
