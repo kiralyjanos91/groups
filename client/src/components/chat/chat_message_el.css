@@ -25,6 +25,10 @@
   max-width: 40% !important;
 }
 
+.message-prof-img-col {
+  max-width: fit-content !important;
+}
+
 .modalClass {
   max-width: 70% !important;
 }
@@ -46,7 +50,7 @@
   display: flex;
   max-width: fit-content;
   align-items: center;
-  padding-left: 5px;
+  padding-left: 0px !important;
   font-weight: 600;
   color: #ffffff;
   text-decoration: none;

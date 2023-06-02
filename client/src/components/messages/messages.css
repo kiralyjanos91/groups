@@ -131,6 +131,8 @@
 @media screen and ( width >= 992px) {
     .chat-partners-col {
         padding-right: 20px;
+        max-height: calc( 100vh - 187px);
+        overflow-y: scroll;
     }
     .messages-chat-window {
         height: calc( 100vh - 230px);

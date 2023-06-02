@@ -14,7 +14,7 @@ const memberDataRoute = ({
                 groups,
                 gender,
                 birth,
-                city,
+                location,
                 hobby,
                 about,
                 photos 
@@ -26,7 +26,7 @@ const memberDataRoute = ({
                 groups,
                 gender,
                 birth,
-                city,
+                location,
                 hobby,
                 about,
                 photos: photos 
