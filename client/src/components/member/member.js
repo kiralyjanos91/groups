@@ -30,7 +30,7 @@ export default function Member(){
         groups,
         gender,
         birth,
-        city,
+        location,
         hobby,
         about,
     } = memberData
@@ -117,7 +117,7 @@ export default function Member(){
                                 Date of birth: { birth || "-" }
                             </p>
                             <p>
-                                Location: { city || "-" }
+                                Location: { `${location?.country || "-"}, ${location?.state || "-"}, ${location?.city || "-"}` || "-" }
                             </p>
                             <p>
                                 Hobby: { hobby || "-" }
