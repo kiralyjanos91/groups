@@ -215,7 +215,7 @@ export default function Home({ accessChecked } ) {
                                 className = "popular-groups-row"
                                 >
                                     <h1>
-                                        Most Popular Groups:
+                                        Most Popular Groups
                                     </h1>
                                     { popularGroupsElements }
                                 </Row>
