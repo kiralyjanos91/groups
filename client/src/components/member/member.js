@@ -117,7 +117,11 @@ export default function Member(){
                                 Date of birth: { birth || "-" }
                             </p>
                             <p>
-                                Location: { `${location?.country || "-"}, ${location?.state || "-"}, ${location?.city || "-"}` || "-" }
+                                Location: {`
+                                    ${location?.country ? location?.country : "-"}
+                                    ${location?.state ? ", " + location?.state : ""}
+                                    ${location?.city ? ", " + location?.city : ""}             
+                                `} 
                             </p>
                             <p>
                                 Hobby: { hobby || "-" }
