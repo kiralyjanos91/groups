@@ -92,7 +92,7 @@ export default function EditProfileModal ({
         return (
             <div key = { index }>
                 <label htmlFor = { field[0] }> 
-                    { `${field[0]}:` }
+                    { `${field[0].slice(0,1).toUpperCase()+field[0].slice(1)}:` }
                 </label>
                 <input 
                     name = { field[0] } 

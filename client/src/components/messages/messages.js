@@ -361,12 +361,16 @@ export default function Messages() {
                             lg = "4"
                         >
                             { (!isMobile || (isMobile && !showMessage)) &&
-                                <Col 
-                                className = "chat-partners-col"
-                                >
-                                    Partners:
-                                    { chatPartners }
-                                </Col>
+                                <>
+                                    <h3>
+                                        Partners
+                                    </h3>
+                                    <Col 
+                                    className = "chat-partners-col"
+                                    >
+                                        { chatPartners }
+                                    </Col>
+                                </>
                             }
                         </Col>
                         { (!isMobile || (isMobile && showMessage)) &&
