@@ -133,6 +133,7 @@ export default function MessageModal( { handleClose , show , partnerName , partn
 
         return (
             <ChatMessageEl 
+                key = { index }
                 index = { index }
                 ownMessageClass = { ownMessageClass }
                 chatPhoto = { message.sent ? user?.small_photo : chatPhoto }

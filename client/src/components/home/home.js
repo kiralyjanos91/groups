@@ -145,6 +145,10 @@ export default function Home({ accessChecked } ) {
                                     <p>
                                         Meet new people who share your interests through online and in-person events. It’s free to create an account.
                                     </p>
+                                    <div
+                                        className = "separator-line"
+                                    >
+                                    </div>
                                 </Row>
                                 <Row
                                     className = "bullet-points-row"
@@ -154,7 +158,7 @@ export default function Home({ accessChecked } ) {
                                     >
                                         <img 
                                             className = "bullet-point-img"
-                                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet01.png" 
+                                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet-img-01.jpg" 
                                             alt = "bullet-1" 
                                         />
                                         <h1>
@@ -169,7 +173,7 @@ export default function Home({ accessChecked } ) {
                                     >
                                         <img 
                                             className = "bullet-point-img"
-                                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet0002.png" 
+                                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet-img-02.jpg" 
                                             alt = "bullet-2" 
                                         />
                                         <h1>
@@ -184,7 +188,7 @@ export default function Home({ accessChecked } ) {
                                     >
                                         <img 
                                             className = "bullet-point-img"
-                                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet003.png" 
+                                            src = "https://groupsiteimages.s3.amazonaws.com/site-photos/bullet-img-03.jpg" 
                                             alt = "bullet-3" 
                                         />
                                         <h1>
@@ -215,7 +219,7 @@ export default function Home({ accessChecked } ) {
                                 className = "popular-groups-row"
                                 >
                                     <h1>
-                                        Most Popular Groups:
+                                        Most Popular Groups
                                     </h1>
                                     { popularGroupsElements }
                                 </Row>
