@@ -36,9 +36,13 @@ export default function Menu(){
         }
     }, [location.pathname])
 
+    const isHome = location.pathname === "/"
+    const homePageClass = isHome ? "home-page-nav" : ""
+    const bgColor = isHome ? "transparent" : "dark"
+
     return(
         <>
-            <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+            <Navbar bg = { bgColor } variant="dark" expand="lg" collapseOnSelect>
                 <Container>
                     <Navbar.Brand 
                         as = { Link }
@@ -51,7 +55,7 @@ export default function Menu(){
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav 
-                        className="me-auto container-fluid" 
+                        className={`me-auto container-fluid ${homePageClass}`} 
                         activeKey = { activeLink } 
                     >
                         { accessToken ? 

@@ -54,7 +54,7 @@ mongoose.connect( CONNECTION_STRING , mongoOptions, connectionCallback )
 app.use( express.urlencoded({ extended : true }) )
 app.use( express.json() )
 app.use( cors({
-    // origin: 'https://groupyx.netlify.app/',
+    // origin: 'https://groupyx.netlify.app',
     origin: "http://localhost:3000",
     credentials: true
 }) )
