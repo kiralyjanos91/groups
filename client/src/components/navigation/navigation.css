@@ -1,3 +1,13 @@
 .bg-dark {
     background-color: #1b1b1c !important;
 }
+
+@media screen and ( max-width: 992px) {
+    .bg-transparent {
+        background-color: #1b1b1c !important;
+    }
+
+    .home-page-nav {
+        padding-bottom: 56px !important;
+    }
+}
