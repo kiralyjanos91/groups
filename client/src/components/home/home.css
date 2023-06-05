@@ -3,7 +3,7 @@
     background: -o-linear-gradient(70deg, #395144  30%, rgba(0,0,0,0) 30%), -o-linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
     background: -moz-linear-gradient(70deg, #395144  30%, rgba(0,0,0,0) 30%), -moz-linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
     background: linear-gradient(70deg, #395144  30%, rgba(0,0,0,0) 30%), linear-gradient(30deg, #4E6C50 60%, #AA8B56 60%);
-    height: calc( 100vh - 55px );
+    min-height: calc( 100vh - 55px );
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -132,6 +132,17 @@
     padding-bottom: 30px;
 }
 
+.how-works-row {
+    display: flex;
+    justify-content: center;
+}
+
+.separator-line {
+    height: 5px;
+    background-color: #ff493a;
+    width: 200px !important;
+}
+
 .bullet-points-row {
     border-radius: 5px;
     padding: 10px;
@@ -207,5 +218,10 @@
 
     .home-img-col {
         margin-bottom: 20px;
+    }
+
+    .home-page-outer-header {
+        padding-top: 30px !important;
+        padding-bottom: 30px !important;
     }
 }

@@ -145,6 +145,10 @@ export default function Home({ accessChecked } ) {
                                     <p>
                                         Meet new people who share your interests through online and in-person events. It’s free to create an account.
                                     </p>
+                                    <div
+                                        className = "separator-line"
+                                    >
+                                    </div>
                                 </Row>
                                 <Row
                                     className = "bullet-points-row"
